@@ -1,0 +1,56 @@
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0
+}
+
+button {
+    padding: 0;
+    margin: 0;
+    outline: none
+}
+
+.documentBody {
+    background: grey;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.align-center {
+    align-items: center;
+}
+
+/* start Avatar.tsx */
+.avatarImage {
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.avatarImage.large {
+    border-width: 5px;
+}
+/* end Avatar.tsx */
+
+/* start IconButton.tsx */
+.iconButton {
+    border-radius: 50%;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.iconButton:hover {
+    fill: blue;
+    color: blue;
+}
+
+.svgButtonIcon {
+    height: 30px;
+    width: 30px;
+}
+/* end IconButton.tsx */
