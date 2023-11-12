@@ -1,17 +1,27 @@
-export interface SVGIconProps {
-    className: string;
+import Icon, { HasIcon } from "./Icon";
+
+export interface IconButtonProps extends HasIcon {
+  href?: string;
+  size?: number;
 }
 
-export interface IconButtonProps {
-    Icon: React.FC<SVGIconProps>
-}
-
-export default function IconButton({ Icon }: IconButtonProps) {
-    const svgClassName = "svgButtonIcon"
-
+export default function IconButton({ iconKey, size, href }: IconButtonProps) {
+  const Wrapper = ({ children }: { children: any }) => {
+    if (!href) {
+      return <>{children}</>;
+    }
     return (
-        <button className="iconButton">
-            <Icon className={svgClassName} />
-        </button>
-    )
+      <a href={href} target="_blank" rel="noreferrer">
+        {children}
+      </a>
+    );
+  };
+
+  return (
+    <Wrapper>
+      <button className="iconButton">
+        <Icon {...{ iconKey, size }} />
+      </button>
+    </Wrapper>
+  );
 }

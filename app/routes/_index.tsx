@@ -1,7 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import Avatar from "~/components/Avatar";
 import IconButton from "~/components/IconButton";
-import LinkedIn from "~/svg/LinkedIn";
 
 export const meta: MetaFunction = () => {
   return [
@@ -10,17 +9,47 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const avatarImage = "https://scontent-msp1-1.xx.fbcdn.net/v/t39.30808-6/384752132_6783851961653044_4416593039952130129_n.jpg?stp=cp6_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9hPnm-v3vj4AX9Yfr6Q&_nc_ht=scontent-msp1-1.xx&oh=00_AfDnNaqr0qEcluXKtjS8Used6v7xfSnZ2YPeWioJrYEASg&oe=6554D885"
+const avatarImage =
+  "https://scontent-msp1-1.xx.fbcdn.net/v/t39.30808-6/384752132_6783851961653044_4416593039952130129_n.jpg?stp=cp6_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9hPnm-v3vj4AX9Yfr6Q&_nc_ht=scontent-msp1-1.xx&oh=00_AfDnNaqr0qEcluXKtjS8Used6v7xfSnZ2YPeWioJrYEASg&oe=6554D885";
 
 export default function Index() {
   return (
-    <div className="flex-col align-center">
-      <Avatar size={300} src={avatarImage}/>
-      <h1>Chris Van Lanen-Wanek</h1>
-      <h2>Software Enginer | Web Developer</h2>
-      <div className="flex">
-        <IconButton Icon={LinkedIn}/>
+    <>
+      <div className="flex align-center justify-center mainHeader">
+        <Avatar size={150} src={avatarImage} />
+        <div className="detailBox">
+          <h1 className="header--name">Chris Van Lanen-Wanek</h1>
+          <h2 className="header--jobTitle">Software Enginer | Web Developer</h2>
+          <div className="flex iconBox">
+            <IconButton
+              href="https://www.linkedin.com/in/crvlwanek/"
+              size={20}
+              iconKey="linkedIn"
+            />
+            <IconButton
+              href="https://github.com/crvlwanek"
+              size={20}
+              iconKey="github"
+            />
+            <IconButton
+              href="https://www.facebook.com/crvlwanek/"
+              size={20}
+              iconKey="facebook"
+            />
+            <IconButton
+              href="https://www.instagram.com/crvlwanek/"
+              size={20}
+              iconKey="instagram"
+            />
+            <IconButton
+              href="https://www.youtube.com/c/ChrisVLWanek"
+              size={20}
+              iconKey="youtube"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+      <div style={{ background: "red", height: "100vh" }}></div>
+    </>
   );
 }
