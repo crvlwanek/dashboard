@@ -10,6 +10,7 @@ import {
 } from "@remix-run/react";
 
 import appCssHref from "./app.css";
+import NavBar from "./components/NavBar";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -26,6 +27,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <NavBar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
