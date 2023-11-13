@@ -13,7 +13,7 @@ export default function YouTubeIcon() {
         stroke="none"
         stroke-width="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="Dribbble-Light-Preview"
