@@ -18,10 +18,12 @@ export default function Index() {
       <div className="flex align-center justify-center mainHeader">
         <Avatar size={150} src={avatarImage} />
         <div className="detailBox">
-          <h1 className="header--name">Chris Van Lanen-Wanek</h1>
-          <h2 className="header--jobTitle">
-            Software Engineer | Web Developer
-          </h2>
+          <div className="header--container">
+            <h1 className="header--name">Chris Van Lanen-Wanek</h1>
+            <h2 className="header--jobTitle">
+              Software Engineer | Web Developer
+            </h2>
+          </div>
           <div className="flex iconBox">
             <IconButton
               href="https://www.linkedin.com/in/crvlwanek/"
