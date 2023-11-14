@@ -18,10 +18,7 @@ export default function Index() {
       <div className="flex align-center justify-center mainHeader">
         <div style={{ position: "relative" }}>
           <Avatar size={150} src={avatarImage} />
-          <img
-            src="https://i.imgur.com/xT9KhbJ.png"
-            style={{ position: "absolute", height: 100, width: 100 }}
-          />
+          <img src="https://i.imgur.com/GHLcHKH.png" className="musicIcon" />
         </div>
         <div className="detailBox onImage">
           <div className="header--container">
