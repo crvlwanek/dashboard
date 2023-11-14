@@ -16,7 +16,13 @@ export default function Index() {
   return (
     <>
       <div className="flex align-center justify-center mainHeader">
-        <Avatar size={150} src={avatarImage} />
+        <div style={{ position: "relative" }}>
+          <Avatar size={150} src={avatarImage} />
+          <img
+            src="https://i.imgur.com/xT9KhbJ.png"
+            style={{ position: "absolute", height: 100, width: 100 }}
+          />
+        </div>
         <div className="detailBox onImage">
           <div className="header--container">
             <h1 className="header--name">Chris Van Lanen-Wanek</h1>

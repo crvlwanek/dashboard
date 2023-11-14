@@ -102,6 +102,7 @@ button {
 .avatarImage {
   border-radius: 50%;
   border: 2px solid white;
+  user-select: none;
 }
 
 .avatarImage.large {
