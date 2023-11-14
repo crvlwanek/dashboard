@@ -34,6 +34,7 @@ button {
   --hoverHighlight: white;
   color: var(--text-on-image);
   fill: var(--text-on-image);
+  text-shadow: 2px 2px 4px black;
 }
 
 .mainHeader {
@@ -77,7 +78,7 @@ button {
 
 .header--name {
   margin: 8px 0;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1.5rem;
 }
 

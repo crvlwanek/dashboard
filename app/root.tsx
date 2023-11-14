@@ -15,6 +15,12 @@ import NavBar from "./components/NavBar";
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: appCssHref },
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "preconnect", href: "https://fonts.gstatic.com" },
+  {
+    href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap",
+    rel: "stylesheet",
+  },
 ];
 
 export default function App() {
