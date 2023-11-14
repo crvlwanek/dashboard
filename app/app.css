@@ -1,7 +1,9 @@
 :root {
-  --primary-main: #aedefc;
+  --primary-main: red;
+
   --onSurface: #1b1717;
   --surface: white;
+  --hoverHighlight: black;
 
   --text-on-image: white;
 
@@ -26,6 +28,12 @@ button {
   padding: 0;
   margin: 0;
   outline: none;
+}
+
+.onImage {
+  --hoverHighlight: white;
+  color: var(--text-on-image);
+  fill: var(--text-on-image);
 }
 
 .mainHeader {
@@ -61,8 +69,6 @@ button {
 .detailBox {
   margin-left: 16px;
   font-family: Montserrat, sans-serif;
-  color: var(--text-on-image);
-  fill: var(--text-on-image);
 }
 
 .header--container {
@@ -127,11 +133,29 @@ button {
   border: none;
   cursor: pointer;
   background: none;
+  position: relative;
 }
 
-.iconButton:hover,
-.iconButton:focus {
-  fill: var(--primary-main);
-  background: var(--black-alpha-100);
+.iconButton::before {
+  content: "";
+  display: inline-block;
+  height: 36px;
+  width: 36px;
+  inset: 0;
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  transform: scale(0);
+  transition: transform 100ms ease-out;
+}
+
+.iconButton:hover::before,
+.iconButton:focus-visible::before {
+  background: var(--hoverHighlight);
+  transform: scale(1);
+}
+
+.iconButton:active::before {
+  opacity: 0.2;
 }
 /* end IconButton.tsx */

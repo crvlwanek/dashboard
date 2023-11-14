@@ -27,7 +27,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <NavBar />
+        {/* <NavBar /> */}
         <Outlet />
         <ScrollRestoration />
         <Scripts />

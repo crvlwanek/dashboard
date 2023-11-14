@@ -17,7 +17,7 @@ export default function Index() {
     <>
       <div className="flex align-center justify-center mainHeader">
         <Avatar size={150} src={avatarImage} />
-        <div className="detailBox">
+        <div className="detailBox onImage">
           <div className="header--container">
             <h1 className="header--name">Chris Van Lanen-Wanek</h1>
             <h2 className="header--jobTitle">
