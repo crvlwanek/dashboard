@@ -27,27 +27,19 @@ export default function Index() {
           <div className="flex iconBox">
             <IconButton
               href="https://www.linkedin.com/in/crvlwanek/"
-              size={20}
               iconKey="linkedIn"
             />
-            <IconButton
-              href="https://github.com/crvlwanek"
-              size={20}
-              iconKey="github"
-            />
+            <IconButton href="https://github.com/crvlwanek" iconKey="github" />
             <IconButton
               href="https://www.facebook.com/crvlwanek/"
-              size={20}
               iconKey="facebook"
             />
             <IconButton
               href="https://www.instagram.com/crvlwanek/"
-              size={20}
               iconKey="instagram"
             />
             <IconButton
               href="https://www.youtube.com/c/ChrisVLWanek"
-              size={20}
               iconKey="youtube"
             />
           </div>

@@ -3,9 +3,15 @@ import Icon, { HasIcon } from "./Icon";
 export interface IconButtonProps extends HasIcon {
   href?: string;
   size?: number;
+  openInNewTab?: boolean;
 }
 
-export default function IconButton({ iconKey, size, href }: IconButtonProps) {
+export default function IconButton({
+  iconKey,
+  size,
+  href,
+  openInNewTab,
+}: IconButtonProps) {
   const Wrapper = ({
     children,
     className,
@@ -14,13 +20,10 @@ export default function IconButton({ iconKey, size, href }: IconButtonProps) {
     className?: string;
   }) => {
     if (!href) {
-      return <button className={className}>{children}</button>;
+      return <button {...{ className }}>{children}</button>;
     }
-    return (
-      <a className={className} href={href} target="_blank" rel="noreferrer">
-        {children}
-      </a>
-    );
+    const args = openInNewTab ? { target: "_blank", rel: "noreferrer" } : {};
+    return <a {...{ className, href, ...args }}>{children}</a>;
   };
 
   return (

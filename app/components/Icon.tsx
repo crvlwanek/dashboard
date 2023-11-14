@@ -22,7 +22,7 @@ interface IconProps extends HasIcon {
 }
 
 export default function Icon({ iconKey, size }: IconProps) {
-  size ??= 25;
+  size ??= 20;
 
   const IconComponent = iconKeys[iconKey];
 
