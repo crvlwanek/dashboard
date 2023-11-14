@@ -45,7 +45,7 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div style={{ background: "red", height: "100vh" }}></div>
+      <div style={{ height: "100vh" }}></div>
     </>
   );
 }

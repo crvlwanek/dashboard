@@ -7,7 +7,6 @@
 
   --text-on-image: white;
 
-  --black-alpha-100: rgba(0, 0, 0, 0.1);
   --black-alpha-500: rgba(0, 0, 0, 0.5);
   --black-alpha-700: rgba(0, 0, 0, 0.7);
 }
@@ -38,7 +37,7 @@ button {
 }
 
 .mainHeader {
-  padding: 80px;
+  padding: 25px;
   background-image: radial-gradient(
       var(--black-alpha-500),
       var(--black-alpha-700)

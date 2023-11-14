@@ -1,38 +1,15 @@
-# Welcome to Remix!
+# Welcome to my dashboard!
 
-- [Remix Docs](https://remix.run/docs)
+This is a simple dashboard website using [Remix](https://remix.run/). There's not a lot of content here yet, but the goal is to make it a one-stop-shop for all the interesting data I have on myself. Planned integrations with other APIs:
 
-## Development
+- [Strava](https://www.strava.com/)
 
-From your terminal:
+- [MyFitnessPal](https://www.myfitnesspal.com/) (don't know if this will happen because they don't have a public API ☹️)
 
-```sh
-npm run dev
-```
+- [Garmin Connect](https://connect.garmin.com/)
 
-This starts your app in development mode, rebuilding assets on file changes.
+- And more!
 
 ## Deployment
 
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
+None yet, but coming soon...
