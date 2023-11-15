@@ -1,5 +1,5 @@
 :root {
-  --primary-main: red;
+  --primary-main: #00adb5;
 
   --onSurface: #1b1717;
   --surface: white;
@@ -21,6 +21,10 @@ body {
   color: var(--onSurface);
   fill: var(--onSurface);
   background: var(--surface);
+}
+
+img {
+  user-select: none;
 }
 
 button {
