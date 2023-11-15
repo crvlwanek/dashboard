@@ -1,6 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
 import Avatar from "~/components/Avatar";
 import IconButton from "~/components/IconButton";
+import { LOCAL_STORAGE_THEME_KEY } from "~/constants";
+import useLocalStorage from "~/hooks/useLocalStorage";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,6 +15,10 @@ const avatarImage =
   "https://scontent-msp1-1.xx.fbcdn.net/v/t39.30808-6/384752132_6783851961653044_4416593039952130129_n.jpg?stp=cp6_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9hPnm-v3vj4AX9Yfr6Q&_nc_ht=scontent-msp1-1.xx&oh=00_AfDnNaqr0qEcluXKtjS8Used6v7xfSnZ2YPeWioJrYEASg&oe=6554D885";
 
 export default function Index() {
+  const [theme, setTheme, clearTheme] = useLocalStorage(
+    LOCAL_STORAGE_THEME_KEY,
+    "light"
+  );
   return (
     <>
       <div className="flex align-center justify-center mainHeader">
@@ -48,7 +54,10 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div style={{ height: "100vh" }}></div>
+      <div style={{ height: "100vh" }}>
+        <button onClick={() => setTheme("dark")}>Change to dark</button>
+        <button onClick={() => clearTheme()}>Clear theme</button>
+      </div>
     </>
   );
 }

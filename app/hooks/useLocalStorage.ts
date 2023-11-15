@@ -1,4 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+
+export type LocalStorageInterface = [
+  string,
+  (value: string) => void,
+  () => void,
+];
 
 /**
  * A custom hook to get/set/remove an item from localStorage
@@ -7,19 +13,37 @@ import { useState } from "react";
  * @param defaultValue A default value to set in case there is no value currently stored for this key
  * @returns An array of [value, setItem, removeItem]
  */
-export default function useLocalStorage(key: string, defaultValue: string) {
-  const storedValue = localStorage.getItem(key);
-  const [value, setValue] = useState(storedValue ?? defaultValue);
+export default function useLocalStorage(
+  key: string,
+  defaultValue: string
+): LocalStorageInterface {
+  const [value, setValue] = useState(() => {
+    if (typeof window === "undefined") {
+      return defaultValue;
+    }
+    const storedValue = window.localStorage.getItem(key);
+    if (storedValue) {
+      return storedValue;
+    }
+    window.localStorage.setItem(key, defaultValue);
+    return defaultValue;
+  });
 
-  const setItem = (value: string) => {
-    localStorage.setItem(key, value);
+  const setItem = useCallback((value: string) => {
     setValue(value);
-  };
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.localStorage.setItem(key, value);
+  }, []);
 
-  const removeItem = () => {
-    localStorage.removeItem(key);
+  const removeItem = useCallback(() => {
     setValue("");
-  };
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.localStorage.removeItem(key);
+  }, []);
 
   return [value, setItem, removeItem];
 }
