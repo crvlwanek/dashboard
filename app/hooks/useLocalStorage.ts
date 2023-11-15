@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { windowIsUndefined } from "~/utilities/helperMethods";
 
 export type LocalStorageInterface = [
   string,
@@ -18,7 +19,7 @@ export default function useLocalStorage(
   defaultValue: string
 ): LocalStorageInterface {
   const [value, setValue] = useState(() => {
-    if (typeof window === "undefined") {
+    if (windowIsUndefined()) {
       return defaultValue;
     }
     const storedValue = window.localStorage.getItem(key);
@@ -31,17 +32,11 @@ export default function useLocalStorage(
 
   const setItem = useCallback((value: string) => {
     setValue(value);
-    if (typeof window === "undefined") {
-      return;
-    }
     window.localStorage.setItem(key, value);
   }, []);
 
   const removeItem = useCallback(() => {
     setValue("");
-    if (typeof window === "undefined") {
-      return;
-    }
     window.localStorage.removeItem(key);
   }, []);
 

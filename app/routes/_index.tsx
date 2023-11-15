@@ -1,4 +1,5 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import Avatar from "~/components/Avatar";
 import IconButton from "~/components/IconButton";
 import { LOCAL_STORAGE_THEME_KEY } from "~/constants";
@@ -11,6 +12,14 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader: LoaderFunction = () => {
+  return {
+    secret: process.env.STRAVA_ACCESS_TOKEN,
+    other: "hi there",
+    andAnother: process.env.STRAVA_REFRESH_TOKEN,
+  };
+};
+
 const avatarImage =
   "https://scontent-msp1-1.xx.fbcdn.net/v/t39.30808-6/384752132_6783851961653044_4416593039952130129_n.jpg?stp=cp6_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9hPnm-v3vj4AX9Yfr6Q&_nc_ht=scontent-msp1-1.xx&oh=00_AfDnNaqr0qEcluXKtjS8Used6v7xfSnZ2YPeWioJrYEASg&oe=6554D885";
 
@@ -19,6 +28,8 @@ export default function Index() {
     LOCAL_STORAGE_THEME_KEY,
     "light"
   );
+  const data = useLoaderData<typeof loader>();
+  console.log(data);
   return (
     <>
       <div className="flex align-center justify-center mainHeader">
