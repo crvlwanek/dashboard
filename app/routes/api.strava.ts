@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async () => {
   const pantryData = await getPantry(pantryId, newStravaBasket);
   const { access_token, refresh_token, expires_at, updated } = pantryData;
   //  2. If that data is recent (within last 2 minutes) just return the data
-  //   if (updated < Date.now() - 1000 * 60 * 2) {
+  //   if (updated > Date.now() - 1000 * 60 * 2) {
   //     return json(pantryData);
   //   }
   const newPantryData = { access_token, refresh_token, expires_at, updated };
