@@ -99,6 +99,17 @@ export interface StravaActivity {
   weighted_average_watts: number;
 }
 
+export interface StravaAPIError {
+  errors: [
+    {
+      code: string;
+      field: string;
+      resource: string;
+    },
+  ];
+  message: string;
+}
+
 // Interface representing the token data we recieve from Strava
 export interface TokenData {
   /** A Strava access token used for requesting data */
@@ -114,9 +125,7 @@ export interface TokenData {
   expires_at: number;
 }
 
-export interface ProcessedActivityData extends TokenData {
-  /** A timestamp representing when we last fetched activity data from Strava */
-  updated: number;
+export interface ProcessedActivityData {
   /** Most recent activity on Strava */
   most_recent_activity: Pick<
     StravaActivity,
@@ -127,6 +136,11 @@ export interface ProcessedActivityData extends TokenData {
     | "average_speed"
     | "start_date"
   >;
+}
+
+export interface CachedStravaData extends TokenData, ProcessedActivityData {
+  /** A timestamp representing when we last fetched activity data from Strava */
+  updated: number;
 }
 
 /**
@@ -155,7 +169,7 @@ export const loader: LoaderFunction = async () => {
     process.env.NEW_STRAVA_BASKET
   );
   if (data.updated > Date.now() - 1000 * 60 * 5) {
-    return json(data);
+    return createResponse(data);
   }
   if (data.expires_at < Date.now()) {
     if (!process.env.STRAVA_CLIENT_ID || !process.env.STRAVA_CLIENT_SECRET) {
@@ -166,19 +180,33 @@ export const loader: LoaderFunction = async () => {
       process.env.STRAVA_CLIENT_SECRET,
       data.refresh_token
     );
+    if (isError(tokens)) {
+      console.error(tokens);
+      return json(tokens, { status: 500 });
+    }
+
     data.expires_at = tokens.expires_at * 1000;
     data.refresh_token = tokens.refresh_token;
     data.access_token = tokens.access_token;
   }
-  const activities = await getStravaActivities(data.access_token);
-  processActivityData(activities, data);
-  await putPantry(process.env.PANTRY_ID, process.env.NEW_STRAVA_BASKET, data);
-  return json(data);
+  const stravaResponse = await getStravaActivities(data.access_token);
+  if (isError(stravaResponse)) {
+    console.error(stravaResponse);
+    return json(stravaResponse, { status: 500 });
+  }
+  processActivityData(stravaResponse, data);
+  // Don't need to await this, just storing our data back to the database
+  putPantry(process.env.PANTRY_ID, process.env.NEW_STRAVA_BASKET, data);
+  return createResponse(data);
+};
+
+const isError = (response: any): response is StravaAPIError => {
+  return !!response?.error;
 };
 
 const processActivityData = (
   activities: StravaActivity[],
-  data: ProcessedActivityData
+  data: CachedStravaData
 ) => {
   const { name, distance, moving_time, type, average_speed, start_date } =
     activities[0];
@@ -197,7 +225,7 @@ const refreshStravaTokens = async (
   stravaClientId: string,
   stravaClientSecret: string,
   refreshToken: string
-): Promise<TokenData> => {
+): Promise<TokenData | StravaAPIError> => {
   const response = await fetch(
     `https://www.strava.com/oauth/token?client_id=${stravaClientId}&client_secret=${stravaClientSecret}&grant_type=refresh_token&refresh_token=${refreshToken}`,
     { method: "POST" }
@@ -207,7 +235,7 @@ const refreshStravaTokens = async (
 
 const getStravaActivities = async (
   stravaAccessToken: string
-): Promise<StravaActivity[]> => {
+): Promise<StravaActivity[] | StravaAPIError> => {
   const response = await fetch(
     `https://www.strava.com/api/v3/athlete/activities?access_token=${stravaAccessToken}`
   );
@@ -217,7 +245,7 @@ const getStravaActivities = async (
 const getPantry = async (
   pantryId: string,
   basketName: string
-): Promise<ProcessedActivityData> => {
+): Promise<CachedStravaData> => {
   const response = await fetch(
     `https://getpantry.cloud/apiv1/pantry/${pantryId}/basket/${basketName}`
   );
@@ -227,15 +255,21 @@ const getPantry = async (
 const putPantry = async (
   pantryId: string,
   basketName: string,
-  data: ProcessedActivityData
+  data: CachedStravaData
 ) => {
   const response = await fetch(
     `https://getpantry.cloud/apiv1/pantry/${pantryId}/basket/${basketName}`,
     {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
     }
   );
   return response.json();
+};
+
+const createResponse = (data: CachedStravaData): ProcessedActivityData => {
+  return {
+    most_recent_activity: data.most_recent_activity,
+  };
 };
