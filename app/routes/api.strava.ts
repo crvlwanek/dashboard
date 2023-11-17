@@ -114,19 +114,19 @@ export interface TokenData {
   expires_at: number;
 }
 
-export interface ProcessedActivityData
-  extends TokenData,
-    Pick<
-      StravaActivity,
-      | "name"
-      | "distance"
-      | "moving_time"
-      | "type"
-      | "average_speed"
-      | "start_date"
-    > {
+export interface ProcessedActivityData extends TokenData {
   /** A timestamp representing when we last fetched activity data from Strava */
   updated: number;
+  /** Most recent activity on Strava */
+  most_recent_activity: Pick<
+    StravaActivity,
+    | "name"
+    | "distance"
+    | "moving_time"
+    | "type"
+    | "average_speed"
+    | "start_date"
+  >;
 }
 
 /**
@@ -144,18 +144,19 @@ export interface ProcessedActivityData
  * @returns JSON, either the processed activity data (if successful) or an error if one was encountered
  */
 export const loader: LoaderFunction = async () => {
-  const pantryId = process.env.PANTRY_ID;
-  const newStravaBasket = process.env.NEW_STRAVA_BASKET;
-  if (!pantryId || !newStravaBasket) {
+  if (!process.env.PANTRY_ID || !process.env.NEW_STRAVA_BASKET) {
     return json(
       { error: "No pantryId or Strava basket found" },
       { status: 500 }
     );
   }
-  const data = await getPantry(pantryId, newStravaBasket);
-  //   if (updated > Date.now() - 1000 * 60 * 5) {
-  //     return json(data);
-  //   }
+  const data = await getPantry(
+    process.env.PANTRY_ID,
+    process.env.NEW_STRAVA_BASKET
+  );
+  if (data.updated > Date.now() - 1000 * 60 * 5) {
+    return json(data);
+  }
   if (data.expires_at < Date.now()) {
     if (!process.env.STRAVA_CLIENT_ID || !process.env.STRAVA_CLIENT_SECRET) {
       return json({ error: "Environment variables missing" }, { status: 500 });
@@ -170,9 +171,26 @@ export const loader: LoaderFunction = async () => {
     data.access_token = tokens.access_token;
   }
   const activities = await getStravaActivities(data.access_token);
+  processActivityData(activities, data);
+  await putPantry(process.env.PANTRY_ID, process.env.NEW_STRAVA_BASKET, data);
+  return json(data);
+};
+
+const processActivityData = (
+  activities: StravaActivity[],
+  data: ProcessedActivityData
+) => {
+  const { name, distance, moving_time, type, average_speed, start_date } =
+    activities[0];
+  data.most_recent_activity = {
+    name,
+    distance,
+    moving_time,
+    type,
+    average_speed,
+    start_date,
+  };
   data.updated = Date.now();
-  const response = await putPantry(pantryId, newStravaBasket, data);
-  return response;
 };
 
 const refreshStravaTokens = async (
