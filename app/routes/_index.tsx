@@ -65,8 +65,18 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div style={{ height: "100vh" }}>
-        <StravaActivity activity={data.most_recent_activity} />
+      <div style={{ height: "100vh", background: "#ddd" }}>
+        <div
+          style={{
+            maxWidth: 800,
+            margin: "auto",
+            padding: 20,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <StravaActivity activity={data.most_recent_activity} />
+        </div>
         <button onClick={() => setTheme("dark")}>Change to dark</button>
         <button onClick={() => clearTheme()}>Clear theme</button>
       </div>
