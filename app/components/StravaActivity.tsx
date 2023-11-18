@@ -14,7 +14,7 @@ export interface StravaActivityProps {
 export default function StravaActivity({ activity }: StravaActivityProps) {
   if (!activity) {
     // Fail case if we weren't able to get data from Strava
-    return;
+    return <div>Oops, Strava didn't load correctly</div>;
   }
   // TODO: If it was yesterday, write "Yesterday" instead
   const date = new Intl.DateTimeFormat("en-US", {

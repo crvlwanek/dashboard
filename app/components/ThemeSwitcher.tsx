@@ -2,6 +2,8 @@ import useLocalStorage from "~/hooks/useLocalStorage";
 import IconButton from "./IconButton";
 import { LOCAL_STORAGE_THEME_KEY } from "~/constants";
 import { useCallback, useEffect } from "react";
+import Divider from "./Divider";
+import Icon from "./Icon";
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useLocalStorage(LOCAL_STORAGE_THEME_KEY, "light");
@@ -11,19 +13,29 @@ export default function ThemeSwitcher() {
   const switchTheme = useCallback(() => {
     setTheme(theme === "light" ? "dark" : "light");
   }, [theme]);
-  const iconKey = theme === "light" ? "sun" : "moon";
   return (
-    <IconButton iconKey={iconKey} onClick={switchTheme}>
-      <fieldset className="themeMenu">
+    <IconButton
+      iconKey={theme === "light" ? "sun" : "moon"}
+      onClick={switchTheme}
+    >
+      <fieldset className="themeMenu card">
         <legend style={{ display: "none" }}>Pick a theme</legend>
-        <label>
+        <label className="themeMenuOption">
           <input type="radio" />
+          System
+          <Icon iconKey="moon" />
         </label>
-        <label>
+        <Divider />
+        <label className="themeMenuOption">
           <input type="radio" />
+          Light
+          <Icon iconKey="sun" />
         </label>
-        <label>
+        <Divider />
+        <label className="themeMenuOption">
           <input type="radio" />
+          Dark
+          <Icon iconKey="moon" />
         </label>
       </fieldset>
     </IconButton>
