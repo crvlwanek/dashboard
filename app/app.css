@@ -9,6 +9,8 @@
 
   --black-alpha-500: rgba(0, 0, 0, 0.5);
   --black-alpha-700: rgba(0, 0, 0, 0.7);
+
+  --main-font: Montserrat, sans-serif;
 }
 
 /* prettier-ignore */
@@ -21,6 +23,7 @@ body {
   color: var(--onSurface);
   fill: var(--onSurface);
   background: var(--surface);
+  font-family: var(--main-font);
 }
 
 img {
@@ -81,7 +84,6 @@ button {
 
 .detailBox {
   margin-left: 16px;
-  font-family: Montserrat, sans-serif;
 }
 
 .header--container {
@@ -179,20 +181,62 @@ button {
   background: var(--surface);
   border-radius: 4px;
   width: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
 }
 /* end Card.tsx */
 
 /* start StravaActivity.tsx */
-.stravaActivityHeader {
-  padding: 8px 16px;
+.stravaActivity_main {
+  font-weight: 400;
+}
+
+.stravaActivity_main h5 {
+  font-weight: inherit;
+  font-size: 1.313rem;
+  letter-spacing: 0rem;
+  line-height: 1.334;
+}
+
+.stravaActivity_main h6 {
+  font-weight: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.006rem;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.57;
 }
 
 .stravaActivityDetails {
-  padding: 8px 16px;
   display: flex;
+  gap: 16px;
+}
+
+.stravaActivityDetails h6 {
+  font-weight: inherit;
+  font-size: 0.875rem;
+  letter-spacing: 0.009rem;
+  line-height: 1.75;
+}
+
+.strava-padding {
+  padding: 8px 16px;
+}
+
+.stravaDivider {
+  border-width: 0;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.12);
+  border-bottom-width: thin;
+}
+
+.stravaDividerVertical {
+  border-width: 0px thin 0px 0px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.12);
+  margin: 8px 0;
 }
 
 .stravaLogo {
+  display: block;
   margin-left: auto;
   max-width: 150px;
   padding-bottom: 8px;

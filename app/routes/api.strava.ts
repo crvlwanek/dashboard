@@ -168,7 +168,8 @@ export const loader: LoaderFunction = async () => {
     process.env.PANTRY_ID,
     process.env.NEW_STRAVA_BASKET
   );
-  if (data.updated > Date.now() - 1000 * 60 * 5) {
+  //if (data.updated > Date.now() - 1000 * 60 * 5) {
+  if (true) {
     return createResponse(data);
   }
   if (data.expires_at < Date.now()) {
@@ -201,7 +202,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 const isError = (response: any): response is StravaAPIError => {
-  return !!response?.error;
+  return !!response?.errors;
 };
 
 const processActivityData = (

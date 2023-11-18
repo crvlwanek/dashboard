@@ -4,7 +4,6 @@ import {
   metersPerSecondToSecondsPerMile,
   metersToMiles,
 } from "~/utilities/converters";
-import Card from "./Card";
 import PoweredByStrava from "../svg/PoweredByStrava";
 
 export interface StravaActivityProps {
@@ -12,6 +11,10 @@ export interface StravaActivityProps {
 }
 
 export default function StravaActivity({ activity }: StravaActivityProps) {
+  if (!activity) {
+    // Fail case if we weren't able to get data from Strava
+    return;
+  }
   // TODO: If it was yesterday, write "Yesterday" instead
   const date = new Intl.DateTimeFormat("en-US", {
     dateStyle: "long",
@@ -23,27 +26,29 @@ export default function StravaActivity({ activity }: StravaActivityProps) {
   )} /mi`;
   const movingTime = formateTimeDuration(activity.moving_time);
   return (
-    <Card>
-      <div className="stravaActivityHeader">
-        <div>{activity.name}</div>
-        <div>{date}</div>
+    <div className="card stravaActivity_main">
+      <div className="stravaActivityHeader strava-padding">
+        <h5>{activity.name}</h5>
+        <h6>{date}</h6>
       </div>
-      <hr />
-      <div className="stravaActivityDetails">
+      <hr className="stravaDivider" />
+      <div className="stravaActivityDetails strava-padding">
         <div>
-          <label>Distance</label>
-          <div>{distance}</div>
+          <h6>Distance</h6>
+          <h5>{distance}</h5>
         </div>
+        <hr className="stravaDividerVertical" />
         <div>
-          <label>Pace</label>
-          <div>{pace}</div>
+          <h6>Pace</h6>
+          <h5>{pace}</h5>
         </div>
+        <hr className="stravaDividerVertical" />
         <div>
-          <label>Time</label>
-          <div>{movingTime}</div>
+          <h6>Time</h6>
+          <h5>{movingTime}</h5>
         </div>
       </div>
       <PoweredByStrava className="stravaLogo" />
-    </Card>
+    </div>
   );
 }
