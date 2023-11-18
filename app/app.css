@@ -303,31 +303,6 @@ hr.vertical {
 /* end Divider.tsx */
 
 /* start ThemeSwitcher.tsx */
-body[theme="dark"] .lightModeIcon {
-  display: none;
-}
-
-body[theme="light"] .darkModeIcon,
-body[theme="system"] .darkModeIcon {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  body[theme="light"] .darkModeIcon {
-    display: none;
-  }
-
-  body[theme="dark"] .lightModeIcon,
-  body[theme="system"] .lightModeIcon {
-    display: none;
-  }
-
-  body[theme="dark"] .darkModeIcon,
-  body[theme="system"] .darkModeIcon {
-    display: block;
-  }
-}
-
 .themeWrapper {
   position: relative;
   place-self: center;

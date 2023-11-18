@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Divider from "./Divider";
 import Icon from "./Icon";
 import useToggle from "~/hooks/useToggle";
+import { windowIsUndefined } from "~/utilities/helperMethods";
 
 export type ThemeSetting = "system" | "light" | "dark";
 
@@ -18,18 +19,17 @@ export default function ThemeSwitcher() {
   }, [theme]);
 
   const [menuShown, toggleMenuShown] = useToggle(false);
+  const prefersDarkMode =
+    (!windowIsUndefined() &&
+      window?.matchMedia?.("(prefers-color-scheme:dark)")?.matches) ??
+    false;
+  const iconKey =
+    theme === "dark" || (theme === "system" && prefersDarkMode)
+      ? "moon"
+      : "sun";
   return (
     <div className="themeWrapper">
-      <IconButton
-        iconKey="sun"
-        className="lightModeIcon"
-        onClick={toggleMenuShown}
-      />
-      <IconButton
-        iconKey="moon"
-        className="darkModeIcon"
-        onClick={toggleMenuShown}
-      />
+      <IconButton iconKey={iconKey} onClick={toggleMenuShown} />
       {menuShown && (
         <>
           <fieldset className="themeMenu card" id="themeMenu">

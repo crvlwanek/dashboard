@@ -5,7 +5,7 @@ import { LoaderFunction, json } from "@remix-run/node";
  *
  * For more info see: https://developers.strava.com/playground/#/Activities/getLoggedInAthleteActivities
  */
-export interface StravaActivity {
+export interface Strava_SummaryActivity {
   /** The unique identifier of the activity */
   id: number;
   /** The identifier provided at upload time */
@@ -55,14 +55,7 @@ export interface StravaActivity {
   photo_count: number;
   /** The number of Instagram and Strava photos for this activity */
   total_photo_count: number;
-  map: {
-    /** The identifier of the map */
-    id: string;
-    /** The polyline of the map, only returned on detailed representation of an object */
-    polyline: string;
-    /** The summary polyline of the map */
-    summary_polyline: string;
-  };
+  map: Strava_PolylineMap;
   /** Whether this activity was recorded on a training machine */
   trainer: boolean;
   /** Whether this activity is a commute */
@@ -81,25 +74,22 @@ export interface StravaActivity {
   average_speed: number;
   /** The activity's max speed, in meters per second (float) */
   max_speed: number;
-  /** Whether the logged-in athlete has kudoed this activity */
-  has_kudoed: boolean;
-  /** Whether the activity is muted */
-  hide_from_home: boolean;
   /** The id of the gear for the activity */
   gear_id: string;
-  /** The total work done in kilojoules during this activity. Rides only (float) */
-  kilojoules: number;
-  /** Average power output in watts during this activity. Rides only (float) */
-  average_watts: number;
-  /** Whether the watts are from a power meter, false if estimated */
-  device_watts: boolean;
-  /** Rides with power meter data only (integer) */
-  max_watts: number;
-  /** Similar to Normalized Power. Rides with power meter data only (integer) */
-  weighted_average_watts: number;
+  /** The average heartrate during this activity */
+  average_heartrate?: number;
 }
 
-export interface StravaAPIError {
+export type Strava_PolylineMap = {
+  /** The identifier of the map */
+  id: string;
+  /** The polyline of the map, only returned on detailed representation of an object */
+  polyline?: string;
+  /** The summary polyline of the map */
+  summary_polyline: string;
+};
+
+export type Strava_Fault = {
   errors: [
     {
       code: string;
@@ -108,7 +98,7 @@ export interface StravaAPIError {
     },
   ];
   message: string;
-}
+};
 
 // Interface representing the token data we recieve from Strava
 export interface TokenData {
@@ -125,18 +115,22 @@ export interface TokenData {
   expires_at: number;
 }
 
-export interface ProcessedActivityData {
+export type ProcessedActivityData = {
   /** Most recent activity on Strava */
   most_recent_activity: Pick<
-    StravaActivity,
+    Strava_SummaryActivity,
     | "name"
     | "distance"
     | "moving_time"
     | "type"
     | "average_speed"
     | "start_date"
-  >;
-}
+    | "start_latlng"
+    | "end_latlng"
+    | "average_heartrate"
+  > &
+    Pick<Strava_PolylineMap, "summary_polyline">;
+};
 
 export interface CachedStravaData extends TokenData, ProcessedActivityData {
   /** A timestamp representing when we last fetched activity data from Strava */
@@ -169,7 +163,7 @@ export const loader: LoaderFunction = async () => {
     process.env.NEW_STRAVA_BASKET
   );
   if (data.updated > Date.now() - 1000 * 60 * 5) {
-    //  if (true) {
+    //if (true) {
     return createResponse(data);
   }
   if (data.expires_at < Date.now()) {
@@ -184,7 +178,7 @@ export const loader: LoaderFunction = async () => {
     );
     if (isError(tokens)) {
       console.error(tokens);
-      return json(tokens, { status: 500 });
+      return json({ error: "Error refreshing Strava token" }, { status: 500 });
     }
 
     data.expires_at = tokens.expires_at * 1000;
@@ -199,19 +193,33 @@ export const loader: LoaderFunction = async () => {
   processActivityData(stravaResponse, data);
   // Don't need to await this, just storing our data back to the database
   putPantry(process.env.PANTRY_ID, process.env.NEW_STRAVA_BASKET, data);
+  const mapboxResponse = await getMapBoxData(
+    data.most_recent_activity.summary_polyline
+  );
   return createResponse(data);
 };
 
-const isError = (response: any): response is StravaAPIError => {
+const isError = (response: any): response is Strava_Fault => {
   return !!response?.errors;
 };
 
 const processActivityData = (
-  activities: StravaActivity[],
+  activities: Strava_SummaryActivity[],
   data: CachedStravaData
 ) => {
-  const { name, distance, moving_time, type, average_speed, start_date } =
-    activities[0];
+  const mostRecentActivity = activities[0];
+  const {
+    name,
+    distance,
+    moving_time,
+    type,
+    average_speed,
+    start_date,
+    start_latlng,
+    end_latlng,
+    average_heartrate,
+  } = mostRecentActivity;
+  const { summary_polyline } = mostRecentActivity.map;
   data.most_recent_activity = {
     name,
     distance,
@@ -219,6 +227,10 @@ const processActivityData = (
     type,
     average_speed,
     start_date,
+    start_latlng,
+    end_latlng,
+    summary_polyline,
+    average_heartrate,
   };
   data.updated = Date.now();
 };
@@ -227,7 +239,7 @@ const refreshStravaTokens = async (
   stravaClientId: string,
   stravaClientSecret: string,
   refreshToken: string
-): Promise<TokenData | StravaAPIError> => {
+): Promise<TokenData | Strava_Fault> => {
   const response = await fetch(
     `https://www.strava.com/oauth/token?client_id=${stravaClientId}&client_secret=${stravaClientSecret}&grant_type=refresh_token&refresh_token=${refreshToken}`,
     { method: "POST" }
@@ -237,7 +249,7 @@ const refreshStravaTokens = async (
 
 const getStravaActivities = async (
   stravaAccessToken: string
-): Promise<StravaActivity[] | StravaAPIError> => {
+): Promise<Strava_SummaryActivity[] | Strava_Fault> => {
   const response = await fetch(
     `https://www.strava.com/api/v3/athlete/activities?access_token=${stravaAccessToken}`
   );
@@ -274,4 +286,18 @@ const createResponse = (data: CachedStravaData): ProcessedActivityData => {
   return {
     most_recent_activity: data.most_recent_activity,
   };
+};
+
+const getMapBoxData = async (polyline: string) => {
+  if (!process.env.MAPBOX_TOKEN) {
+    return json({ error: "Mapbox token not found" }, { status: 500 });
+  }
+  const username = "crvlwanek";
+  const style_id = "streets-v12";
+  const overlay = `path-2+ff7b00(${polyline})`;
+  const response = await fetch(
+    `https://api.mapbox.com/styles/v1/${username}/${style_id}/static/${overlay}/auto/400x400?access_token=${process.env.MAPBOX_TOKEN}`
+  );
+
+  return response;
 };
