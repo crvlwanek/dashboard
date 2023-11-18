@@ -2,10 +2,9 @@ import { type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Avatar from "~/components/Avatar";
 import IconButton from "~/components/IconButton";
-import { LOCAL_STORAGE_THEME_KEY } from "~/constants";
-import useLocalStorage from "~/hooks/useLocalStorage";
 import { ProcessedActivityData } from "./api.strava";
 import StravaActivity from "~/components/StravaActivity";
+import ThemeSwitcher from "~/components/ThemeSwitcher";
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,10 +24,6 @@ const avatarImage =
 
 export default function Index() {
   const data = useLoaderData<typeof loader>();
-  const [theme, setTheme, clearTheme] = useLocalStorage(
-    LOCAL_STORAGE_THEME_KEY,
-    "light"
-  );
 
   return (
     <>
@@ -65,7 +60,7 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div style={{ height: "100vh", background: "#ddd" }}>
+      <div className="lowerContent">
         <div
           style={{
             maxWidth: 800,
@@ -77,8 +72,7 @@ export default function Index() {
         >
           <StravaActivity activity={data.most_recent_activity} />
         </div>
-        <button onClick={() => setTheme("dark")}>Change to dark</button>
-        <button onClick={() => clearTheme()}>Clear theme</button>
+        <ThemeSwitcher />
       </div>
     </>
   );

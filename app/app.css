@@ -1,9 +1,11 @@
 :root {
   --primary-main: #00adb5;
 
-  --onSurface: #1b1717;
   --surface: white;
+  --onSurface: #1b1717;
   --hoverHighlight: black;
+  --surfaceBg: #ddd;
+  --labelText: #999;
 
   --text-on-image: white;
 
@@ -11,6 +13,14 @@
   --black-alpha-700: rgba(0, 0, 0, 0.7);
 
   --main-font: Montserrat, sans-serif;
+}
+
+body[theme="dark"] {
+  --surface: #222;
+  --onSurface: white;
+  --hoverHighlight: white;
+  --surfaceBg: black;
+  --labelText: #777;
 }
 
 /* prettier-ignore */
@@ -22,8 +32,12 @@ h1, h2, h3, h4, h5, h6, p, div, body, hr {
 body {
   color: var(--onSurface);
   fill: var(--onSurface);
-  background: var(--surface);
+  background-color: var(--surfaceBg);
   font-family: var(--main-font);
+
+  transition: color 200ms linear;
+  transition: fill 200ms linear;
+  transition: background-color 200ms linear;
 }
 
 img {
@@ -102,6 +116,10 @@ button {
   font-size: 1.1rem;
 }
 
+.lowerContent {
+  height: 100vh;
+}
+
 /******************************************************/
 
 /* start NavBar.tsx */
@@ -178,7 +196,7 @@ button {
 
 /* start Card.tsx */
 .card {
-  background: var(--surface);
+  background-color: var(--surface);
   border-radius: 4px;
   width: fit-content;
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
@@ -201,8 +219,11 @@ button {
   font-weight: inherit;
   font-size: 0.75rem;
   letter-spacing: 0.006rem;
-  color: rgba(0, 0, 0, 0.6);
   line-height: 1.57;
+}
+
+.labelColor {
+  color: var(--labelText);
 }
 
 .stravaActivityDetails {
@@ -221,20 +242,6 @@ button {
   padding: 8px 16px;
 }
 
-.stravaDivider {
-  border-width: 0;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.12);
-  border-bottom-width: thin;
-}
-
-.stravaDividerVertical {
-  border-width: 0px thin 0px 0px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.12);
-  margin: 8px 0;
-}
-
 .stravaLogo {
   display: block;
   margin-left: auto;
@@ -250,3 +257,17 @@ button {
   fill: #999;
 }
 /* end StravaActivity.tsx */
+
+/* start Divider.tsx */
+hr {
+  border-width: 0 0 thin 0;
+  border-style: solid;
+  border-color: var(--labelText);
+  opacity: 0.3;
+}
+
+hr.vertical {
+  border-width: 0 thin 0 0;
+  margin: 8px 0;
+}
+/* end Divider.tsx */

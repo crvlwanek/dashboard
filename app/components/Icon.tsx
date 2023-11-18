@@ -2,6 +2,8 @@ import FacebookIcon from "~/svg/FacebookIcon";
 import GitHubIcon from "~/svg/GitHubIcon";
 import InstagramIcon from "~/svg/InstagramIcon";
 import LinkedInIcon from "~/svg/LinkedInIcon";
+import MoonIcon from "~/svg/MoonIcon";
+import SunIcon from "~/svg/SunIcon";
 import YouTubeIcon from "~/svg/YouTubeIcon";
 
 const iconKeys = {
@@ -10,6 +12,8 @@ const iconKeys = {
   instagram: InstagramIcon,
   linkedIn: LinkedInIcon,
   youtube: YouTubeIcon,
+  sun: SunIcon,
+  moon: MoonIcon,
 };
 
 export type IconKey = keyof typeof iconKeys;
