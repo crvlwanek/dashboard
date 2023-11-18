@@ -4,8 +4,16 @@
   --surface: white;
   --onSurface: #1b1717;
   --hoverHighlight: black;
+  --hoverHighlightAlpha: rgba(0, 0, 0, 0.1);
   --surfaceBg: #ddd;
   --labelText: #999;
+
+  --dark-surface: #222;
+  --dark-onSurface: white;
+  --dark-hoverHighlight: white;
+  --dark-hoverHighlightAlpha: rgba(255, 255, 255, 0.1);
+  --dark-surfaceBg: black;
+  --dark-labelText: #777;
 
   --text-on-image: white;
 
@@ -17,11 +25,23 @@
 }
 
 body[theme="dark"] {
-  --surface: #222;
-  --onSurface: white;
-  --hoverHighlight: white;
-  --surfaceBg: black;
-  --labelText: #777;
+  --surface: var(--dark-surface);
+  --onSurface: var(--dark-onSurface);
+  --hoverHighlight: var(--dark-hoverHighlight);
+  --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
+  --surfaceBg: var(--dark-surfaceBg);
+  --labelText: var(--dark-labelText);
+}
+
+@media (prefers-color-scheme: dark) {
+  body[theme="system"] {
+    --surface: var(--dark-surface);
+    --onSurface: var(--dark-onSurface);
+    --hoverHighlight: var(--dark-hoverHighlight);
+    --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
+    --surfaceBg: var(--dark-surfaceBg);
+    --labelText: var(--dark-labelText);
+  }
 }
 
 /* prettier-ignore */
@@ -35,7 +55,6 @@ body {
   fill: var(--onSurface);
   background-color: var(--surfaceBg);
   font-family: var(--main-font);
-  stroke: var(--onSurface);
 
   transition: color 200ms linear;
   transition: fill 200ms linear;
@@ -284,20 +303,69 @@ hr.vertical {
 /* end Divider.tsx */
 
 /* start ThemeSwitcher.tsx */
+body[theme="dark"] .lightModeIcon {
+  display: none;
+}
+
+body[theme="light"] .darkModeIcon,
+body[theme="system"] .darkModeIcon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  body[theme="light"] .darkModeIcon {
+    display: none;
+  }
+
+  body[theme="dark"] .lightModeIcon,
+  body[theme="system"] .lightModeIcon {
+    display: none;
+  }
+
+  body[theme="dark"] .darkModeIcon,
+  body[theme="system"] .darkModeIcon {
+    display: block;
+  }
+}
+
+.themeWrapper {
+  position: relative;
+  place-self: center;
+  margin-right: 16px;
+}
+
 .themeMenu {
   position: absolute;
-  left: -150px;
+  left: -120px;
+  top: 20px;
   border: none;
   color: var(--onSurface);
   font-family: var(--main-font);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.themeMenuVeil {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  inset: 0;
 }
 
 .themeMenuOption {
   display: flex;
-  padding: 16px 8px;
+  padding: 10px;
   gap: 8px;
   align-items: center;
-  min-width: 150px;
+  cursor: pointer;
+}
+
+.themeInput {
+  cursor: inherit;
+}
+
+.themeMenuOption:hover {
+  background-color: var(--hoverHighlightAlpha);
 }
 
 .themeMenuOption :last-child {

@@ -178,7 +178,8 @@ export const loader: LoaderFunction = async () => {
     }
     const tokens = await refreshStravaTokens(
       process.env.STRAVA_CLIENT_ID,
-      process.env.STRAVA_CLIENT_SECRET,
+      // I have no idea why but there's a whitespace character at the end of this env variable
+      process.env.STRAVA_CLIENT_SECRET.trimEnd(),
       data.refresh_token
     );
     if (isError(tokens)) {

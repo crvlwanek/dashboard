@@ -1,8 +1,9 @@
 import { ProcessedActivityData } from "~/routes/api.strava";
 import {
-  formateTimeDuration,
+  formatTimeDuration,
   metersPerSecondToSecondsPerMile,
   metersToMiles,
+  secondsToDuration,
 } from "~/utilities/converters";
 import PoweredByStrava from "../svg/PoweredByStrava";
 import Divider from "./Divider";
@@ -22,10 +23,14 @@ export default function StravaActivity({ activity }: StravaActivityProps) {
     timeStyle: "short",
   }).format(new Date(activity.start_date));
   const distance = `${metersToMiles(activity.distance)} mi`;
-  const pace = `${formateTimeDuration(
-    metersPerSecondToSecondsPerMile(activity.average_speed)
+  const pace = `${formatTimeDuration(
+    secondsToDuration(metersPerSecondToSecondsPerMile(activity.average_speed)),
+    "colon"
   )} /mi`;
-  const movingTime = formateTimeDuration(activity.moving_time);
+  const movingTime = formatTimeDuration(
+    secondsToDuration(activity.moving_time),
+    "letter"
+  );
   return (
     <div className="card stravaActivity_main">
       <div className="stravaActivityHeader strava-padding">

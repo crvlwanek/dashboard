@@ -1,11 +1,7 @@
 import { useCallback, useState } from "react";
 import { windowIsUndefined } from "~/utilities/helperMethods";
 
-export type LocalStorageInterface = [
-  string,
-  (value: string) => void,
-  () => void,
-];
+export type LocalStorageInterface<T> = [T, (value: T) => void, () => void];
 
 /**
  * A custom hook to get/set/remove an item from localStorage
@@ -14,10 +10,10 @@ export type LocalStorageInterface = [
  * @param defaultValue A default value to set in case there is no value currently stored for this key
  * @returns An array of [value, setItem, removeItem]
  */
-export default function useLocalStorage(
+export default function useLocalStorage<T extends string = string>(
   key: string,
-  defaultValue: string
-): LocalStorageInterface {
+  defaultValue: T
+): LocalStorageInterface<T> {
   const [value, setValue] = useState(() => {
     if (windowIsUndefined()) {
       return defaultValue;
@@ -40,5 +36,5 @@ export default function useLocalStorage(
     window.localStorage.removeItem(key);
   }, []);
 
-  return [value, setItem, removeItem];
+  return [value as T, setItem, removeItem];
 }

@@ -1,43 +1,78 @@
 import useLocalStorage from "~/hooks/useLocalStorage";
 import IconButton from "./IconButton";
 import { LOCAL_STORAGE_THEME_KEY } from "~/constants";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import Divider from "./Divider";
 import Icon from "./Icon";
+import useToggle from "~/hooks/useToggle";
+
+export type ThemeSetting = "system" | "light" | "dark";
 
 export default function ThemeSwitcher() {
-  const [theme, setTheme] = useLocalStorage(LOCAL_STORAGE_THEME_KEY, "light");
+  const [theme, setTheme] = useLocalStorage<ThemeSetting>(
+    LOCAL_STORAGE_THEME_KEY,
+    "system"
+  );
   useEffect(() => {
     document?.getElementById("body")?.setAttribute("theme", theme);
   }, [theme]);
-  const switchTheme = useCallback(() => {
-    setTheme(theme === "light" ? "dark" : "light");
-  }, [theme]);
+
+  const [menuShown, toggleMenuShown] = useToggle(false);
   return (
-    <IconButton
-      iconKey={theme === "light" ? "sun" : "moon"}
-      onClick={switchTheme}
-    >
-      <fieldset className="themeMenu card">
-        <legend style={{ display: "none" }}>Pick a theme</legend>
-        <label className="themeMenuOption">
-          <input type="radio" />
-          System
-          <Icon iconKey="moon" />
-        </label>
-        <Divider />
-        <label className="themeMenuOption">
-          <input type="radio" />
-          Light
-          <Icon iconKey="sun" />
-        </label>
-        <Divider />
-        <label className="themeMenuOption">
-          <input type="radio" />
-          Dark
-          <Icon iconKey="moon" />
-        </label>
-      </fieldset>
-    </IconButton>
+    <div className="themeWrapper">
+      <IconButton
+        iconKey="sun"
+        className="lightModeIcon"
+        onClick={toggleMenuShown}
+      />
+      <IconButton
+        iconKey="moon"
+        className="darkModeIcon"
+        onClick={toggleMenuShown}
+      />
+      {menuShown && (
+        <>
+          <fieldset className="themeMenu card" id="themeMenu">
+            <legend style={{ display: "none" }}>Pick a theme</legend>
+            <label className="themeMenuOption">
+              <input
+                name="theme"
+                onClick={() => setTheme("system")}
+                type="radio"
+                className="themeInput"
+                checked={theme === "system"}
+              />
+              System
+              <Icon iconKey="settings" />
+            </label>
+            <Divider />
+            <label className="themeMenuOption">
+              <input
+                name="theme"
+                onClick={() => setTheme("light")}
+                type="radio"
+                className="themeInput"
+                checked={theme === "light"}
+              />
+              Light
+              <Icon iconKey="sun" />
+            </label>
+            <Divider />
+            <label className="themeMenuOption">
+              <input
+                name="theme"
+                onClick={() => setTheme("dark")}
+                type="radio"
+                className="themeInput"
+                checked={theme === "dark"}
+              />
+              Dark
+              <Icon iconKey="moon" />
+            </label>
+          </fieldset>
+          <div onClick={toggleMenuShown} className="themeMenuVeil"></div>
+        </>
+      )}
+    </div>
   );
 }
