@@ -1,4 +1,6 @@
 import { LoaderFunction, json } from "@remix-run/node";
+import MapBox from "~/integrations/MapBox";
+import Pantry from "~/integrations/Pantry";
 
 /**
  * Strava interface for activity data
@@ -125,8 +127,6 @@ export type ProcessedActivityData = {
     | "type"
     | "average_speed"
     | "start_date"
-    | "start_latlng"
-    | "end_latlng"
     | "average_heartrate"
   > &
     Pick<Strava_PolylineMap, "summary_polyline">;
@@ -136,6 +136,12 @@ export interface CachedStravaData extends TokenData, ProcessedActivityData {
   /** A timestamp representing when we last fetched activity data from Strava */
   updated: number;
 }
+
+const mapbox = new MapBox(process.env.MAPBOX_TOKEN);
+const stravaBasket = new Pantry<CachedStravaData>(
+  process.env.PANTRY_ID,
+  process.env.NEW_STRAVA_BASKET
+);
 
 /**
  * Loads data from Strava, cached every five minutes to avoid API rate limits (100/hr, 1000/day)
@@ -152,16 +158,7 @@ export interface CachedStravaData extends TokenData, ProcessedActivityData {
  * @returns JSON, either the processed activity data (if successful) or an error if one was encountered
  */
 export const loader: LoaderFunction = async () => {
-  if (!process.env.PANTRY_ID || !process.env.NEW_STRAVA_BASKET) {
-    return json(
-      { error: "No pantryId or Strava basket found" },
-      { status: 500 }
-    );
-  }
-  const data = await getPantry(
-    process.env.PANTRY_ID,
-    process.env.NEW_STRAVA_BASKET
-  );
+  const data = await stravaBasket.get();
   if (data.updated > Date.now() - 1000 * 60 * 5) {
     //if (true) {
     return createResponse(data);
@@ -192,10 +189,10 @@ export const loader: LoaderFunction = async () => {
   }
   processActivityData(stravaResponse, data);
   // Don't need to await this, just storing our data back to the database
-  putPantry(process.env.PANTRY_ID, process.env.NEW_STRAVA_BASKET, data);
-  const mapboxResponse = await getMapBoxData(
-    data.most_recent_activity.summary_polyline
-  );
+  stravaBasket.put(data);
+  // const mapboxResponse = await mapbox.getStaticImage(
+  //   data.most_recent_activity.summary_polyline
+  // );
   return createResponse(data);
 };
 
@@ -215,8 +212,6 @@ const processActivityData = (
     type,
     average_speed,
     start_date,
-    start_latlng,
-    end_latlng,
     average_heartrate,
   } = mostRecentActivity;
   const { summary_polyline } = mostRecentActivity.map;
@@ -227,8 +222,6 @@ const processActivityData = (
     type,
     average_speed,
     start_date,
-    start_latlng,
-    end_latlng,
     summary_polyline,
     average_heartrate,
   };
@@ -256,48 +249,8 @@ const getStravaActivities = async (
   return response.json();
 };
 
-const getPantry = async (
-  pantryId: string,
-  basketName: string
-): Promise<CachedStravaData> => {
-  const response = await fetch(
-    `https://getpantry.cloud/apiv1/pantry/${pantryId}/basket/${basketName}`
-  );
-  return response.json();
-};
-
-const putPantry = async (
-  pantryId: string,
-  basketName: string,
-  data: CachedStravaData
-) => {
-  const response = await fetch(
-    `https://getpantry.cloud/apiv1/pantry/${pantryId}/basket/${basketName}`,
-    {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-  return response.json();
-};
-
 const createResponse = (data: CachedStravaData): ProcessedActivityData => {
   return {
     most_recent_activity: data.most_recent_activity,
   };
-};
-
-const getMapBoxData = async (polyline: string) => {
-  if (!process.env.MAPBOX_TOKEN) {
-    return json({ error: "Mapbox token not found" }, { status: 500 });
-  }
-  const username = "crvlwanek";
-  const style_id = "streets-v12";
-  const overlay = `path-2+ff7b00(${polyline})`;
-  const response = await fetch(
-    `https://api.mapbox.com/styles/v1/${username}/${style_id}/static/${overlay}/auto/400x400?access_token=${process.env.MAPBOX_TOKEN}`
-  );
-
-  return response;
 };
