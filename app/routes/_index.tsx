@@ -72,7 +72,6 @@ export default function Index() {
         >
           <StravaActivity activity={data.most_recent_activity} />
         </div>
-        <ThemeSwitcher />
       </div>
     </>
   );

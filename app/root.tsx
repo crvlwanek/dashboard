@@ -11,6 +11,7 @@ import {
 
 import appCssHref from "./app.css";
 import NavBar from "./components/NavBar";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -33,7 +34,9 @@ export default function App() {
         <Links />
       </head>
       <body id="body">
-        {/* <NavBar /> */}
+        <NavBar className="dashboardNavbar">
+          <ThemeSwitcher />
+        </NavBar>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

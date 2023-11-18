@@ -1,6 +1,7 @@
 import Icon, { HasIcon } from "./Icon";
+import { HasReactChildren } from "./commonInterfaces";
 
-export interface IconButtonProps extends HasIcon {
+export interface IconButtonProps extends HasIcon, HasReactChildren {
   size?: number;
   openInNewTab?: boolean;
   href?: string;
@@ -13,6 +14,7 @@ export default function IconButton({
   href,
   openInNewTab,
   onClick,
+  children,
 }: IconButtonProps) {
   const Wrapper = ({
     children,
@@ -31,6 +33,7 @@ export default function IconButton({
   return (
     <Wrapper className="iconButton">
       <Icon {...{ iconKey, size }} />
+      {children}
     </Wrapper>
   );
 }

@@ -12,5 +12,20 @@ export default function ThemeSwitcher() {
     setTheme(theme === "light" ? "dark" : "light");
   }, [theme]);
   const iconKey = theme === "light" ? "sun" : "moon";
-  return <IconButton iconKey={iconKey} onClick={switchTheme} />;
+  return (
+    <IconButton iconKey={iconKey} onClick={switchTheme}>
+      <fieldset className="themeMenu">
+        <legend style={{ display: "none" }}>Pick a theme</legend>
+        <label>
+          <input type="radio" />
+        </label>
+        <label>
+          <input type="radio" />
+        </label>
+        <label>
+          <input type="radio" />
+        </label>
+      </fieldset>
+    </IconButton>
+  );
 }

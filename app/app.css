@@ -9,6 +9,7 @@
 
   --text-on-image: white;
 
+  --black-alpha-100: rgba(0, 0, 0, 0.1);
   --black-alpha-500: rgba(0, 0, 0, 0.5);
   --black-alpha-700: rgba(0, 0, 0, 0.7);
 
@@ -24,7 +25,7 @@ body[theme="dark"] {
 }
 
 /* prettier-ignore */
-h1, h2, h3, h4, h5, h6, p, div, body, hr {
+h1, h2, h3, h4, h5, h6, p, div, body, hr, header {
   margin: 0;
   padding: 0;
 }
@@ -58,12 +59,17 @@ button {
 }
 
 .mainHeader {
-  padding: 25px;
+  padding: 85px 25px 25px;
   background-image: radial-gradient(
       var(--black-alpha-500),
       var(--black-alpha-700)
     ),
     url(https://images.unsplash.com/photo-1531914082256-1b9047242426?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+}
+
+.dashboardNavbar {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .musicIcon {
@@ -124,10 +130,12 @@ button {
 
 /* start NavBar.tsx */
 .navbar {
-  height: 60px;
+  height: 56px;
   width: 100%;
   position: fixed;
   background: var(--surface);
+  z-index: 2;
+  box-shadow: var(--black-alpha-100) 0 0 4px 4px;
 }
 /* end NavBar.tsx */
 
@@ -168,6 +176,8 @@ button {
   cursor: pointer;
   background: none;
   position: relative;
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .iconButton::before {
@@ -271,3 +281,12 @@ hr.vertical {
   margin: 8px 0;
 }
 /* end Divider.tsx */
+
+/* start ThemeSwitcher.tsx */
+.themeMenu {
+  position: absolute;
+  left: -100px;
+  display: flex;
+  flex-direction: column;
+}
+/* end ThemeSwitcher.tsx */

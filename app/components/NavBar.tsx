@@ -1,7 +1,7 @@
-import { HasClassName } from "./commonInterfaces";
+import { HasClassName, HasReactChildren } from "./commonInterfaces";
 
-interface NavBarProps extends HasClassName {}
+interface NavBarProps extends HasClassName, HasReactChildren {}
 
-export default function NavBar({ className }: NavBarProps) {
-  return <nav className={`navbar ${className}`}></nav>;
+export default function NavBar({ className, children }: NavBarProps) {
+  return <header className={`navbar ${className}`}>{children}</header>;
 }
