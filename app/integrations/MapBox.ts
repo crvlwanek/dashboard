@@ -1,7 +1,7 @@
 export default class MapBox {
   private _apiKey: string;
 
-  constructor(apiKey: string | undefined) {
+  public constructor(apiKey?: string) {
     if (!apiKey) {
       throw new Error("Mapbox API key not found");
     }
@@ -10,7 +10,7 @@ export default class MapBox {
 
   public async getStaticImage(polyline: string) {
     const style_id = "streets-v12";
-    const overlay = `path-2+ff7b00(${encodeURIComponent(polyline)})`;
+    const overlay = `path-2+f94c05(${encodeURIComponent(polyline)})`;
     const height = 400;
     const width = 400;
 
