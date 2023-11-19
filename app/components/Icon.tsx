@@ -5,6 +5,7 @@ import LinkedInIcon from "~/svg/LinkedInIcon";
 import MoonIcon from "~/svg/MoonIcon";
 import SettingsIcon from "~/svg/SettingsIcon";
 import SunIcon from "~/svg/SunIcon";
+import ThemeIcon from "~/svg/ThemeIcon";
 import YouTubeIcon from "~/svg/YouTubeIcon";
 
 const iconKeys = {
@@ -16,6 +17,7 @@ const iconKeys = {
   sun: SunIcon,
   moon: MoonIcon,
   settings: SettingsIcon,
+  theme: ThemeIcon,
 };
 
 export type IconKey = keyof typeof iconKeys;
