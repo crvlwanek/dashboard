@@ -41,7 +41,6 @@ export const loader: LoaderFunction = async () => {
   //   data.most_recent_activity.summary_polyline
   // );
   if (data.updated > Date.now() - 1000 * 60 * 5) {
-    //if (true) {
     return createResponse(data)
   }
   if (data.expires_at < Date.now()) {
