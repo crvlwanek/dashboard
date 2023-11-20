@@ -139,10 +139,6 @@ button {
   font-size: 1.1rem;
 }
 
-.lowerContent {
-  height: 100vh;
-}
-
 /******************************************************/
 
 /* start NavBar.tsx */
@@ -238,7 +234,7 @@ button {
 
 .stravaActivity_main h5 {
   font-weight: inherit;
-  font-size: 1.313rem;
+  font-size: 1.2rem;
   letter-spacing: 0rem;
   line-height: 1.334;
 }
