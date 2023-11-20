@@ -4,13 +4,14 @@ import Avatar from "~/components/Avatar"
 import IconButton from "~/components/IconButton"
 import { ProcessedActivityData } from "./api.strava"
 import StravaActivity from "~/components/StravaActivity"
-import ThemeSwitcher from "~/components/ThemeSwitcher"
+import { GitHub } from "~/integrations/GitHub"
 
 export const meta: MetaFunction = () => {
   return [{ title: "Dashboard | Chris Van Lanen-Wanek" }, { name: "description", content: "Welcome to my dashboard" }]
 }
 
 export const loader = async ({ request }: { request: Request }) => {
+  const repos = await GitHub.listUserRepos("crvlwanek")
   const res = await fetch(`${request.url}api/strava`)
   const stravaData: ProcessedActivityData = await res.json()
   return stravaData
