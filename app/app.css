@@ -1,5 +1,6 @@
 :root {
   --primary-main: #00adb5;
+  --onPrimary: white;
 
   --surface: white;
   --onSurface: #1b1717;
@@ -349,6 +350,10 @@ hr.vertical {
 /* end ThemeSwitcher.tsx */
 
 /* start GitHubRecentRepos.tsx */
+.githubRepos {
+  max-width: 100%;
+}
+
 .githubHeaderContainer {
   gap: 8px;
   margin: 12px 0 0 12px;
@@ -356,6 +361,7 @@ hr.vertical {
 
 .githubHeader {
   text-wrap: nowrap;
+  font-weight: 400;
 }
 
 .githubLanguageBubble {
@@ -366,13 +372,19 @@ hr.vertical {
   margin: 0 6px 0 12px;
 }
 
+.repoHeaderContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .repoWrapper {
   padding: 12px;
 }
 
 .githubLabelText {
   color: var(--labelText);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .repoLink {
@@ -385,6 +397,33 @@ hr.vertical {
 .repoDescription {
   font-size: 0.8rem;
   padding: 4px 0;
+}
+
+.githubChipBox {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.githubChip {
+  text-decoration: none;
+  background-color: var(--primary-main);
+  color: var(--onPrimary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  text-wrap: nowrap;
+  max-width: 100px;
+  min-width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.githubChip:hover {
+  filter: brightness(90%);
 }
 
 /* end GitHubRecentRepos.tsx */

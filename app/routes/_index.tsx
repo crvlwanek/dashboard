@@ -8,7 +8,10 @@ import { GitHub } from "~/integrations/GitHub"
 import GitHubRecentRepos from "~/components/GitHubRecentRepos"
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Dashboard | Chris Van Lanen-Wanek" }, { name: "description", content: "Welcome to my dashboard" }]
+  return [
+    { title: "Dashboard | Chris Van Lanen-Wanek" },
+    { name: "description", content: "Welcome to my dashboard" },
+  ]
 }
 
 export const loader = async ({ request }: { request: Request }) => {
@@ -44,21 +47,19 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div>
-        <div
-          style={{
-            maxWidth: 800,
-            margin: "auto",
-            padding: 20,
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            gap: 10,
-          }}
-        >
-          <StravaActivity activity={data.most_recent_activity} />
-          <GitHubRecentRepos />
-        </div>
+      <div
+        style={{
+          maxWidth: 800,
+          margin: "auto",
+          padding: 20,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: 10,
+        }}
+      >
+        <StravaActivity activity={data.most_recent_activity} />
+        <GitHubRecentRepos />
       </div>
     </>
   )

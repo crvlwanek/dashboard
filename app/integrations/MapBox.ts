@@ -9,7 +9,7 @@ export default class MapBox {
   }
 
   private _urlEncode(polyline: string): string {
-    return encodeURIComponent(polyline)
+    return polyline.replaceAll("?", "%3F")
   }
 
   public async getStaticImage(polyline: string) {

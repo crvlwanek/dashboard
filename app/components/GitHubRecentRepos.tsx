@@ -9,34 +9,37 @@ export default function GitHubRecentRepos() {
 
   useEffect(() => {
     const getRepoList = async () => {
-      const repoList = await GitHub.listUserRepos("crvlwanek", { sort: "updated" })
-      console.log(repoList)
+      const repoList = await GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
       setData(repoList)
     }
     getRepoList()
   }, [])
+
+  const repoLimit = 5
 
   if (data === null) {
     return <div>loading...</div>
   }
 
   return (
-    <div className="card">
+    <div className="card githubRepos">
       <div className="flex align-center githubHeaderContainer">
         <Icon iconKey="github" size={30} />
         <h3 className="githubHeader">GitHub Repos</h3>
         <Divider />
       </div>
-      {data.map(repo => (
+      {data.slice(0, repoLimit).map((repo, index) => (
         <>
-          <div className="repoWrapper">
-            <div key={repo.id}>
+          <div key={repo.id} className="repoWrapper">
+            <div className="repoHeaderContainer">
               <a className="repoLink" href={repo.html_url}>
                 {repo.name}
               </a>
               <span className="githubLabelText">
                 {" · "}
                 {getRelativeTime(repo.updated_at)}
+              </span>
+              <span className="githubLabelText">
                 <span
                   style={{
                     backgroundColor: GitHub.colors[repo.language as GitHub.Language]?.color ?? "",
@@ -47,13 +50,19 @@ export default function GitHubRecentRepos() {
               </span>
             </div>
             <div className="repoDescription">{repo.description}</div>
-            <div>
+            <div className="githubChipBox">
               {repo.topics.map(topic => (
-                <span>{topic}</span>
+                <a
+                  key={topic}
+                  className="githubChip"
+                  href={`https://github.com/crvlwanek?tab=repositories&q=${topic}`}
+                >
+                  {topic}
+                </a>
               ))}
             </div>
           </div>
-          <Divider />
+          {index != repoLimit - 1 && <Divider />}
         </>
       ))}
     </div>

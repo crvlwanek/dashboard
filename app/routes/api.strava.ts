@@ -1,13 +1,23 @@
 import { LoaderFunction, json } from "@remix-run/node"
 import MapBox from "~/integrations/MapBox"
 import Pantry from "~/integrations/Pantry"
-import Strava, { StravaPolylineMap, StravaSummaryActivity, StravaTokenData } from "~/integrations/Strava"
+import Strava, {
+  StravaPolylineMap,
+  StravaSummaryActivity,
+  StravaTokenData,
+} from "~/integrations/Strava"
 
 export type ProcessedActivityData = {
   /** Most recent activity on Strava */
   most_recent_activity: Pick<
     StravaSummaryActivity,
-    "name" | "distance" | "moving_time" | "type" | "average_speed" | "start_date" | "average_heartrate"
+    | "name"
+    | "distance"
+    | "moving_time"
+    | "type"
+    | "average_speed"
+    | "start_date"
+    | "average_heartrate"
   > &
     Pick<StravaPolylineMap, "summary_polyline">
 }
@@ -19,7 +29,10 @@ export interface CachedStravaData extends StravaTokenData, ProcessedActivityData
 
 const mapbox = new MapBox(process.env.MAPBOX_TOKEN)
 const strava = new Strava(process.env.STRAVA_CLIENT_ID, process.env.STRAVA_CLIENT_SECRET)
-const stravaBasket = new Pantry<CachedStravaData>(process.env.PANTRY_ID, process.env.NEW_STRAVA_BASKET)
+const stravaBasket = new Pantry<CachedStravaData>(
+  process.env.PANTRY_ID,
+  process.env.NEW_STRAVA_BASKET
+)
 
 /**
  * Loads data from Strava, cached every five minutes to avoid API rate limits (100/hr, 1000/day)
@@ -37,9 +50,7 @@ const stravaBasket = new Pantry<CachedStravaData>(process.env.PANTRY_ID, process
  */
 export const loader: LoaderFunction = async () => {
   const data = await stravaBasket.get()
-  // const mapboxResponse = await mapbox.getStaticImage(
-  //   data.most_recent_activity.summary_polyline
-  // );
+  const mapboxResponse = await mapbox.getStaticImage(data.most_recent_activity.summary_polyline)
   if (data.updated > Date.now() - 1000 * 60 * 5) {
     return createResponse(data)
   }
@@ -67,7 +78,8 @@ export const loader: LoaderFunction = async () => {
 
 const processActivityData = (activities: StravaSummaryActivity[], data: CachedStravaData) => {
   const mostRecentActivity = activities[0]
-  const { name, distance, moving_time, type, average_speed, start_date, average_heartrate } = mostRecentActivity
+  const { name, distance, moving_time, type, average_speed, start_date, average_heartrate } =
+    mostRecentActivity
   const { summary_polyline } = mostRecentActivity.map
   data.most_recent_activity = {
     name,
