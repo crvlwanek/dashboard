@@ -50,7 +50,7 @@ const stravaBasket = new Pantry<CachedStravaData>(
  */
 export const loader: LoaderFunction = async () => {
   const data = await stravaBasket.get()
-  const mapboxResponse = await mapbox.getStaticImage(data.most_recent_activity.summary_polyline)
+  // const mapboxResponse = await mapbox.getStaticImage(data.most_recent_activity.summary_polyline)
   if (data.updated > Date.now() - 1000 * 60 * 5) {
     return createResponse(data)
   }

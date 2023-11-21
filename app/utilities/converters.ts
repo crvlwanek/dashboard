@@ -73,8 +73,10 @@ export function getRelativeTime(datetime: string): string {
   ]
   const index = increments.findIndex(increment => increment > Math.abs(deltaSeconds))
   const divisor = index ? increments[index - 1] : 1
-  return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(
-    Math.floor(deltaSeconds / divisor),
+  const floatValue = deltaSeconds / divisor
+  const roundedValue = floatValue > 0 ? Math.floor(floatValue) : Math.ceil(floatValue)
+  return new Intl.RelativeTimeFormat("en-us", { numeric: "auto" }).format(
+    roundedValue,
     units[index]
   )
 }

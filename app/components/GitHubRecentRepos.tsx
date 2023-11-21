@@ -15,7 +15,7 @@ export default function GitHubRecentRepos() {
     getRepoList()
   }, [])
 
-  const repoLimit = 5
+  const repoLimit = 3
 
   if (data === null) {
     return <div>loading...</div>
@@ -36,7 +36,7 @@ export default function GitHubRecentRepos() {
                 {repo.name}
               </a>
               <span className="githubLabelText">
-                {" · "}
+                {" · updated "}
                 {getRelativeTime(repo.updated_at)}
               </span>
               <span className="githubLabelText">
