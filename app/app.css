@@ -288,11 +288,13 @@ hr {
   border-style: solid;
   border-color: var(--labelText);
   opacity: 0.3;
+  width: 100%;
 }
 
 hr.vertical {
   border-width: 0 thin 0 0;
   margin: 8px 0;
+  width: auto;
 }
 /* end Divider.tsx */
 
@@ -345,3 +347,44 @@ hr.vertical {
   margin-right: 8px;
 }
 /* end ThemeSwitcher.tsx */
+
+/* start GitHubRecentRepos.tsx */
+.githubHeaderContainer {
+  gap: 8px;
+  margin: 12px 0 0 12px;
+}
+
+.githubHeader {
+  text-wrap: nowrap;
+}
+
+.githubLanguageBubble {
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0 6px 0 12px;
+}
+
+.repoWrapper {
+  padding: 12px;
+}
+
+.githubLabelText {
+  color: var(--labelText);
+  font-size: 0.9rem;
+}
+
+.repoLink {
+  text-decoration: none;
+  font-weight: 800;
+  color: var(--primary-main);
+  font-size: 1rem;
+}
+
+.repoDescription {
+  font-size: 0.8rem;
+  padding: 4px 0;
+}
+
+/* end GitHubRecentRepos.tsx */

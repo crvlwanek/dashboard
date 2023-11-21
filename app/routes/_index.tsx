@@ -5,6 +5,7 @@ import IconButton from "~/components/IconButton"
 import { ProcessedActivityData } from "./api.strava"
 import StravaActivity from "~/components/StravaActivity"
 import { GitHub } from "~/integrations/GitHub"
+import GitHubRecentRepos from "~/components/GitHubRecentRepos"
 
 export const meta: MetaFunction = () => {
   return [{ title: "Dashboard | Chris Van Lanen-Wanek" }, { name: "description", content: "Welcome to my dashboard" }]
@@ -51,9 +52,12 @@ export default function Index() {
             padding: 20,
             display: "flex",
             justifyContent: "center",
+            flexDirection: "column",
+            gap: 10,
           }}
         >
           <StravaActivity activity={data.most_recent_activity} />
+          <GitHubRecentRepos />
         </div>
       </div>
     </>

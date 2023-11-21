@@ -1,0 +1,61 @@
+import { useEffect, useState } from "react"
+import Divider from "./Divider"
+import Icon from "./Icon"
+import { GitHub } from "~/integrations/GitHub"
+import { getRelativeTime } from "~/utilities/converters"
+
+export default function GitHubRecentRepos() {
+  const [data, setData] = useState<GitHub.MinimalRepository[] | null>(null)
+
+  useEffect(() => {
+    const getRepoList = async () => {
+      const repoList = await GitHub.listUserRepos("crvlwanek", { sort: "updated" })
+      console.log(repoList)
+      setData(repoList)
+    }
+    getRepoList()
+  }, [])
+
+  if (data === null) {
+    return <div>loading...</div>
+  }
+
+  return (
+    <div className="card">
+      <div className="flex align-center githubHeaderContainer">
+        <Icon iconKey="github" size={30} />
+        <h3 className="githubHeader">GitHub Repos</h3>
+        <Divider />
+      </div>
+      {data.map(repo => (
+        <>
+          <div className="repoWrapper">
+            <div key={repo.id}>
+              <a className="repoLink" href={repo.html_url}>
+                {repo.name}
+              </a>
+              <span className="githubLabelText">
+                {" · "}
+                {getRelativeTime(repo.updated_at)}
+                <span
+                  style={{
+                    backgroundColor: GitHub.colors[repo.language as GitHub.Language]?.color ?? "",
+                  }}
+                  className="githubLanguageBubble"
+                ></span>
+                {repo.language}
+              </span>
+            </div>
+            <div className="repoDescription">{repo.description}</div>
+            <div>
+              {repo.topics.map(topic => (
+                <span>{topic}</span>
+              ))}
+            </div>
+          </div>
+          <Divider />
+        </>
+      ))}
+    </div>
+  )
+}
