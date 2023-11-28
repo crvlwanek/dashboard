@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader = async ({ request }: { request: Request }) => {
-  const repos = await GitHub.listUserRepos("crvlwanek")
+  const repos = await GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
   const res = await fetch(`${request.url}api/strava`)
   const stravaData: ProcessedActivityData = await res.json()
   return { stravaData, repos }
