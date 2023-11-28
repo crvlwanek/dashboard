@@ -28,7 +28,7 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
                 {"· updated "}
                 {getRelativeTime(repo.updated_at)}
               </div>
-              <span className="githubLabelText githubLanguageInfo">
+              <span className="githubLabelText">
                 <span
                   style={{
                     backgroundColor:
