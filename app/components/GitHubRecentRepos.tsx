@@ -38,11 +38,11 @@ export default function GitHubRecentRepos() {
               <a className="repoLink" href={repo.html_url}>
                 {repo.name}
               </a>
-              <span className="githubLabelText">
-                {" · updated "}
+              <div className="githubLabelText githubUpdatedAt">
+                {"· updated "}
                 {getRelativeTime(repo.updated_at)}
-              </span>
-              <span className="githubLabelText">
+              </div>
+              <span className="githubLabelText githubLanguageInfo">
                 <span
                   style={{
                     backgroundColor:
@@ -53,6 +53,7 @@ export default function GitHubRecentRepos() {
                 {repo.language}
               </span>
             </div>
+
             <div className="repoDescription">{repo.description}</div>
             <GithubChipBox topics={repo.topics} />
           </div>

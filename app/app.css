@@ -374,8 +374,8 @@ hr.vertical {
 }
 
 .githubHeader {
-  text-wrap: nowrap;
   font-weight: 400;
+  flex-shrink: 0;
 }
 
 .githubLanguageBubble {
@@ -383,7 +383,7 @@ hr.vertical {
   width: 10px;
   display: inline-block;
   border-radius: 50%;
-  margin: 0 6px 0 12px;
+  margin: 0 6px;
 }
 
 .repoHeaderContainer {
@@ -391,6 +391,7 @@ hr.vertical {
   align-items: center;
   gap: 4px;
   flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
 .repoWrapper {
@@ -401,6 +402,13 @@ hr.vertical {
   color: var(--labelText);
   font-size: 0.85rem;
   text-wrap: nowrap;
+}
+
+.githubLanguageInfo {
+}
+
+.githubUpdatedAt {
+  margin: 4px 0;
 }
 
 .repoLink {
@@ -442,6 +450,7 @@ hr.vertical {
   text-overflow: ellipsis;
   text-align: center;
   flex-shrink: 0;
+  word-wrap: normal;
 }
 
 .githubChip:hover {
