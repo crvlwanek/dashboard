@@ -400,6 +400,10 @@ hr.vertical {
 }
 
 .githubChipBox {
+  position: relative;
+}
+
+.githubChipBoxInner {
   display: flex;
   gap: 4px;
   margin-top: 4px;
@@ -411,7 +415,7 @@ hr.vertical {
   text-decoration: none;
   background-color: var(--primary-main);
   color: var(--onPrimary);
-  padding: 6px 12px;
+  padding: 11px 12px;
   border-radius: 20px;
   font-size: 0.7rem;
   text-wrap: nowrap;
@@ -420,10 +424,27 @@ hr.vertical {
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .githubChip:hover {
   filter: brightness(90%);
 }
 
+.githubChipsLeftWrapper {
+  position: absolute;
+  background-image: linear-gradient(to right, var(--surface) 60%, transparent);
+  width: fit-content;
+  padding-right: 30px;
+  top: 0;
+}
+
+.githubChipsRightWrapper {
+  position: absolute;
+  background-image: linear-gradient(to left, var(--surface) 60%, transparent);
+  right: 0;
+  top: 0;
+  width: fit-content;
+  padding-left: 30px;
+}
 /* end GitHubRecentRepos.tsx */

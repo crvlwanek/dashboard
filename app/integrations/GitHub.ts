@@ -46,9 +46,9 @@ export namespace GitHub {
     return res.json()
   }
 
-  export type Language = keyof typeof colors
+  export type Language = keyof typeof languages
 
-  export const colors = {
+  export const languages = {
     "1C Enterprise": {
       color: "#814CCC",
       url: "https://github.com/trending?l=1C-Enterprise",

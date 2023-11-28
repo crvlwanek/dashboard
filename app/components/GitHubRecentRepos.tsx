@@ -3,6 +3,7 @@ import Divider from "./Divider"
 import Icon from "./Icon"
 import { GitHub } from "~/integrations/GitHub"
 import { getRelativeTime } from "~/utilities/converters"
+import GithubChipBox from "./GithubChipBox"
 
 export default function GitHubRecentRepos() {
   const [data, setData] = useState<GitHub.MinimalRepository[] | null>(null)
@@ -44,7 +45,8 @@ export default function GitHubRecentRepos() {
               <span className="githubLabelText">
                 <span
                   style={{
-                    backgroundColor: GitHub.colors[repo.language as GitHub.Language]?.color ?? "",
+                    backgroundColor:
+                      GitHub.languages[repo.language as GitHub.Language]?.color ?? "",
                   }}
                   className="githubLanguageBubble"
                 ></span>
@@ -52,17 +54,7 @@ export default function GitHubRecentRepos() {
               </span>
             </div>
             <div className="repoDescription">{repo.description}</div>
-            <div className="githubChipBox">
-              {repo.topics.map(topic => (
-                <a
-                  key={topic}
-                  className="githubChip"
-                  href={`https://github.com/crvlwanek?tab=repositories&q=${topic}`}
-                >
-                  {topic}
-                </a>
-              ))}
-            </div>
+            <GithubChipBox topics={repo.topics} />
           </div>
           {index != repoLimit - 1 && <Divider />}
         </>
