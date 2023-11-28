@@ -14,10 +14,18 @@ export const meta: MetaFunction = () => {
   ]
 }
 
+const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> => {
+  const res = await fetch(`${baseUrl}api/strava`)
+  const data = await res.json()
+  return data as ProcessedActivityData
+}
+
 export const loader = async ({ request }: { request: Request }) => {
-  const repos = await GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
-  const res = await fetch(`${request.url}api/strava`)
-  const stravaData: ProcessedActivityData = await res.json()
+  const [repos, stravaData] = await Promise.all([
+    GitHub.listUserRepos("crvlwanek", { sort: "pushed" }),
+    getStravaData(request.url),
+  ])
+
   return { stravaData, repos }
 }
 
