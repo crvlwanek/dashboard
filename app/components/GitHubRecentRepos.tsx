@@ -18,8 +18,8 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
         <Divider />
       </div>
       {repos.slice(0, repoLimit).map((repo, index) => (
-        <>
-          <div key={repo.id} className="repoWrapper">
+        <div key={repo.id}>
+          <div className="repoWrapper">
             <div className="repoHeaderContainer">
               <a className="repoLink" href={repo.html_url}>
                 {repo.name}
@@ -44,7 +44,7 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
             <GithubChipBox topics={repo.topics} />
           </div>
           {index != repoLimit - 1 && <Divider />}
-        </>
+        </div>
       ))}
     </div>
   )

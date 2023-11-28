@@ -6,6 +6,8 @@ import { ProcessedActivityData } from "./api.strava"
 import StravaActivity from "~/components/StravaActivity"
 import { GitHub } from "~/integrations/GitHub"
 import GitHubRecentRepos from "~/components/GitHubRecentRepos"
+import polyline from "@mapbox/polyline"
+import MapBox from "~/integrations/MapBox"
 
 export const meta: MetaFunction = () => {
   return [
@@ -26,7 +28,22 @@ export const loader = async ({ request }: { request: Request }) => {
     getStravaData(request.url),
   ])
 
-  return { stravaData, repos }
+  const stravaLine = stravaData.most_recent_activity.summary_polyline
+  const geometry = polyline.toGeoJSON(stravaLine)
+  // Style spec https://github.com/mapbox/simplestyle-spec/tree/master/1.1.0
+  // Strava orange fc4c02
+  const geoJson = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: { stroke: "%23fc4c02", "stroke-width": 4 },
+        geometry,
+      },
+    ],
+  }
+  const mapboxRes = await MapBox.getStaticImageGeoJson(geoJson)
+  return { repos, stravaData, map: mapboxRes.url }
 }
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
@@ -69,6 +86,7 @@ export default function Index() {
       >
         <StravaActivity activity={data.stravaData.most_recent_activity} />
         <GitHubRecentRepos repos={data.repos} repoLimit={7} />
+        <img style={{ maxWidth: 400 }} src={data.map} />
       </div>
     </>
   )

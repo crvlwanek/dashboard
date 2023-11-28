@@ -1,5 +1,4 @@
 import { LoaderFunction, json } from "@remix-run/node"
-import MapBox from "~/integrations/MapBox"
 import Pantry from "~/integrations/Pantry"
 import Strava, {
   StravaPolylineMap,
@@ -27,7 +26,6 @@ export interface CachedStravaData extends StravaTokenData, ProcessedActivityData
   updated: number
 }
 
-const mapbox = new MapBox(process.env.MAPBOX_TOKEN)
 const strava = new Strava(process.env.STRAVA_CLIENT_ID, process.env.STRAVA_CLIENT_SECRET)
 const stravaBasket = new Pantry<CachedStravaData>(
   process.env.PANTRY_ID,

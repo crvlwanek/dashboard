@@ -1,24 +1,36 @@
+const apiKey = process.env.MAPBOX_TOKEN
+if (!apiKey) {
+  throw new Error("MapBox API key is missing")
+}
+
 export default class MapBox {
-  private _apiKey: string
+  private static readonly _urlBase = "https://api.mapbox.com/styles/v1/mapbox/"
 
-  public constructor(apiKey?: string) {
-    if (!apiKey) {
-      throw new Error("Mapbox API key not found")
-    }
-    this._apiKey = apiKey
+  private static _urlEncode(polyline: string): string {
+    return encodeURIComponent(polyline)
   }
 
-  private _urlEncode(polyline: string): string {
-    return polyline.replaceAll("?", "%3F")
+  public static async getStaticImageGeoJson(geoJson: any) {
+    const style_id = "streets-v12"
+    const overlay = `geojson(${JSON.stringify(geoJson)})`
+    const height = 600
+    const width = 800
+    const padding = "50,50,50,50"
+
+    const url = `${this._urlBase}${style_id}/static/${overlay}/auto/${width}x${height}?padding=${padding}&access_token=${apiKey}`
+
+    const response = await fetch(url)
+
+    return response
   }
 
-  public async getStaticImage(polyline: string) {
+  public static async getStaticImage(polyline: string) {
     const style_id = "streets-v12"
     const overlay = `path-2+f94c05(${this._urlEncode(polyline)})`
     const height = 400
     const width = 400
 
-    const url = `https://api.mapbox.com/styles/v1/mapbox/${style_id}/static/${overlay}/auto/${width}x${height}?access_token=${this._apiKey}`
+    const url = `${this._urlBase}${style_id}/static/${overlay}/auto/${width}x${height}?access_token=${apiKey}`
 
     const response = await fetch(url)
 
