@@ -58,6 +58,8 @@ export default function GithubChipBox({ topics }: GithubChipBoxProps) {
           <a
             key={topic}
             className="githubChip"
+            target="_blank"
+            rel="noreferrer"
             href={`https://github.com/crvlwanek?tab=repositories&q=${topic}`}
           >
             {topic}
