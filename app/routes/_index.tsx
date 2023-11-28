@@ -18,7 +18,7 @@ export const loader = async ({ request }: { request: Request }) => {
   const repos = await GitHub.listUserRepos("crvlwanek")
   const res = await fetch(`${request.url}api/strava`)
   const stravaData: ProcessedActivityData = await res.json()
-  return stravaData
+  return { stravaData, repos }
 }
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
@@ -59,8 +59,8 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <StravaActivity activity={data.most_recent_activity} />
-        <GitHubRecentRepos />
+        <StravaActivity activity={data.stravaData.most_recent_activity} />
+        <GitHubRecentRepos repos={data.repos} repoLimit={7} />
       </div>
     </>
   )

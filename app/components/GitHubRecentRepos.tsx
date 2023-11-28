@@ -1,29 +1,15 @@
-import { useEffect, useState } from "react"
 import Divider from "./Divider"
 import Icon from "./Icon"
 import { GitHub } from "~/integrations/GitHub"
 import { getRelativeTime } from "~/utilities/converters"
 import GithubChipBox from "./GithubChipBox"
 
-export default function GitHubRecentRepos() {
-  const [data, setData] = useState<GitHub.MinimalRepository[] | null>(null)
+type GitHubRecentReposProps = {
+  repos: GitHub.MinimalRepository[]
+  repoLimit: number
+}
 
-  useEffect(() => {
-    const getRepoList = async () => {
-      const repoList = await GitHub.listUserRepos("crvlwanek", {
-        sort: "pushed",
-      })
-      setData(repoList)
-    }
-    getRepoList()
-  }, [])
-
-  const repoLimit = 7
-
-  if (data === null) {
-    return <div>loading...</div>
-  }
-
+export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentReposProps) {
   return (
     <div className="card githubRepos">
       <div className="flex align-center githubHeaderContainer">
@@ -31,7 +17,7 @@ export default function GitHubRecentRepos() {
         <h3 className="githubHeader">GitHub Repos</h3>
         <Divider />
       </div>
-      {data.slice(0, repoLimit).map((repo, index) => (
+      {repos.slice(0, repoLimit).map((repo, index) => (
         <>
           <div key={repo.id} className="repoWrapper">
             <div className="repoHeaderContainer">

@@ -23,7 +23,9 @@
   --text-on-image: white;
 
   --black-alpha-100: rgba(0, 0, 0, 0.1);
+  --black-alpha-400: rgba(0, 0, 0, 0.4);
   --black-alpha-500: rgba(0, 0, 0, 0.5);
+  --black-alpha-600: rgba(0, 0, 0, 0.6);
   --black-alpha-700: rgba(0, 0, 0, 0.7);
 
   --main-font: Montserrat, sans-serif;
@@ -89,8 +91,9 @@ button {
 
 .mainHeader {
   padding: 85px 25px 25px;
-  background-image: radial-gradient(var(--black-alpha-500), var(--black-alpha-700)),
-    url(https://images.unsplash.com/photo-1531914082256-1b9047242426?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-image: radial-gradient(var(--black-alpha-400), var(--black-alpha-600)),
+    url(https://plus.unsplash.com/premium_photo-1661290409459-f06002ea077e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-size: cover;
 }
 
 .dashboardNavbar {
