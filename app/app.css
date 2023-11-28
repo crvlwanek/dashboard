@@ -241,6 +241,12 @@ button {
   font-weight: 400;
 }
 
+@media (max-width: 600px) {
+  .stravaActivity_main {
+    width: 100%;
+  }
+}
+
 .stravaActivity_main h5 {
   font-weight: inherit;
   font-size: 1.2rem;
@@ -384,6 +390,7 @@ hr.vertical {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-wrap: wrap;
 }
 
 .repoWrapper {
@@ -393,6 +400,7 @@ hr.vertical {
 .githubLabelText {
   color: var(--labelText);
   font-size: 0.85rem;
+  text-wrap: nowrap;
 }
 
 .repoLink {
@@ -405,6 +413,7 @@ hr.vertical {
 .repoDescription {
   font-size: 0.8rem;
   padding: 4px 0;
+  word-wrap: break-word;
 }
 
 .githubChipBox {

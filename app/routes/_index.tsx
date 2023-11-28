@@ -56,6 +56,7 @@ export default function Index() {
           justifyContent: "center",
           flexDirection: "column",
           gap: 10,
+          alignItems: "center",
         }}
       >
         <StravaActivity activity={data.most_recent_activity} />
