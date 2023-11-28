@@ -9,13 +9,15 @@ export default function GitHubRecentRepos() {
 
   useEffect(() => {
     const getRepoList = async () => {
-      const repoList = await GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
+      const repoList = await GitHub.listUserRepos("crvlwanek", {
+        sort: "pushed",
+      })
       setData(repoList)
     }
     getRepoList()
   }, [])
 
-  const repoLimit = 3
+  const repoLimit = 7
 
   if (data === null) {
     return <div>loading...</div>
