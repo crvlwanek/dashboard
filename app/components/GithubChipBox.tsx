@@ -1,45 +1,59 @@
-import { useCallback, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IconButton from "./IconButton"
 
 type GithubChipBoxProps = {
   topics: string[]
 }
 
-const getMaxTranslate = (ref: React.RefObject<HTMLDivElement>): number => {
-  return ref.current?.scrollWidth ?? 0 - (ref.current?.clientWidth ?? 0)
-}
-
 export default function GithubChipBox({ topics }: GithubChipBoxProps) {
+  const scrollIncrement = 200
+
   const chipBox = useRef<HTMLDivElement>(null)
-
   const [translate, setTranslate] = useState(0)
-  const scrollIncrement = 50
-  const showLeft = translate !== 0
-  const showRight = translate < getMaxTranslate(chipBox)
-  console.log(getMaxTranslate(chipBox))
-  const scrollLeft = useCallback(() => {}, [])
+  const [showLeft, setShowLeft] = useState(false)
+  const [showRight, setShowRight] = useState(false)
 
-  const scrollRight = useCallback(() => {
-    const maxTranslate = getMaxTranslate(chipBox)
-    if (translate + scrollIncrement >= maxTranslate) {
-      setTranslate(maxTranslate)
+  useEffect(() => {
+    if (!chipBox.current) {
       return
     }
-    setTranslate(prev => prev + scrollIncrement)
-  }, [])
+
+    const resizeObserver = new ResizeObserver(entries => {
+      const container = entries[0]?.target
+      if (!container) {
+        return
+      }
+      setShowLeft(translate > 0)
+      setShowRight(translate + container.clientWidth < container.scrollWidth)
+    })
+
+    resizeObserver.observe(chipBox.current)
+
+    return () => resizeObserver.disconnect()
+  }, [topics, translate])
 
   if (!topics.length) {
     return null
   }
 
   return (
-    <div className="githubChipBox" style={{ transform: `translate(${translate}px)` }}>
+    <div className="githubChipBox">
       {showLeft && (
         <div className="githubChipsLeftWrapper">
-          <IconButton className="githubChipsLeft" iconKey="chevronLeft" />
+          <IconButton
+            onClick={() => {
+              setTranslate(prev => Math.max(0, prev - scrollIncrement))
+            }}
+            className="githubChipsLeft"
+            iconKey="chevronLeft"
+          />
         </div>
       )}
-      <div ref={chipBox} className="githubChipBoxInner">
+      <div
+        ref={chipBox}
+        style={{ transform: `translateX(-${translate}px)` }}
+        className="githubChipBoxInner"
+      >
         {topics.map(topic => (
           <a
             key={topic}
@@ -52,7 +66,21 @@ export default function GithubChipBox({ topics }: GithubChipBoxProps) {
       </div>
       {showRight && (
         <div className="githubChipsRightWrapper">
-          <IconButton onClick={scrollRight} className="githubChipsRight" iconKey="chevronRight" />
+          <IconButton
+            onClick={() => {
+              setTranslate(prev => {
+                if (!chipBox.current) {
+                  return prev
+                }
+                return Math.min(
+                  prev + scrollIncrement,
+                  chipBox.current.scrollWidth - chipBox.current.clientWidth
+                )
+              })
+            }}
+            className="githubChipsRight"
+            iconKey="chevronRight"
+          />
         </div>
       )}
     </div>

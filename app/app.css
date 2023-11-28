@@ -4,6 +4,8 @@
 
   --surface: white;
   --onSurface: #1b1717;
+  --surfaceVariant: #eee;
+  --onSurfaceVariant: #1b1717;
   --hoverHighlight: black;
   --hoverHighlightAlpha: rgba(0, 0, 0, 0.1);
   --surfaceBg: #ddd;
@@ -11,6 +13,8 @@
 
   --dark-surface: #222;
   --dark-onSurface: white;
+  --dark-surfaceVariant: #333;
+  --dark-onSurfaceVariant: white;
   --dark-hoverHighlight: white;
   --dark-hoverHighlightAlpha: rgba(255, 255, 255, 0.1);
   --dark-surfaceBg: black;
@@ -28,6 +32,8 @@
 body[theme="dark"] {
   --surface: var(--dark-surface);
   --onSurface: var(--dark-onSurface);
+  --surfaceVariant: var(--dark-surfaceVariant);
+  --onSurfaceVariant: var(--dark-onSurfaceVariant);
   --hoverHighlight: var(--dark-hoverHighlight);
   --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
   --surfaceBg: var(--dark-surfaceBg);
@@ -38,6 +44,8 @@ body[theme="dark"] {
   body[theme="system"] {
     --surface: var(--dark-surface);
     --onSurface: var(--dark-onSurface);
+    --surfaceVariant: var(--dark-surfaceVariant);
+    --onSurfaceVariant: var(--dark-onSurfaceVariant);
     --hoverHighlight: var(--dark-hoverHighlight);
     --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
     --surfaceBg: var(--dark-surfaceBg);
@@ -401,20 +409,20 @@ hr.vertical {
 
 .githubChipBox {
   position: relative;
+  overflow-x: hidden;
+  margin-top: 4px;
 }
 
 .githubChipBoxInner {
   display: flex;
   gap: 4px;
-  margin-top: 4px;
-  max-width: 100%;
-  overflow-x: hidden;
+  transition: transform 200ms ease-out;
 }
 
 .githubChip {
   text-decoration: none;
-  background-color: var(--primary-main);
-  color: var(--onPrimary);
+  background-color: var(--surfaceVariant);
+  color: var(--onSurfaceVariant);
   padding: 11px 12px;
   border-radius: 20px;
   font-size: 0.7rem;
@@ -437,14 +445,26 @@ hr.vertical {
   width: fit-content;
   padding-right: 30px;
   top: 0;
+  z-index: 2;
 }
 
 .githubChipsRightWrapper {
   position: absolute;
   background-image: linear-gradient(to left, var(--surface) 60%, transparent);
-  right: 0;
-  top: 0;
   width: fit-content;
   padding-left: 30px;
+  right: 0;
+  top: 0;
+}
+
+@media (pointer: coarse) {
+  .githubChipsLeftWrapper,
+  .githubChipsRightWrapper {
+    display: none;
+  }
+
+  .githubChipBox {
+    overflow-x: scroll;
+  }
 }
 /* end GitHubRecentRepos.tsx */
