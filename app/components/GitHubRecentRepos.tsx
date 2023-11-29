@@ -28,20 +28,19 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
                 {"· updated "}
                 {getRelativeTime(repo.pushed_at)}
               </div>
-              <span className="githubLabelText">
-                <span
-                  style={{
-                    backgroundColor:
-                      GitHub.languages[repo.language as GitHub.Language]?.color ?? "",
-                  }}
-                  className="githubLanguageBubble"
-                ></span>
-                {repo.language}
-              </span>
             </div>
 
             <div className="repoDescription">{repo.description}</div>
             <GithubChipBox topics={repo.topics} />
+            <div className="githubLabelText githubLanguageWrapper">
+              <span
+                style={{
+                  backgroundColor: GitHub.languages[repo.language as GitHub.Language]?.color ?? "",
+                }}
+                className="githubLanguageBubble"
+              ></span>
+              {repo.language}
+            </div>
           </div>
           {index != repoLimit - 1 && <Divider />}
         </div>
