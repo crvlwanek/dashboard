@@ -26,7 +26,7 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
               </a>
               <div className="githubLabelText githubUpdatedAt">
                 {"· updated "}
-                {getRelativeTime(repo.updated_at)}
+                {getRelativeTime(repo.pushed_at)}
               </div>
               <span className="githubLabelText">
                 <span

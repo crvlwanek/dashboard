@@ -28,7 +28,7 @@ const generateMapUrl = (line: string): string => {
     width: 800,
     stroke: Strava.color,
     strokeWidth: 4,
-    padding: "20,0,140,0",
+    padding: "30,30,140,30",
   })
 }
 

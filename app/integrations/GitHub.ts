@@ -8,10 +8,13 @@ export namespace GitHub {
     private: boolean
     html_url: string
     description: string
+    /** Datetime string, when the repo was last updated */
     updated_at: string
     topics: string[]
     language: string
     languages_url: string
+    /** Datetime string, when the last push was */
+    pushed_at: string
   }
 
   type ListUserReposParams = {
