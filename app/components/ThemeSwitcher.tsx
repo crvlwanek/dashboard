@@ -1,36 +1,27 @@
-import useLocalStorage from "~/hooks/useLocalStorage";
-import IconButton from "./IconButton";
-import { LOCAL_STORAGE_THEME_KEY } from "~/constants";
-import { useEffect } from "react";
-import Divider from "./Divider";
-import Icon from "./Icon";
-import useToggle from "~/hooks/useToggle";
+import useLocalStorage from "~/hooks/useLocalStorage"
+import IconButton from "./IconButton"
+import { LOCAL_STORAGE_THEME_KEY } from "~/constants"
+import { useEffect, useState } from "react"
+import Divider from "./Divider"
+import Icon from "./Icon"
+import useToggle from "~/hooks/useToggle"
 
-export type ThemeSetting = "system" | "light" | "dark";
-
-const getIconKey = (theme: ThemeSetting) => {
-  if (theme === "system") {
-    return "theme";
-  }
-  if (theme === "light") {
-    return "sun";
-  }
-  return "moon";
-};
+export type ThemeSetting = "system" | "light" | "dark"
+type ThemeSwitcherIcon = "theme" | "sun" | "moon"
 
 export default function ThemeSwitcher() {
-  const [theme, setTheme] = useLocalStorage<ThemeSetting>(
-    LOCAL_STORAGE_THEME_KEY,
-    "system"
-  );
-  useEffect(() => {
-    document?.getElementById("body")?.setAttribute("theme", theme);
-  }, [theme]);
+  const [theme, setTheme] = useLocalStorage<ThemeSetting>(LOCAL_STORAGE_THEME_KEY, "system")
+  const [icon, setIcon] = useState<ThemeSwitcherIcon>("theme")
 
-  const [menuShown, toggleMenuShown] = useToggle(false);
+  useEffect(() => {
+    document?.getElementById("body")?.setAttribute("theme", theme)
+    setIcon(theme === "system" ? "theme" : theme === "light" ? "sun" : "moon")
+  }, [theme])
+
+  const [menuShown, toggleMenuShown] = useToggle(false)
   return (
     <div className="themeWrapper">
-      <IconButton iconKey={getIconKey(theme)} onClick={toggleMenuShown} />
+      <IconButton iconKey={icon} onClick={toggleMenuShown} />
       {menuShown && (
         <>
           <fieldset className="themeMenu card" id="themeMenu">
@@ -75,5 +66,5 @@ export default function ThemeSwitcher() {
         </>
       )}
     </div>
-  );
+  )
 }

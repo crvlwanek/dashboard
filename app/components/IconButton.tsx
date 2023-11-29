@@ -1,14 +1,12 @@
-import Icon, { HasIcon } from "./Icon";
-import { HasClassName, HasReactChildren } from "./commonInterfaces";
+import Icon, { HasIcon } from "./Icon"
+import { HasClassName, HasReactChildren } from "./commonInterfaces"
 
-export interface IconButtonProps
-  extends HasIcon,
-    HasReactChildren,
-    HasClassName {
-  size?: number;
-  openInNewTab?: boolean;
-  href?: string;
-  onClick?: () => void;
+export interface IconButtonProps extends HasIcon, HasReactChildren, HasClassName {
+  size?: number
+  openInNewTab?: boolean
+  href?: string
+  onClick?: () => void
+  onBlur?: () => void
 }
 
 export default function IconButton({
@@ -19,25 +17,20 @@ export default function IconButton({
   onClick,
   children,
   className,
+  onBlur,
 }: IconButtonProps) {
-  const Wrapper = ({
-    children,
-    className,
-  }: {
-    children: any;
-    className?: string;
-  }) => {
+  const Wrapper = ({ children, className }: { children: any; className?: string }) => {
     if (!href) {
-      return <button {...{ className, onClick }}>{children}</button>;
+      return <button {...{ className, onClick, onBlur }}>{children}</button>
     }
-    const args = openInNewTab ? { target: "_blank", rel: "noreferrer" } : {};
-    return <a {...{ className, href, ...args }}>{children}</a>;
-  };
+    const args = openInNewTab ? { target: "_blank", rel: "noreferrer" } : {}
+    return <a {...{ className, href, onBlur, ...args }}>{children}</a>
+  }
 
   return (
     <Wrapper className={`iconButton ${className}`}>
       <Icon {...{ iconKey, size }} />
       {children}
     </Wrapper>
-  );
+  )
 }
