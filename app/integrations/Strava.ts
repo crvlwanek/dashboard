@@ -2,6 +2,8 @@ export default class Strava {
   private _clientId: string
   private _clientSecret: string
 
+  public static readonly color = "#fc4c02"
+
   public constructor(clientId?: string, clientSecret?: string) {
     if (!clientId || !clientSecret) {
       throw new Error("Missing Strava clientId or clientSecret")

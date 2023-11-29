@@ -240,12 +240,20 @@ button {
 /* start StravaActivity.tsx */
 .stravaActivity_main {
   font-weight: 400;
+  width: 350px;
+  position: relative;
+  overflow: hidden;
 }
 
 @media (max-width: 600px) {
   .stravaActivity_main {
     width: 100%;
   }
+}
+
+.stravaShoeIcon {
+  fill: var(--labelText);
+  margin-right: 8px;
 }
 
 .stravaActivity_main h5 {
@@ -280,6 +288,16 @@ button {
 
 .strava-padding {
   padding: 8px 16px;
+}
+
+.stravaFloatingDetails {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background-image: linear-gradient(to top, var(--black-alpha-400), transparent);
+  width: calc(100% - 32px);
+  text-shadow: 0 0 10px black;
+  padding-top: 40px;
 }
 
 .stravaLogo {

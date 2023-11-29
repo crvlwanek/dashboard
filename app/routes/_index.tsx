@@ -6,8 +6,8 @@ import { ProcessedActivityData } from "./api.strava"
 import StravaActivity from "~/components/StravaActivity"
 import { GitHub } from "~/integrations/GitHub"
 import GitHubRecentRepos from "~/components/GitHubRecentRepos"
-import polyline from "@mapbox/polyline"
 import MapBox from "~/integrations/MapBox"
+import Strava from "~/integrations/Strava"
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,28 +22,24 @@ const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> =>
   return data as ProcessedActivityData
 }
 
+const generateMapUrl = (line: string): string => {
+  return MapBox.getStaticImageGeoJson(line, {
+    height: 600,
+    width: 800,
+    stroke: Strava.color,
+    strokeWidth: 4,
+    padding: "20,0,140,0",
+  })
+}
+
 export const loader = async ({ request }: { request: Request }) => {
   const [repos, stravaData] = await Promise.all([
     GitHub.listUserRepos("crvlwanek", { sort: "pushed" }),
     getStravaData(request.url),
   ])
 
-  const stravaLine = stravaData.most_recent_activity.summary_polyline
-  const geometry = polyline.toGeoJSON(stravaLine)
-  // Style spec https://github.com/mapbox/simplestyle-spec/tree/master/1.1.0
-  // Strava orange fc4c02
-  const geoJson = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: { stroke: "%23fc4c02", "stroke-width": 4 },
-        geometry,
-      },
-    ],
-  }
-  const mapboxRes = await MapBox.getStaticImageGeoJson(geoJson)
-  return { repos, stravaData, map: mapboxRes.url }
+  const mapUrl = generateMapUrl(stravaData.most_recent_activity.summary_polyline)
+  return { repos, stravaData, mapUrl }
 }
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
@@ -80,13 +76,12 @@ export default function Index() {
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
-          gap: 10,
+          gap: 20,
           alignItems: "center",
         }}
       >
-        <StravaActivity activity={data.stravaData.most_recent_activity} />
+        <StravaActivity activity={data.stravaData.most_recent_activity} mapUrl={data.mapUrl} />
         <GitHubRecentRepos repos={data.repos} repoLimit={7} />
-        <img style={{ maxWidth: 400 }} src={data.map} />
       </div>
     </>
   )
