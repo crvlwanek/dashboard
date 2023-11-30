@@ -90,7 +90,7 @@ button {
 }
 
 .mainHeader {
-  padding: 85px 25px 25px;
+  padding: 25px;
   background-image: radial-gradient(var(--black-alpha-400), var(--black-alpha-600)),
     url(https://plus.unsplash.com/premium_photo-1661290409459-f06002ea077e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-size: cover;
@@ -161,6 +161,13 @@ button {
   background: var(--surface);
   z-index: 2;
   box-shadow: var(--black-alpha-100) 0 0 4px 4px;
+  transition: background-color 200ms ease-out;
+}
+
+.navbarFloating {
+  color: white;
+  fill: white;
+  background-color: transparent;
 }
 /* end NavBar.tsx */
 
@@ -247,8 +254,6 @@ button {
 }
 
 .stravaActivityHeader {
-  display: flex;
-  justify-content: space-between;
   padding: 8px 8px 8px 16px;
 }
 
@@ -263,10 +268,17 @@ button {
   margin-right: 8px;
 }
 
+.stravaTopHeader {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .stravaViewLink {
   text-decoration: none;
   color: var(--stravaBrandColor);
   font-size: 0.8rem;
+  display: inline-block;
 }
 
 .stravaActivityMain h5 {

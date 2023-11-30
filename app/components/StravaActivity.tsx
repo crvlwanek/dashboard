@@ -34,21 +34,21 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
   return (
     <div className="card stravaActivityMain">
       <div className="stravaActivityHeader">
-        <div>
+        <div className="stravaTopHeader">
           <h5>{activity.name}</h5>
-          <div className="flex align-center">
-            <Icon iconKey="shoe" size={16} className="stravaShoeIcon" />
-            <h6 className="labelColor">{date}</h6>
-          </div>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="stravaViewLink"
+            href={Strava.activitiesUrl + activity.id.toString()}
+          >
+            View on Strava
+          </a>
         </div>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          className="stravaViewLink"
-          href={Strava.activitiesUrl + activity.id.toString()}
-        >
-          View on Strava
-        </a>
+        <div className="flex align-center">
+          <Icon iconKey="shoe" size={16} className="stravaShoeIcon" />
+          <h6 className="labelColor">{date}</h6>
+        </div>
       </div>
       <Divider />
       {/** Not really sure why but there's a bit of a gap at the bottom, so add some negative margin */}
