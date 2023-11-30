@@ -433,7 +433,7 @@ hr.vertical {
 .githubLabelText {
   color: var(--labelText);
   font-size: 0.85rem;
-  text-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .githubUpdatedAt {
@@ -472,7 +472,7 @@ hr.vertical {
   padding: 11px 12px;
   border-radius: 20px;
   font-size: 0.7rem;
-  text-wrap: nowrap;
+  white-space: nowrap;
   max-width: 100px;
   min-width: 40px;
   overflow: hidden;
