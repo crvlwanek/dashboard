@@ -17,6 +17,7 @@ export type ProcessedActivityData = {
     | "average_speed"
     | "start_date"
     | "average_heartrate"
+    | "id"
   > &
     Pick<StravaPolylineMap, "summary_polyline">
 }
@@ -48,7 +49,6 @@ const stravaBasket = new Pantry<CachedStravaData>(
  */
 export const loader: LoaderFunction = async () => {
   const data = await stravaBasket.get()
-  // const mapboxResponse = await mapbox.getStaticImage(data.most_recent_activity.summary_polyline)
   if (data.updated > Date.now() - 1000 * 60 * 5) {
     return createResponse(data)
   }
@@ -76,7 +76,7 @@ export const loader: LoaderFunction = async () => {
 
 const processActivityData = (activities: StravaSummaryActivity[], data: CachedStravaData) => {
   const mostRecentActivity = activities[0]
-  const { name, distance, moving_time, type, average_speed, start_date, average_heartrate } =
+  const { name, distance, moving_time, type, average_speed, start_date, average_heartrate, id } =
     mostRecentActivity
   const { summary_polyline } = mostRecentActivity.map
   data.most_recent_activity = {
@@ -88,6 +88,7 @@ const processActivityData = (activities: StravaSummaryActivity[], data: CachedSt
     start_date,
     summary_polyline,
     average_heartrate,
+    id,
   }
   data.updated = Date.now()
 }

@@ -8,6 +8,7 @@ import {
 import PoweredByStrava from "../svg/PoweredByStrava"
 import Divider from "./Divider"
 import Icon from "./Icon"
+import Strava from "~/integrations/Strava"
 
 export interface StravaActivityProps {
   activity: ProcessedActivityData["most_recent_activity"]
@@ -31,18 +32,31 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
   )} /mi`
   const movingTime = formatTimeDuration(secondsToDuration(activity.moving_time), "letter")
   return (
-    <div className="card stravaActivity_main">
-      <div className="stravaActivityHeader strava-padding">
-        <h5>{activity.name}</h5>
-        <div className="flex align-center">
-          <Icon iconKey="shoe" size={16} className="stravaShoeIcon" />
-          <h6 className="labelColor">{date}</h6>
+    <div className="card stravaActivityMain">
+      <div className="stravaActivityHeader">
+        <div>
+          <h5>{activity.name}</h5>
+          <div className="flex align-center">
+            <Icon iconKey="shoe" size={16} className="stravaShoeIcon" />
+            <h6 className="labelColor">{date}</h6>
+          </div>
         </div>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          className="stravaViewLink"
+          href={Strava.activitiesUrl + activity.id.toString()}
+        >
+          View on Strava
+        </a>
       </div>
       <Divider />
       {/** Not really sure why but there's a bit of a gap at the bottom, so add some negative margin */}
-      {mapUrl && <img style={{ maxWidth: "100%", marginBottom: -4 }} src={mapUrl} />}
-      <div className="stravaActivityDetails strava-padding stravaFloatingDetails">
+      <div className="stravaMapContainer">
+        {mapUrl && <img style={{ maxWidth: "100%", marginBottom: -4 }} src={mapUrl} />}
+        <PoweredByStrava className="stravaLogo" />
+      </div>
+      <div className="stravaActivityDetails stravaFloatingDetails">
         <div>
           <h6>Distance</h6>
           <h5>{distance}</h5>

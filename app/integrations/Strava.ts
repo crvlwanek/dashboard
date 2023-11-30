@@ -3,6 +3,7 @@ export default class Strava {
   private _clientSecret: string
 
   public static readonly color = "#fc4c02"
+  public static readonly activitiesUrl = "https://www.strava.com/activities/"
 
   public constructor(clientId?: string, clientSecret?: string) {
     if (!clientId || !clientSecret) {
