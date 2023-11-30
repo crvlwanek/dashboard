@@ -25,7 +25,7 @@ export default function NavBar({ className, children }: NavBarProps) {
   return (
     <>
       <div id="topIntersecting" />
-      <header ref={ref} className={`navbar ${className}`}>
+      <header ref={ref} className={`navbar navbarFloating ${className}`}>
         {children}
       </header>
     </>

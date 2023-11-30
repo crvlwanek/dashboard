@@ -28,7 +28,7 @@ export default function App() {
         if (!nameBox.current) {
           return
         }
-        nameBox.current.classList.toggle("navbarNameBoxHidden", entry.isIntersecting)
+        nameBox.current.classList.toggle("navbarNameBoxShowing", !entry.isIntersecting)
       })
     })
 
