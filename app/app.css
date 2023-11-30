@@ -56,7 +56,8 @@ body[theme="dark"] {
 }
 
 /* prettier-ignore */
-h1, h2, h3, h4, h5, h6, p, div, body, hr, header, fieldset {
+h1, h2, h3, h4, h5, h6, p, div, body, hr, header, fieldset, body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -70,6 +71,8 @@ body {
   transition: color 200ms linear;
   transition: fill 200ms linear;
   transition: background-color 200ms linear;
+
+  box-sizing: border-box;
 }
 
 img {
@@ -98,7 +101,32 @@ button {
 
 .dashboardNavbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navbarNameBox {
+  line-height: 1.6;
+  margin-left: 8px;
+  transform: translate(0, 0);
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.navbarNameBoxHidden {
+  transform: translate(0, -50px);
+}
+
+.navbarName {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.009rem;
+}
+
+.navbarJobTitle {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.006rem;
 }
 
 .musicIcon {
@@ -168,6 +196,7 @@ button {
   color: white;
   fill: white;
   background-color: transparent;
+  box-shadow: none;
 }
 /* end NavBar.tsx */
 
@@ -321,7 +350,7 @@ button {
   bottom: 0;
   color: white;
   background-image: linear-gradient(to top, var(--black-alpha-400), transparent);
-  width: calc(100% - 32px);
+  width: 100%;
   text-shadow: 0 0 10px black;
   padding-top: 40px;
 }
@@ -357,7 +386,6 @@ hr.vertical {
 .themeWrapper {
   position: relative;
   place-self: center;
-  margin-right: 16px;
 }
 
 .themeMenu {
@@ -454,7 +482,7 @@ hr.vertical {
 
 .repoLink {
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 500;
   color: var(--primary-main);
   font-size: 1rem;
 }

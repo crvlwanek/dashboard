@@ -49,7 +49,7 @@ export default function Index() {
 
   return (
     <>
-      <div className="flex align-center justify-center mainHeader">
+      <div id="mainHeader" className="flex align-center justify-center mainHeader">
         <div style={{ position: "relative" }}>
           <Avatar className="chrisAvatar" size={125} src={avatarImage} />
           <img src="https://i.imgur.com/GHLcHKH.png" className="musicIcon" />
