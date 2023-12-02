@@ -6,6 +6,7 @@ import appCssHref from "./app.css"
 import NavBar from "./components/NavBar"
 import ThemeSwitcher from "./components/ThemeSwitcher"
 import { useEffect, useRef } from "react"
+import MusicLogo from "./svg/MusicLogo"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -49,8 +50,11 @@ export default function App() {
       <body id="body">
         <NavBar className="dashboardNavbar">
           <div ref={nameBox} className="navbarNameBox">
-            <h6 className="navbarName">Chris Van Lanen-Wanek</h6>
-            <h6 className="navbarJobTitle">Software Engineer | Web Developer</h6>
+            <MusicLogo className="musicIconNavbar" />
+            <div style={{ marginRight: 8 }}>
+              <h6 className="navbarName">Chris Van Lanen-Wanek</h6>
+              <h6 className="navbarJobTitle">Software Engineer | Web Developer</h6>
+            </div>
           </div>
           <ThemeSwitcher />
         </NavBar>
