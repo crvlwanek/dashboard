@@ -394,6 +394,7 @@ hr.vertical {
   top: 20px;
   border: none;
   color: var(--onSurface);
+  fill: var(--onSurface);
   font-family: var(--main-font);
   overflow: hidden;
   z-index: 10;
