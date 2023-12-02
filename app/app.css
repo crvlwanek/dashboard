@@ -179,12 +179,12 @@ button {
   filter: drop-shadow(0 0 50px #40fffa);
 }
 
-#musicLogo-angleBracketLeft,
-#musicLogo-angleBracketRight {
+.animate #musicLogo-angleBracketLeft,
+.animate #musicLogo-angleBracketRight {
   animation-delay: 200ms;
 }
 
-#musicLogo-forwardSlash {
+.animate #musicLogo-forwardSlash {
   animation-delay: 100ms;
 }
 
