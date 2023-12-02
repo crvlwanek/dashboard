@@ -51,7 +51,7 @@ export default function App() {
         <NavBar className="dashboardNavbar">
           <div ref={nameBox} className="navbarNameBox">
             <MusicLogo className="musicIconNavbar" />
-            <div style={{ marginRight: 8 }}>
+            <div style={{ marginLeft: 8 }}>
               <h6 className="navbarName">Chris Van Lanen-Wanek</h6>
               <h6 className="navbarJobTitle">Software Engineer | Web Developer</h6>
             </div>
