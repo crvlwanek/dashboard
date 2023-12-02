@@ -1,7 +1,7 @@
 import useLocalStorage from "~/hooks/useLocalStorage"
 import IconButton from "./IconButton"
 import { LOCAL_STORAGE_THEME_KEY } from "~/constants"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Divider from "./Divider"
 import Icon from "./Icon"
 import useToggle from "~/hooks/useToggle"
@@ -12,13 +12,18 @@ type ThemeSwitcherIcon = "theme" | "sun" | "moon"
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useLocalStorage<ThemeSetting>(LOCAL_STORAGE_THEME_KEY, "system")
   const [icon, setIcon] = useState<ThemeSwitcherIcon>("theme")
+  const [menuShown, toggleMenuShown] = useToggle(false)
 
   useEffect(() => {
     document?.getElementById("body")?.setAttribute("theme", theme)
     setIcon(theme === "system" ? "theme" : theme === "light" ? "sun" : "moon")
   }, [theme])
 
-  const [menuShown, toggleMenuShown] = useToggle(false)
+  const selectTheme = useCallback((theme: ThemeSetting) => {
+    setTheme(theme)
+    toggleMenuShown()
+  }, [])
+
   return (
     <div className="themeWrapper">
       <IconButton iconKey={icon} onClick={toggleMenuShown} />
@@ -29,7 +34,7 @@ export default function ThemeSwitcher() {
             <label className="themeMenuOption">
               <input
                 name="theme"
-                onClick={() => setTheme("system")}
+                onClick={() => selectTheme("system")}
                 type="radio"
                 className="themeInput"
                 checked={theme === "system"}
@@ -41,7 +46,7 @@ export default function ThemeSwitcher() {
             <label className="themeMenuOption">
               <input
                 name="theme"
-                onClick={() => setTheme("light")}
+                onClick={() => selectTheme("light")}
                 type="radio"
                 className="themeInput"
                 checked={theme === "light"}
@@ -53,7 +58,7 @@ export default function ThemeSwitcher() {
             <label className="themeMenuOption">
               <input
                 name="theme"
-                onClick={() => setTheme("dark")}
+                onClick={() => selectTheme("dark")}
                 type="radio"
                 className="themeInput"
                 checked={theme === "dark"}
