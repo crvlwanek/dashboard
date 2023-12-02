@@ -8,6 +8,7 @@ import { GitHub } from "~/integrations/GitHub"
 import GitHubRecentRepos from "~/components/GitHubRecentRepos"
 import MapBox from "~/integrations/MapBox"
 import Strava from "~/integrations/Strava"
+import MusicLogo from "~/svg/MusicLogo"
 
 export const meta: MetaFunction = () => {
   return [
@@ -52,7 +53,8 @@ export default function Index() {
       <div id="mainHeader" className="flex align-center justify-center mainHeader">
         <div style={{ position: "relative" }}>
           <Avatar className="chrisAvatar" size={125} src={avatarImage} />
-          <img src="https://i.imgur.com/GHLcHKH.png" className="musicIcon" />
+          <div className="chrisAvatarBorder"></div>
+          <MusicLogo className="musicIcon animate" />
         </div>
         <div className="detailBox onImage">
           <div className="header--container">

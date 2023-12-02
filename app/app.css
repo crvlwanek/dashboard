@@ -129,13 +129,63 @@ button {
   letter-spacing: 0.006rem;
 }
 
+.chrisAvatar {
+  z-index: 2;
+  position: relative;
+}
+
+.chrisAvatarBorder {
+  content: "";
+  height: 125px;
+  width: 125px;
+  margin: 5px;
+  position: absolute;
+  inset: 0;
+  border-radius: 100%;
+  background-image: conic-gradient(#b6fffa, #ffa1f5, #bc7af9, white, #b6fffa);
+  filter: blur(15px);
+  animation: rotate 2000ms linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .musicIcon {
   height: 100px;
   width: 100px;
   position: absolute;
   bottom: -20px;
   left: -20px;
-  filter: drop-shadow(2px 2px 2px black);
+  filter: drop-shadow(0 0 4px black);
+  z-index: 2;
+  fill: #40fffa;
+  overflow: visible;
+}
+
+@keyframes floating {
+  50% {
+    transform: translateY(-60px);
+  }
+}
+
+.animate #musicLogo-group > * {
+  animation: floating 2500ms cubic-bezier(0.52, 0, 0.6, 0.99) infinite;
+  filter: drop-shadow(0 0 50px #40fffa);
+}
+
+#musicLogo-angleBracketLeft,
+#musicLogo-angleBracketRight {
+  animation-delay: 200ms;
+}
+
+#musicLogo-forwardSlash {
+  animation-delay: 100ms;
 }
 
 .flex {
@@ -187,7 +237,7 @@ button {
   width: 100%;
   position: fixed;
   background: var(--surface);
-  z-index: 2;
+  z-index: 5;
   box-shadow: var(--black-alpha-100) 0 0 4px 4px;
   transition: background-color 200ms ease-out;
 }
