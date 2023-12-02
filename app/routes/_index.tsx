@@ -55,6 +55,7 @@ export default function Index() {
           <Avatar className="chrisAvatar" size={125} src={avatarImage} />
           <div className="chrisAvatarBorder"></div>
           <MusicLogo className="musicIcon animate" />
+          <MusicLogo className="musicIcon animate blur" />
         </div>
         <div className="detailBox onImage">
           <div className="header--container">
