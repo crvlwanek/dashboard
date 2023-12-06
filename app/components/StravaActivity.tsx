@@ -9,6 +9,7 @@ import PoweredByStrava from "../svg/PoweredByStrava"
 import Divider from "./Divider"
 import Icon from "./Icon"
 import Strava from "~/integrations/Strava"
+import { DateTime } from "~/utilities/DateTime"
 
 export interface StravaActivityProps {
   activity: ProcessedActivityData["most_recent_activity"]
@@ -16,17 +17,9 @@ export interface StravaActivityProps {
 }
 
 const formatDateTime = (dateString: string) => {
-  const date = new Date(dateString)
-  const today = new Date(Date.now())
-  const yesterday = new Date(Date.now())
-  today.setHours(0, 0, 0, 0)
-  yesterday.setDate(yesterday.getDate() - 1)
-  yesterday.setHours(0, 0, 0, 0)
-  date.setHours(0, 0, 0, 0)
-
-  console.log("yesterday", yesterday)
-  console.log("today", today)
-  console.log("date", date)
+  const date = DateTime.setMidnight(new Date(dateString))
+  const today = DateTime.today()
+  const yesterday = DateTime.yesterday()
 
   const isToday = date.toDateString() === today.toDateString()
   const isYesterday = date.toDateString() === yesterday.toDateString()
