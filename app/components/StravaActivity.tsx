@@ -15,16 +15,40 @@ export interface StravaActivityProps {
   mapUrl?: string
 }
 
+const formatDateTime = (dateString: string) => {
+  const date = new Date(dateString)
+  const today = new Date(Date.now())
+  const yesterday = new Date(Date.now())
+  today.setHours(0, 0, 0, 0)
+  yesterday.setDate(yesterday.getDate() - 1)
+  yesterday.setHours(0, 0, 0, 0)
+  date.setHours(0, 0, 0, 0)
+
+  console.log("yesterday", yesterday)
+  console.log("today", today)
+  console.log("date", date)
+
+  const isToday = date.toDateString() === today.toDateString()
+  const isYesterday = date.toDateString() === yesterday.toDateString()
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" })
+  const relativeDay = isToday ? rtf.format(0, "day") : isYesterday ? rtf.format(-1, "day") : ""
+
+  return (
+    (relativeDay ? relativeDay.charAt(0).toUpperCase() + relativeDay.slice(1) + " at " : "") +
+    new Intl.DateTimeFormat("en-US", {
+      dateStyle: isToday || isYesterday ? undefined : "long",
+      timeStyle: "short",
+    }).format(new Date(dateString))
+  )
+}
+
 export default function StravaActivity({ activity, mapUrl }: StravaActivityProps) {
   if (!activity) {
     // Fail case if we weren't able to get data from Strava
     return <div>Oops, Strava didn't load correctly</div>
   }
   // TODO: If it was yesterday, write "Yesterday" instead
-  const date = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "long",
-    timeStyle: "short",
-  }).format(new Date(activity.start_date))
+  const date = formatDateTime(activity.start_date)
   const distance = `${metersToMiles(activity.distance)} mi`
   const pace = `${formatTimeDuration(
     secondsToDuration(metersPerSecondToSecondsPerMile(activity.average_speed)),
