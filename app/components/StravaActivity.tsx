@@ -16,32 +16,12 @@ export interface StravaActivityProps {
   mapUrl?: string
 }
 
-const formatDateTime = (dateString: string) => {
-  const date = DateTime.setMidnight(new Date(dateString))
-  const today = DateTime.today()
-  const yesterday = DateTime.yesterday()
-
-  const isToday = date.toDateString() === today.toDateString()
-  const isYesterday = date.toDateString() === yesterday.toDateString()
-  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" })
-  const relativeDay = isToday ? rtf.format(0, "day") : isYesterday ? rtf.format(-1, "day") : ""
-
-  return (
-    (relativeDay ? relativeDay.charAt(0).toUpperCase() + relativeDay.slice(1) + " at " : "") +
-    new Intl.DateTimeFormat("en-US", {
-      dateStyle: isToday || isYesterday ? undefined : "long",
-      timeStyle: "short",
-    }).format(new Date(dateString))
-  )
-}
-
 export default function StravaActivity({ activity, mapUrl }: StravaActivityProps) {
   if (!activity) {
     // Fail case if we weren't able to get data from Strava
     return <div>Oops, Strava didn't load correctly</div>
   }
-  // TODO: If it was yesterday, write "Yesterday" instead
-  const date = formatDateTime(activity.start_date)
+  const date = DateTime.formatDateTimeFull(new Date(activity.start_date))
   const distance = `${metersToMiles(activity.distance)} mi`
   const pace = `${formatTimeDuration(
     secondsToDuration(metersPerSecondToSecondsPerMile(activity.average_speed)),

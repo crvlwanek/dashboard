@@ -78,3 +78,7 @@ export function getRelativeTime(datetime: string): string {
   const unit = units[index]
   return new Intl.RelativeTimeFormat("en-us", { numeric: "auto" }).format(value, unit)
 }
+
+export const capitalize = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
