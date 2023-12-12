@@ -3,6 +3,11 @@ import { capitalize } from "./converters"
 export class DateTime {
   private static _oneDayMilliseconds: number = 86_400_000
 
+  public static yesterday({ midnight } = { midnight: true }): Date {
+    const date = new Date(Date.now() - this._oneDayMilliseconds)
+    return midnight ? this.setMidnight(date) : date
+  }
+
   public static today({ midnight } = { midnight: true }): Date {
     const date = new Date()
     return midnight ? this.setMidnight(date) : date
@@ -10,11 +15,6 @@ export class DateTime {
 
   public static tomorrow({ midnight } = { midnight: true }): Date {
     const date = new Date(Date.now() + this._oneDayMilliseconds)
-    return midnight ? this.setMidnight(date) : date
-  }
-
-  public static yesterday({ midnight } = { midnight: true }): Date {
-    const date = new Date(Date.now() - this._oneDayMilliseconds)
     return midnight ? this.setMidnight(date) : date
   }
 

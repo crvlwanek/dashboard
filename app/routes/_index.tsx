@@ -23,24 +23,13 @@ const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> =>
   return data as ProcessedActivityData
 }
 
-const generateMapUrl = (line: string): string => {
-  return MapBox.getStaticImageGeoJson(line, {
-    height: 600,
-    width: 800,
-    stroke: Strava.color,
-    strokeWidth: 4,
-    padding: "30,30,140,30",
-  })
-}
-
 export const loader = async ({ request }: { request: Request }) => {
   const [repos, stravaData] = await Promise.all([
     GitHub.listUserRepos("crvlwanek", { sort: "pushed" }),
     getStravaData(request.url),
   ])
 
-  const mapUrl = generateMapUrl(stravaData.most_recent_activity.summary_polyline)
-  return { repos, stravaData, mapUrl }
+  return { repos, stravaData }
 }
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
@@ -83,7 +72,7 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <StravaActivity activity={data.stravaData.most_recent_activity} mapUrl={data.mapUrl} />
+        <StravaActivity activity={data.stravaData.most_recent_activity} />
         <GitHubRecentRepos repos={data.repos} repoLimit={7} />
       </div>
     </>

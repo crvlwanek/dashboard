@@ -10,13 +10,23 @@ import Divider from "./Divider"
 import Icon from "./Icon"
 import Strava from "~/integrations/Strava"
 import { DateTime } from "~/utilities/DateTime"
+import MapBox from "~/integrations/MapBox"
+
+const generateMapUrl = (line: string): string => {
+  return MapBox.getStaticImageGeoJson(line, {
+    height: 600,
+    width: 800,
+    stroke: Strava.color,
+    strokeWidth: 4,
+    padding: "30,30,140,30",
+  })
+}
 
 export interface StravaActivityProps {
   activity: ProcessedActivityData["most_recent_activity"]
-  mapUrl?: string
 }
 
-export default function StravaActivity({ activity, mapUrl }: StravaActivityProps) {
+export default function StravaActivity({ activity }: StravaActivityProps) {
   if (!activity) {
     // Fail case if we weren't able to get data from Strava
     return <div>Oops, Strava didn't load correctly</div>
@@ -28,6 +38,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
     "colon"
   )} /mi`
   const movingTime = formatTimeDuration(secondsToDuration(activity.moving_time), "letter")
+  const mapUrl = generateMapUrl(activity.summary_polyline)
   return (
     <div className="card stravaActivityMain">
       <div className="stravaActivityHeader">
