@@ -50,7 +50,10 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
       <Divider />
       {/** Not really sure why but there's a bit of a gap at the bottom, so add some negative margin */}
       <div className="stravaMapContainer">
-        {mapUrl && <img style={{ maxWidth: "100%", marginBottom: -4 }} src={mapUrl} />}
+        {mapUrl && (
+          <img style={{ maxWidth: "100%", marginBottom: -4, position: "absolute" }} src={mapUrl} />
+        )}
+        <div style={{ background: "#aaa", maxWidth: "100%", aspectRatio: "8 / 6" }} />
         <PoweredByStrava className="stravaLogo" />
       </div>
       <div className="stravaActivityDetails stravaFloatingDetails">
