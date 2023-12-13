@@ -103,13 +103,13 @@ button {
 }
 
 .hamburgerHeaderBox {
-  padding: 0 16px 16px 16px;
+  padding: 16px;
 }
 
-.hamburgerCloseIcon {
-  display: block;
-  margin: 4px;
-  margin-left: auto;
+button.hamburgerCloseIcon {
+  position: absolute;
+  right: 4px;
+  top: 4px;
 }
 
 .onImage {
