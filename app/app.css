@@ -57,7 +57,7 @@ body[theme="dark"] {
 }
 
 /* prettier-ignore */
-h1, h2, h3, h4, h5, h6, p, div, body, hr, header, fieldset, body {
+h1, h2, h3, h4, h5, h6, p, div, body, hr, header, fieldset, body, button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -81,8 +81,6 @@ img {
 }
 
 button {
-  padding: 0;
-  margin: 0;
   outline: none;
 }
 
