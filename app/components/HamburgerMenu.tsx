@@ -14,9 +14,7 @@ export default function HamburgerMenu() {
         <IconButton iconKey="close" onClick={toggleMenuOpen} className="hamburgerCloseIcon" />
         <div className="hamburgerHeaderBox">
           <Avatar src={avatarImage} />
-          <h2 className="navbarName" style={{ marginBlock: 6 }}>
-            Chris Van Lanen-Wanek
-          </h2>
+          <h2 className="navbarName">Chris Van Lanen-Wanek</h2>
           <h3 className="navbarJobTitle">Software Engineer | Web Developer</h3>
         </div>
         <Divider />
