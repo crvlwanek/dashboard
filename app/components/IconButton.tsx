@@ -1,3 +1,4 @@
+import { HTMLAttributes } from "react"
 import Icon, { HasIcon } from "./Icon"
 import { HasClassName, HasReactChildren } from "./commonInterfaces"
 

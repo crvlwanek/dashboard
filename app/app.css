@@ -84,6 +84,34 @@ button {
   outline: none;
 }
 
+.hamburgerMenu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  min-width: 150px;
+  background-color: var(--surface);
+  color: var(--onSurface);
+  fill: var(--onSurface);
+  transform: translateX(-100%);
+  z-index: 10;
+  transition: transform 200ms ease-in-out;
+}
+
+.menuOpen {
+  transform: translateX(0);
+}
+
+.hamburgerHeaderBox {
+  padding: 0 16px 16px 16px;
+}
+
+.hamburgerCloseIcon {
+  display: block;
+  margin: 4px;
+  margin-left: auto;
+}
+
 .onImage {
   --hoverHighlight: white;
   color: var(--text-on-image);
@@ -111,6 +139,13 @@ button {
   transform: translate(0, -50px);
   transition: transform 500ms cubic-bezier(0.77, -0.58, 0.3, 1.47);
   display: flex;
+  margin-right: auto;
+}
+
+@media (max-width: 600px) {
+  .navbarNameBox {
+    margin: 0;
+  }
 }
 
 .navbarNameBoxShowing {

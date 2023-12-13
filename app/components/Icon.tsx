@@ -12,6 +12,7 @@ import ThemeIcon from "~/svg/ThemeIcon"
 import YouTubeIcon from "~/svg/YouTubeIcon"
 import { HasClassName } from "./commonInterfaces"
 import HamburgerIcon from "~/svg/HamburgerIcon"
+import CloseIcon from "~/svg/CloseIcon"
 
 const iconKeys = {
   facebook: FacebookIcon,
@@ -27,6 +28,7 @@ const iconKeys = {
   chevronLeft: ChevronLeftIcon,
   shoe: ShoeIcon,
   hamburger: HamburgerIcon,
+  close: CloseIcon,
 }
 
 export type IconKey = keyof typeof iconKeys
