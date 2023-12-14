@@ -136,6 +136,11 @@ button.hamburgerCloseIcon {
   background-color: var(--hoverHighlightAlpha);
 }
 
+.hamburgerMenuLink.selected {
+  color: blue;
+  fill: blue;
+}
+
 .onImage {
   --hoverHighlight: white;
   color: var(--text-on-image);

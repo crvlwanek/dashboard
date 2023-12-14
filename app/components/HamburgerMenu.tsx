@@ -3,7 +3,7 @@ import IconButton from "./IconButton"
 import Divider from "./Divider"
 import Avatar from "./Avatar"
 import { useCallback } from "react"
-import { Link } from "@remix-run/react"
+import { Link, useLocation } from "@remix-run/react"
 import Icon from "./Icon"
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
@@ -19,6 +19,9 @@ export default function HamburgerMenu() {
     }
     toggleMenuOpen()
   }, [menuOpen])
+
+  const location = useLocation()
+  console.log(location)
   return (
     <>
       <IconButton iconKey="hamburger" onClick={toggleMenu} />
@@ -33,13 +36,21 @@ export default function HamburgerMenu() {
         <nav className="hamburgerNav">
           <ul>
             <li>
-              <Link className="hamburgerMenuLink" to="/">
+              <Link
+                className={`hamburgerMenuLink ${location.pathname === "/" ? "selected" : ""}`}
+                to="/"
+              >
                 <Icon iconKey="home" />
                 Home
               </Link>
             </li>
             <li>
-              <Link className="hamburgerMenuLink" to="/about-me">
+              <Link
+                className={`hamburgerMenuLink ${
+                  location.pathname === "/about-me" ? "selected" : ""
+                }`}
+                to="/about-me"
+              >
                 About Me
               </Link>
             </li>
