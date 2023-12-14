@@ -1,7 +1,7 @@
 export interface DividerProps {
-  vertical?: boolean;
+  vertical?: boolean
 }
 
 export default function Divider({ vertical }: DividerProps) {
-  return <hr className={vertical ? "vertical" : ""} />;
+  return <hr className={vertical ? "vertical" : ""} />
 }

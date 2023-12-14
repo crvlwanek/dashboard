@@ -57,7 +57,7 @@ body[theme="dark"] {
 }
 
 /* prettier-ignore */
-h1, h2, h3, h4, h5, h6, p, div, body, hr, header, fieldset, body, button {
+h1, h2, h3, h4, h5, h6, p, div, body, hr, header, fieldset, body, button, ul, li {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -117,6 +117,23 @@ button.hamburgerCloseIcon {
   position: absolute;
   right: 4px;
   top: 4px;
+}
+
+.hamburgerNav li {
+  list-style: none;
+}
+
+.hamburgerMenuLink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  color: var(--onSurface);
+}
+
+.hamburgerMenuLink:hover {
+  background-color: var(--hoverHighlightAlpha);
 }
 
 .onImage {

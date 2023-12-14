@@ -3,6 +3,8 @@ import IconButton from "./IconButton"
 import Divider from "./Divider"
 import Avatar from "./Avatar"
 import { useCallback } from "react"
+import { Link } from "@remix-run/react"
+import Icon from "./Icon"
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
 
@@ -28,10 +30,18 @@ export default function HamburgerMenu() {
           <h3 className="navbarJobTitle">Software Engineer | Web Developer</h3>
         </div>
         <Divider />
-        <nav>
+        <nav className="hamburgerNav">
           <ul>
             <li>
-              <a>About Me</a>
+              <Link className="hamburgerMenuLink" to="/">
+                <Icon iconKey="home" />
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link className="hamburgerMenuLink" to="/about-me">
+                About Me
+              </Link>
             </li>
           </ul>
         </nav>
