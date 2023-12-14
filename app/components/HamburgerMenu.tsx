@@ -21,7 +21,6 @@ export default function HamburgerMenu() {
   }, [menuOpen])
 
   const location = useLocation()
-  console.log(location)
   return (
     <>
       <IconButton iconKey="hamburger" onClick={toggleMenu} />
