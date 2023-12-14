@@ -5,8 +5,30 @@ import Avatar from "./Avatar"
 import { useCallback } from "react"
 import { Link, useLocation } from "@remix-run/react"
 import Icon from "./Icon"
+import { HasReactChildren } from "./commonInterfaces"
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
+
+type MenuItemProps = {
+  to: string
+  onClick?: () => void
+} & HasReactChildren
+
+const MenuItem = ({ to, onClick, children }: MenuItemProps) => {
+  const location = useLocation()
+
+  return (
+    <li>
+      <Link
+        className={`hamburgerMenuLink ${location.pathname === to ? "selected" : ""}`}
+        to={to}
+        onClick={onClick}
+      >
+        {children}
+      </Link>
+    </li>
+  )
+}
 
 export default function HamburgerMenu() {
   const [menuOpen, toggleMenuOpen] = useToggle(false)
@@ -20,7 +42,6 @@ export default function HamburgerMenu() {
     toggleMenuOpen()
   }, [menuOpen])
 
-  const location = useLocation()
   return (
     <>
       <IconButton iconKey="hamburger" onClick={toggleMenu} />
@@ -34,25 +55,13 @@ export default function HamburgerMenu() {
         <Divider />
         <nav className="hamburgerNav">
           <ul>
-            <li>
-              <Link
-                className={`hamburgerMenuLink ${location.pathname === "/" ? "selected" : ""}`}
-                to="/"
-              >
-                <Icon iconKey="home" />
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={`hamburgerMenuLink ${
-                  location.pathname === "/about-me" ? "selected" : ""
-                }`}
-                to="/about-me"
-              >
-                About Me
-              </Link>
-            </li>
+            <MenuItem to="/" onClick={toggleMenu}>
+              <Icon iconKey="home" />
+              Home
+            </MenuItem>
+            <MenuItem to="about-me" onClick={toggleMenu}>
+              About Me
+            </MenuItem>
           </ul>
         </nav>
       </div>
