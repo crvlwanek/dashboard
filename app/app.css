@@ -9,6 +9,7 @@
   --onSurfaceVariant: #1b1717;
   --hoverHighlight: black;
   --hoverHighlightAlpha: rgba(0, 0, 0, 0.1);
+  --hoverHighlightAlpha200: rgba(0, 0, 0, 0.2);
   --surfaceBg: #ddd;
   --labelText: #999;
 
@@ -18,6 +19,7 @@
   --dark-onSurfaceVariant: white;
   --dark-hoverHighlight: white;
   --dark-hoverHighlightAlpha: rgba(255, 255, 255, 0.1);
+  --dark-hoverHighlightAlpha200: rgba(255, 255, 255, 0.2);
   --dark-surfaceBg: black;
   --dark-labelText: #777;
 
@@ -39,6 +41,7 @@ body[theme="dark"] {
   --onSurfaceVariant: var(--dark-onSurfaceVariant);
   --hoverHighlight: var(--dark-hoverHighlight);
   --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
+  --hoverHighlightAlpha200: var(--dark-hoverHighlightAlpha200);
   --surfaceBg: var(--dark-surfaceBg);
   --labelText: var(--dark-labelText);
 }
@@ -51,6 +54,7 @@ body[theme="dark"] {
     --onSurfaceVariant: var(--dark-onSurfaceVariant);
     --hoverHighlight: var(--dark-hoverHighlight);
     --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
+    --hoverHighlightAlpha200: var(--dark-hoverHighlightAlpha200);
     --surfaceBg: var(--dark-surfaceBg);
     --labelText: var(--dark-labelText);
   }
@@ -139,6 +143,27 @@ button.hamburgerCloseIcon {
 .hamburgerMenuLink.selected {
   color: blue;
   fill: blue;
+}
+
+.skeleton {
+  background: linear-gradient(
+    to right,
+    var(--hoverHighlightAlpha) 8%,
+    var(--hoverHighlightAlpha200) 18%,
+    var(--hoverHighlightAlpha) 33%
+  );
+  background-size: 1200px 100%;
+  animation: skeletonShimmer 2.2s linear infinite forwards;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+
+  100% {
+    background-position: 1200px 0;
+  }
 }
 
 .onImage {
@@ -451,6 +476,11 @@ button.hamburgerCloseIcon {
 
 .stravaMapContainer {
   position: relative;
+}
+
+.stravaMapLoadingBackground {
+  max-width: 100%;
+  aspect-ratio: 8 / 6;
 }
 
 .labelColor {

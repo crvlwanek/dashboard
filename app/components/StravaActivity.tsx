@@ -53,7 +53,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
         {mapUrl && (
           <img style={{ maxWidth: "100%", marginBottom: -4, position: "absolute" }} src={mapUrl} />
         )}
-        <div style={{ background: "#aaa", maxWidth: "100%", aspectRatio: "8 / 6" }} />
+        <div className="skeleton stravaMapLoadingBackground" />
         <PoweredByStrava className="stravaLogo" />
       </div>
       <div className="stravaActivityDetails stravaFloatingDetails">

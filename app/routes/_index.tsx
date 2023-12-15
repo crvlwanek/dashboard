@@ -10,6 +10,7 @@ import GitHubRecentRepos from "~/components/GitHubRecentRepos"
 import MusicLogo from "~/svg/MusicLogo"
 import MapBox from "~/integrations/MapBox"
 import Strava from "~/integrations/Strava"
+import StravaSkeleton from "~/components/StravaSkeleton"
 
 export const meta: MetaFunction = () => {
   return [
@@ -91,7 +92,7 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<StravaSkeleton />}>
           <Await resolve={activities}>
             {activities => (
               <StravaActivity
