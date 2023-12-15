@@ -592,6 +592,7 @@ hr.vertical {
 /* start GitHubRecentRepos.tsx */
 .githubRepos {
   max-width: 100%;
+  width: 100%;
 }
 
 .githubHeaderContainer {

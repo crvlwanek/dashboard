@@ -14,6 +14,7 @@ import { HasClassName } from "./commonInterfaces"
 import HamburgerIcon from "~/svg/HamburgerIcon"
 import CloseIcon from "~/svg/CloseIcon"
 import HomeIcon from "~/svg/HomeIcon"
+import ProfileIcon from "~/svg/ProfileIcon"
 
 const iconKeys = {
   facebook: FacebookIcon,
@@ -31,6 +32,7 @@ const iconKeys = {
   hamburger: HamburgerIcon,
   close: CloseIcon,
   home: HomeIcon,
+  profile: ProfileIcon,
 }
 
 export type IconKey = keyof typeof iconKeys
