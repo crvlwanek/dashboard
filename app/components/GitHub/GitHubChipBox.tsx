@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react"
-import IconButton from "./IconButton"
+import IconButton from "../IconButton"
 
-type GithubChipBoxProps = {
+type GitHubChipBoxProps = {
   topics: string[]
 }
 
-export default function GithubChipBox({ topics }: GithubChipBoxProps) {
+export default function GitHubChipBox({ topics }: GitHubChipBoxProps) {
   const scrollIncrement = 200
 
   const chipBox = useRef<HTMLDivElement>(null)

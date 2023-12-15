@@ -6,11 +6,12 @@ import IconButton from "~/components/IconButton"
 import { ProcessedActivityData } from "./api.strava"
 import StravaActivity from "~/components/StravaActivity"
 import { GitHub } from "~/integrations/GitHub"
-import GitHubRecentRepos from "~/components/GitHubRecentRepos"
+import GitHubRecentRepos from "~/components/GitHub/GitHubRecentRepos"
 import MusicLogo from "~/svg/MusicLogo"
 import MapBox from "~/integrations/MapBox"
 import Strava from "~/integrations/Strava"
 import StravaSkeleton from "~/components/StravaSkeleton"
+import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
 
 export const meta: MetaFunction = () => {
   return [
@@ -102,7 +103,7 @@ export default function Index() {
             )}
           </Await>
         </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<GitHubSkeleton repoLimit={7} />}>
           <Await resolve={repos}>
             {repos => <GitHubRecentRepos repos={repos} repoLimit={7} />}
           </Await>

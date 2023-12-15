@@ -1,0 +1,25 @@
+import Divider from "../Divider"
+import { GitHubSection } from "./GitHubRecentRepos"
+
+type GitHubSkeletonProps = {
+  repoLimit: number
+}
+
+export default function GitHubSkeleton({ repoLimit }: GitHubSkeletonProps) {
+  return (
+    <GitHubSection>
+      {Array(repoLimit)
+        .fill(0)
+        .map((_, index) => (
+          <>
+            <div key={index} className="repoWrapper" style={{ minWidth: 760 }}>
+              <div className="skeleton" style={{ width: 200, height: 15, margin: "5px 0" }} />
+              <div className="skeleton" style={{ width: 400, height: 10, margin: "5px 0" }} />
+              <div className="skeleton" style={{ width: 60, height: 10, marginTop: 8 }} />
+            </div>
+            {index != repoLimit - 1 && <Divider />}
+          </>
+        ))}
+    </GitHubSection>
+  )
+}

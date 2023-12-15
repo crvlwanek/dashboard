@@ -1,8 +1,22 @@
-import Divider from "./Divider"
-import Icon from "./Icon"
+import Divider from "../Divider"
+import Icon from "../Icon"
 import { GitHub } from "~/integrations/GitHub"
 import { getRelativeTime } from "~/utilities/converters"
-import GithubChipBox from "./GithubChipBox"
+import GitHubChipBox from "./GitHubChipBox"
+import { HasReactChildren } from "../commonInterfaces"
+
+export function GitHubSection({ children }: HasReactChildren) {
+  return (
+    <div className="card githubRepos">
+      <div className="flex align-center githubHeaderContainer">
+        <Icon iconKey="github" size={30} />
+        <h3 className="githubHeader">GitHub Repos</h3>
+        <Divider />
+      </div>
+      {children}
+    </div>
+  )
+}
 
 type GitHubRecentReposProps = {
   repos: GitHub.MinimalRepository[]
@@ -11,12 +25,7 @@ type GitHubRecentReposProps = {
 
 export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentReposProps) {
   return (
-    <div className="card githubRepos">
-      <div className="flex align-center githubHeaderContainer">
-        <Icon iconKey="github" size={30} />
-        <h3 className="githubHeader">GitHub Repos</h3>
-        <Divider />
-      </div>
+    <GitHubSection>
       {repos.slice(0, repoLimit).map((repo, index) => (
         <div key={repo.id}>
           <div className="repoWrapper">
@@ -31,7 +40,7 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
             </div>
 
             <div className="repoDescription">{repo.description}</div>
-            <GithubChipBox topics={repo.topics} />
+            <GitHubChipBox topics={repo.topics} />
             <div className="githubLabelText githubLanguageWrapper">
               <span
                 style={{
@@ -45,6 +54,6 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
           {index != repoLimit - 1 && <Divider />}
         </div>
       ))}
-    </div>
+    </GitHubSection>
   )
 }
