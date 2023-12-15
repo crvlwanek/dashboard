@@ -1,5 +1,6 @@
-import { type MetaFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { Suspense } from "react"
+import { defer, type MetaFunction } from "@remix-run/node"
+import { Await, useLoaderData } from "@remix-run/react"
 import Avatar from "~/components/Avatar"
 import IconButton from "~/components/IconButton"
 import { ProcessedActivityData } from "./api.strava"
@@ -33,19 +34,27 @@ const generateMapUrl = (line: string): string => {
   })
 }
 
-export const loader = async ({ request }: { request: Request }) => {
-  const [repos, stravaData] = await Promise.all([
-    GitHub.listUserRepos("crvlwanek", { sort: "pushed" }),
-    getStravaData(request.url),
-  ])
+type StravaAndMap = {
+  stravaData: ProcessedActivityData
+  mapUrl: string
+}
+
+const getStravaAndMap = async (baseUrl: string): Promise<StravaAndMap> => {
+  const stravaData = await getStravaData(baseUrl)
   const mapUrl = generateMapUrl(stravaData.most_recent_activity.summary_polyline)
-  return { repos, stravaData, mapUrl }
+  return { stravaData, mapUrl }
+}
+
+export const loader = async ({ request }: { request: Request }) => {
+  const activities = getStravaAndMap(request.url)
+  const repos = GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
+  return defer({ activities, repos })
 }
 
 const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>()
+  const { activities, repos } = useLoaderData<typeof loader>()
 
   return (
     <>
@@ -82,8 +91,21 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <StravaActivity activity={data.stravaData.most_recent_activity} mapUrl={data.mapUrl} />
-        <GitHubRecentRepos repos={data.repos} repoLimit={7} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Await resolve={activities}>
+            {activities => (
+              <StravaActivity
+                activity={activities.stravaData.most_recent_activity}
+                mapUrl={activities.mapUrl}
+              />
+            )}
+          </Await>
+        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Await resolve={repos}>
+            {repos => <GitHubRecentRepos repos={repos} repoLimit={7} />}
+          </Await>
+        </Suspense>
       </div>
     </>
   )
