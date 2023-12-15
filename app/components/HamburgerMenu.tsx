@@ -59,7 +59,7 @@ export default function HamburgerMenu() {
               <Icon iconKey="home" />
               Home
             </MenuItem>
-            <MenuItem to="about-me" onClick={toggleMenu}>
+            <MenuItem to="/about-me" onClick={toggleMenu}>
               About Me
             </MenuItem>
           </ul>
