@@ -3,6 +3,7 @@ import type { LinksFunction } from "@remix-run/node"
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react"
 
 import appCssHref from "./app.css"
+import tailwindCss from "./tailwind.css"
 import NavBar from "./components/NavBar"
 import ThemeSwitcher from "./components/ThemeSwitcher"
 import { useEffect, useRef } from "react"
@@ -12,6 +13,7 @@ import HamburgerMenu from "./components/HamburgerMenu"
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: appCssHref },
+  { rel: "stylesheet", href: tailwindCss },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   { rel: "preconnect", href: "https://fonts.gstatic.com" },
   {
