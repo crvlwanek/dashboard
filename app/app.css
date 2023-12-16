@@ -94,6 +94,10 @@ button {
   outline: none;
 }
 
+.bg-surface {
+  background-color: var(--surface);
+}
+
 .hamburgerMenu {
   position: fixed;
   top: 0;
