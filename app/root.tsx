@@ -1,6 +1,14 @@
 import { cssBundleHref } from "@remix-run/css-bundle"
 import type { LinksFunction } from "@remix-run/node"
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react"
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLocation,
+} from "@remix-run/react"
 
 import appCssHref from "./app.css"
 import tailwindCss from "./tailwind.css"
@@ -24,6 +32,7 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   const nameBox = useRef<HTMLDivElement>(null)
+  const location = useLocation()
   useEffect(() => {
     const mainHeader = document?.getElementById("mainHeader")
 
@@ -41,7 +50,7 @@ export default function App() {
     }
 
     return () => observer.disconnect()
-  }, [])
+  }, [location.pathname])
   return (
     <html lang="en">
       <head>
