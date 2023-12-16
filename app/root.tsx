@@ -20,8 +20,8 @@ import HamburgerMenu from "./components/HamburgerMenu"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  { rel: "stylesheet", href: appCssHref },
   { rel: "stylesheet", href: tailwindCss },
+  { rel: "stylesheet", href: appCssHref },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   { rel: "preconnect", href: "https://fonts.gstatic.com" },
   {
@@ -60,7 +60,7 @@ export default function App() {
         <Links />
       </head>
       <body id="body">
-        <NavBar className="dashboardNavbar">
+        <NavBar className="dashboardNavbar px-2 sm:px-4">
           <HamburgerMenu />
           <div ref={nameBox} className="navbarNameBox">
             <MusicLogo className="musicIconNavbar" />

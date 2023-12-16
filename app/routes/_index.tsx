@@ -61,7 +61,7 @@ export default function Index() {
   return (
     <>
       <div id="mainHeader" className="flex align-center justify-center mainHeader">
-        <div style={{ position: "relative" }}>
+        <div className="relative flex-shrink-0">
           <Avatar className="chrisAvatar" size={125} src={avatarImage} />
           <div className="chrisAvatarBorder"></div>
           <MusicLogo className="musicIcon animate" />
