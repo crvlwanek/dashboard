@@ -10,6 +10,13 @@ export default function Avatar({ size, src, className }: AvatarProps) {
   size ??= 100
 
   return (
-    <img className={`avatarImage ${size > 100 ? "large" : ""} ${className}`} height={size} width={size} src={src} />
+    <img
+      className={`avatarImage ${
+        size > 100 ? "large" : ""
+      } ${className} h-[${size}px] w-[${size}px]`}
+      height={size}
+      width={size}
+      src={src}
+    />
   )
 }

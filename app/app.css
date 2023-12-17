@@ -234,11 +234,12 @@ button.hamburgerCloseIcon {
   width: 125px;
   margin: 5px;
   position: absolute;
-  inset: 0;
   border-radius: 100%;
   background-image: conic-gradient(#b6fffa, #ffa1f5, #bc7af9, white, #b6fffa);
   filter: blur(15px);
   animation: rotate 2000ms linear infinite;
+  top: -5px;
+  left: -5px;
 }
 
 @keyframes rotate {
