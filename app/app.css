@@ -228,6 +228,16 @@ button.hamburgerCloseIcon {
   position: relative;
 }
 
+.flexible {
+  flex-direction: column;
+}
+
+@media (min-width: 700px) {
+  .flexible {
+    flex-direction: row;
+  }
+}
+
 .chrisAvatarBorder {
   content: "";
   height: 125px;
