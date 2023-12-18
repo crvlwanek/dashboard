@@ -98,6 +98,10 @@ button {
   background-color: var(--surface);
 }
 
+.bg-surface-bg {
+  background-color: var(--surfaceBg);
+}
+
 .hamburgerMenu {
   position: fixed;
   top: 0;
@@ -149,6 +153,11 @@ button.hamburgerCloseIcon {
 
 .hamburgerMenuLink:hover {
   background-color: var(--primary-main-alpha-100);
+}
+
+.about-hero-image {
+  background-image: radial-gradient(var(--black-alpha-400), var(--black-alpha-600)),
+    url(https://travel.usnews.com/images/State_Capitol_Destination_Madison.jpg);
 }
 
 .skeleton {
