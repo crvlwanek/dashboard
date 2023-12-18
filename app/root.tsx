@@ -60,7 +60,7 @@ export default function App() {
         <Links />
       </head>
       <body id="body">
-        <NavBar float={location.pathname === "/"} className="dashboardNavbar px-2 sm:px-4">
+        <NavBar float className="dashboardNavbar px-2 sm:px-4">
           <HamburgerMenu />
           <div ref={nameBox} className="navbarNameBox">
             <MusicLogo className="musicIconNavbar" />
