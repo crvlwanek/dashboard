@@ -1,8 +1,8 @@
 :root {
-  --primary-main: #00adb5;
-  --primary-light: #40fffa;
-  --primary-main-alpha-100: rgba(0, 170, 179, 0.1);
-  --primary-main-alpha-200: rgba(0, 170, 179, 0.2);
+  --primary-main: hsl(178, 100%, 40%);
+  --primary-light: hsl(178, 100%, 63%);
+  --primary-main-alpha-100: hsla(178, 100%, 35%, 0.102);
+  --primary-main-alpha-200: hsla(178, 100%, 35%, 0.2);
   --onPrimary: white;
 
   --surface: white;
@@ -510,6 +510,7 @@ button.hamburgerCloseIcon {
 
 .labelColor {
   color: var(--labelText);
+  fill: var(--labelText);
 }
 
 .stravaActivityDetails {

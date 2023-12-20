@@ -1,3 +1,5 @@
+import { HasClassName } from "./commonInterfaces"
+
 import ChevronLeftIcon from "~/svg/ChevronLeftIcon"
 import ChevronRightIcon from "~/svg/ChevronRightIcon"
 import FacebookIcon from "~/svg/FacebookIcon"
@@ -10,11 +12,11 @@ import ShoeIcon from "~/svg/ShoeIcon"
 import SunIcon from "~/svg/SunIcon"
 import ThemeIcon from "~/svg/ThemeIcon"
 import YouTubeIcon from "~/svg/YouTubeIcon"
-import { HasClassName } from "./commonInterfaces"
 import HamburgerIcon from "~/svg/HamburgerIcon"
 import CloseIcon from "~/svg/CloseIcon"
 import HomeIcon from "~/svg/HomeIcon"
 import ProfileIcon from "~/svg/ProfileIcon"
+import WeightliftingIcon from "~/svg/WeightliftingIcon"
 
 const iconKeys = {
   facebook: FacebookIcon,
@@ -33,6 +35,7 @@ const iconKeys = {
   close: CloseIcon,
   home: HomeIcon,
   profile: ProfileIcon,
+  weightlifting: WeightliftingIcon,
 }
 
 export type IconKey = keyof typeof iconKeys
