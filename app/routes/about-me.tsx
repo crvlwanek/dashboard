@@ -19,7 +19,7 @@ export default function AboutMe() {
           <div className="flex-col gap-1">
             <p className="text-lg">Hi, my name is Chris!</p>
             <p className="text-2xl">
-              I'm a <b>software developer</b>, musician, and a{" "}
+              I'm a <b>software developer</b>, <b>musician</b>, and a{" "}
               <a
                 target="_blank"
                 rel="noreferrer"
