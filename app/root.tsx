@@ -17,6 +17,7 @@ import ThemeSwitcher from "./components/ThemeSwitcher"
 import { useEffect, useRef } from "react"
 import MusicLogo from "./svg/MusicLogo"
 import HamburgerMenu from "./components/HamburgerMenu"
+import SocialIconBar from "./components/SocialIconBar"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -72,6 +73,18 @@ export default function App() {
           <ThemeSwitcher />
         </NavBar>
         <Outlet />
+        <footer className="h-[150px] flex-col align-center justify-center">
+          <SocialIconBar />
+          <p>© {new Date().getFullYear()}, Chris VL-Wanek</p>
+          <a
+            href="https://github.com/crvlwanek/dashboard"
+            rel="noreferrer"
+            target="_blank"
+            className="text-primary-main hover:underline"
+          >
+            View the GitHub repo
+          </a>
+        </footer>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

@@ -36,7 +36,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
           <a
             target="_blank"
             rel="noreferrer"
-            className="stravaViewLink"
+            className="stravaViewLink  hover:underline"
             href={Strava.activitiesUrl + activity.id.toString()}
           >
             View on Strava

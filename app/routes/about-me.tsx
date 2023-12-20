@@ -24,7 +24,7 @@ export default function AboutMe() {
                 target="_blank"
                 rel="noreferrer"
                 href="https://www.youtube.com/watch?v=oxgwDdFJZbA"
-                className="text-primary-main"
+                className="text-primary-main hover:underline"
               >
                 hybrid athelete
               </a>

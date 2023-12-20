@@ -2,7 +2,6 @@ import { Suspense } from "react"
 import { defer, type MetaFunction } from "@remix-run/node"
 import { Await, useLoaderData } from "@remix-run/react"
 import Avatar from "~/components/Avatar"
-import IconButton from "~/components/IconButton"
 import { ProcessedActivityData } from "./api.strava"
 import StravaActivity from "~/components/StravaActivity"
 import { GitHub } from "~/integrations/GitHub"
@@ -12,6 +11,7 @@ import MapBox from "~/integrations/MapBox"
 import Strava from "~/integrations/Strava"
 import StravaSkeleton from "~/components/StravaSkeleton"
 import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
+import SocialIconBar from "~/components/SocialIconBar"
 
 export const meta: MetaFunction = () => {
   return [
@@ -72,13 +72,7 @@ export default function Index() {
             <h1 className="header--name">Chris Van Lanen-Wanek</h1>
             <h2 className="header--jobTitle">Software Engineer | Web Developer</h2>
           </div>
-          <div className="flex iconBox">
-            <IconButton href="https://www.linkedin.com/in/crvlwanek/" iconKey="linkedIn" />
-            <IconButton href="https://github.com/crvlwanek" iconKey="github" />
-            <IconButton href="https://www.facebook.com/crvlwanek/" iconKey="facebook" />
-            <IconButton href="https://www.instagram.com/crvlwanek/" iconKey="instagram" />
-            <IconButton href="https://www.youtube.com/c/ChrisVLWanek" iconKey="youtube" />
-          </div>
+          <SocialIconBar />
         </div>
       </div>
       <div
