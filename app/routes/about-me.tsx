@@ -5,12 +5,12 @@ const image = "https://i.imgur.com/7VP7DiQ.jpg"
 export default function AboutMe() {
   return (
     <>
-      <div className="w-full flex items-center flex-col gap-4 bg-surface-bg px-4 pb-4">
+      <div className="w-full items-center flex-col gap-4 bg-surface-bg px-4">
         <div
           id="mainHeader"
           className="about-hero-image w-full h-[200px] object-cover bg-cover bg-center absolute"
         />
-        <h1 className="z-[2] text-white mt-8 text-5xl">About Me</h1>
+        <h1 className="z-[2] text-white mt-8 mb-4 text-5xl">About Me</h1>
         <div className="w-full max-w-3xl min-h-4 rounded-[4px] overflow-hidden flex flexible gap-6 z-[2] bg-surface p-4 shadow-xl">
           <img
             src={image}
