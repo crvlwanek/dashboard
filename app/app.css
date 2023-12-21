@@ -162,7 +162,7 @@ button.hamburgerCloseIcon {
 
 .about-hero-image {
   background-image: radial-gradient(var(--black-alpha-400), var(--black-alpha-600)),
-    url(https://travel.usnews.com/images/State_Capitol_Destination_Madison.jpg);
+    var(--about-hero-image);
 }
 
 .skeleton {

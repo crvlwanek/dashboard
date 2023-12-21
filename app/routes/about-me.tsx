@@ -1,7 +1,11 @@
 import Icon from "~/components/Icon"
 import profileImage from "~/images/profile.jpg"
+import capitolImage from "~/images/capitol-square.jpg"
+import useSetRootProperty from "~/hooks/useSetRootProperty"
 
 export default function AboutMe() {
+  useSetRootProperty("--about-hero-image", `url(${capitolImage})`)
+
   return (
     <>
       <div className="w-full items-center flex-col gap-4 bg-surface-bg px-4">
