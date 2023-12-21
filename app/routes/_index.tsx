@@ -12,6 +12,7 @@ import Strava from "~/integrations/Strava"
 import StravaSkeleton from "~/components/StravaSkeleton"
 import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
 import SocialIconBar from "~/components/SocialIconBar"
+import { ErrorBoundary } from "~/components/ErrorBoundary"
 
 export const meta: MetaFunction = () => {
   return [
@@ -87,21 +88,25 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <Suspense fallback={<StravaSkeleton />}>
-          <Await resolve={activities}>
-            {activities => (
-              <StravaActivity
-                activity={activities.stravaData.most_recent_activity}
-                mapUrl={activities.mapUrl}
-              />
-            )}
-          </Await>
-        </Suspense>
-        <Suspense fallback={<GitHubSkeleton repoLimit={7} />}>
-          <Await resolve={repos}>
-            {repos => <GitHubRecentRepos repos={repos} repoLimit={7} />}
-          </Await>
-        </Suspense>
+        <ErrorBoundary fallback={<h1>Whoops, hit an error loading Strava data</h1>}>
+          <Suspense fallback={<StravaSkeleton />}>
+            <Await resolve={activities}>
+              {activities => (
+                <StravaActivity
+                  activity={activities.stravaData.most_recent_activity}
+                  mapUrl={activities.mapUrl}
+                />
+              )}
+            </Await>
+          </Suspense>
+        </ErrorBoundary>
+        <ErrorBoundary fallback={<h1>Whoops! Hit an error loading GitHub datra</h1>}>
+          <Suspense fallback={<GitHubSkeleton repoLimit={7} />}>
+            <Await resolve={repos}>
+              {repos => <GitHubRecentRepos repos={repos} repoLimit={7} />}
+            </Await>
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </>
   )

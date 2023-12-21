@@ -94,6 +94,11 @@ button {
   outline: none;
 }
 
+::selection {
+  background-color: var(--primary-main);
+  color: var(--onPrimary);
+}
+
 .bg-surface {
   background-color: var(--surface);
 }
