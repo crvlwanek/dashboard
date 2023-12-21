@@ -13,6 +13,7 @@ import StravaSkeleton from "~/components/StravaSkeleton"
 import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
 import SocialIconBar from "~/components/SocialIconBar"
 import { ErrorBoundary } from "~/components/ErrorBoundary"
+import avatarImage from "~/images/sunflowers.jpg"
 
 export const meta: MetaFunction = () => {
   return [
@@ -53,8 +54,6 @@ export const loader = async ({ request }: { request: Request }) => {
   const repos = GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
   return defer({ activities, repos })
 }
-
-const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
 
 export default function Index() {
   const { activities, repos } = useLoaderData<typeof loader>()
