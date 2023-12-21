@@ -1,6 +1,5 @@
 import Icon from "~/components/Icon"
-
-const image = "https://i.imgur.com/7VP7DiQ.jpg"
+import profileImage from "~/images/profile.jpg"
 
 export default function AboutMe() {
   return (
@@ -13,7 +12,7 @@ export default function AboutMe() {
         <h1 className="z-[2] text-white mt-8 mb-4 text-5xl">About Me</h1>
         <div className="w-full max-w-3xl min-h-4 rounded-[4px] overflow-hidden flex flexible gap-6 z-[2] bg-surface p-4 shadow-xl">
           <img
-            src={image}
+            src={profileImage}
             className="aspect-square object-cover rounded-full w-[300px] self-start mx-auto border-solid border-4 border-white"
           />
           <div className="flex-col gap-1">
