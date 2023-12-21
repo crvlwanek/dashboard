@@ -7,7 +7,7 @@ import { Link, useLocation } from "@remix-run/react"
 import Icon from "./Icon"
 import { HasReactChildren } from "./commonInterfaces"
 
-const avatarImage = "https://i.imgur.com/4Ouflwg.jpg"
+import avatarImage from "~/images/sunflowers.jpg"
 
 type MenuItemProps = {
   to: string
