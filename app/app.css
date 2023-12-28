@@ -252,6 +252,20 @@ button.hamburgerCloseIcon {
   }
 }
 
+.loadingIndicator {
+  animation: loadingIndicator 500ms linear infinite;
+}
+
+@keyframes loadingIndicator {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
 .chrisAvatarBorder {
   content: "";
   height: 125px;

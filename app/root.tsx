@@ -18,6 +18,7 @@ import { useEffect, useRef } from "react"
 import MusicLogo from "./svg/MusicLogo"
 import HamburgerMenu from "./components/HamburgerMenu"
 import SocialIconBar from "./components/SocialIconBar"
+import ProgressBar from "./components/ProgressBar"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -61,6 +62,7 @@ export default function App() {
         <Links />
       </head>
       <body id="body">
+        <ProgressBar />
         <NavBar float className="dashboardNavbar px-2 sm:px-4">
           <HamburgerMenu />
           <div ref={nameBox} className="navbarNameBox">
