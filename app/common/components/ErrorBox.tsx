@@ -1,7 +1,7 @@
 /* Dependencies: React, Tailwind */
 
-interface ErrorBoxProps {
-  children: React.ReactNode
+type ErrorBoxProps = {
+  children?: React.ReactNode
 }
 
 export default function ErrorBox({ children }: ErrorBoxProps) {

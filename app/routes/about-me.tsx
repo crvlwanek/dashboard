@@ -2,6 +2,14 @@ import Icon from "~/components/Icon"
 import profileImage from "~/images/profile.jpg"
 import capitolImage from "~/images/capitol-square.jpg"
 import useSetRootProperty from "~/hooks/useSetRootProperty"
+import { MetaFunction } from "@remix-run/node"
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Dashboard | About Me" },
+    { name: "description", content: "This is an about me page" },
+  ]
+}
 
 export default function AboutMe() {
   useSetRootProperty("--about-hero-image", `url(${capitolImage})`)
