@@ -75,7 +75,7 @@ export default function App() {
           <ThemeSwitcher />
         </NavBar>
         <Outlet />
-        <footer className="h-[150px] flex-col align-center justify-center">
+        <footer className="h-[150px] flex-col align-center justify-center mb-4">
           <SocialIconBar />
           <p>© {new Date().getFullYear()}, Chris VL-Wanek</p>
           <a
