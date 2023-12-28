@@ -253,7 +253,16 @@ button.hamburgerCloseIcon {
 }
 
 .loadingIndicator {
-  animation: loadingIndicator 500ms linear infinite;
+  animation-name: loadingIndicator;
+  animation-duration: 300ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (min-width: 700px) {
+  .loadingIndicator {
+    animation-duration: 500ms;
+  }
 }
 
 @keyframes loadingIndicator {

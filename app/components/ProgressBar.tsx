@@ -2,9 +2,9 @@ import { useNavigation } from "@remix-run/react"
 
 export default function ProgressBar() {
   const navigation = useNavigation()
-  if (navigation.state === "idle") {
-    return null
-  }
+  // if (navigation.state === "idle") {
+  //   return null
+  // }
   return (
     <div
       role="progressbar"
