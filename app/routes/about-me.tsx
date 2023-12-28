@@ -19,7 +19,7 @@ export default function AboutMe() {
             src={profileImage}
             className="aspect-square object-cover rounded-full w-[300px] self-start mx-auto border-solid border-4 border-white"
           />
-          <div className="flex-col gap-1">
+          <div className="flex-col gap-4">
             <p className="text-lg">Hi, my name is Chris!</p>
             <p className="text-2xl">
               I'm a <b>software developer</b>, <b>musician</b>, and a{" "}
@@ -44,13 +44,15 @@ export default function AboutMe() {
               In my free time, I enjoy lifting weights, distance running, and learning more about
               programming.
             </p>
-            <div className="labelColor  flex align-center gap-2">
-              <Icon iconKey="weightlifting" />
-              Max deadlift: 345lbs
-            </div>
-            <div className="labelColor  flex align-center gap-2">
-              <Icon iconKey="shoe" className="inline" />
-              Fastest marathon: 3h 52m
+            <div>
+              <div className="labelColor  flex align-center gap-2">
+                <Icon iconKey="weightlifting" />
+                Max deadlift: 345lbs
+              </div>
+              <div className="labelColor  flex align-center gap-2">
+                <Icon iconKey="shoe" className="inline" />
+                Fastest marathon: 3h 52m
+              </div>
             </div>
           </div>
         </div>
