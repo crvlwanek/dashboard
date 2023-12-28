@@ -1,9 +1,7 @@
 import polyline from "@mapbox/polyline"
+import env from "~/utilities/env"
 
-const apiKey = process.env.MAPBOX_TOKEN
-if (!apiKey) {
-  throw new Error("MapBox API key is missing")
-}
+const apiKey = env.get("MAPBOX_TOKEN")
 
 type MapBoxStaticAPIArgs = {
   height: number

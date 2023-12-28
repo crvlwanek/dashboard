@@ -14,6 +14,7 @@ import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
 import SocialIconBar from "~/components/SocialIconBar"
 import { ErrorBoundary } from "~/components/ErrorBoundary"
 import avatarImage from "~/images/sunflowers.jpg"
+import ErrorBox from "~/common/components/ErrorBox"
 
 export const meta: MetaFunction = () => {
   return [
@@ -87,7 +88,9 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <ErrorBoundary fallback={<h1>Whoops, hit an error loading Strava data</h1>}>
+        <ErrorBoundary
+          fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
+        >
           <Suspense fallback={<StravaSkeleton />}>
             <Await resolve={activities}>
               {activities => (
@@ -99,7 +102,9 @@ export default function Index() {
             </Await>
           </Suspense>
         </ErrorBoundary>
-        <ErrorBoundary fallback={<h1>Whoops! Hit an error loading GitHub datra</h1>}>
+        <ErrorBoundary
+          fallback={<ErrorBox>Whoops! We encountered an error loading GitHub data</ErrorBox>}
+        >
           <Suspense fallback={<GitHubSkeleton repoLimit={7} />}>
             <Await resolve={repos}>
               {repos => <GitHubRecentRepos repos={repos} repoLimit={7} />}

@@ -1,14 +1,14 @@
-import * as React from "react"
 import { useNavigation } from "@remix-run/react"
+import { useEffect, useRef, useState } from "react"
 
 export default function ProgressBar() {
   const navigation = useNavigation()
   const active = navigation.state !== "idle"
 
-  const ref = React.useRef<HTMLDivElement>(null)
-  const [animationComplete, setAnimationComplete] = React.useState(true)
+  const ref = useRef<HTMLDivElement>(null)
+  const [animationComplete, setAnimationComplete] = useState(true)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!ref.current) {
       return
     }
@@ -30,7 +30,7 @@ export default function ProgressBar() {
     >
       <div
         ref={ref}
-        className={`h-full bg-primary-main transition-all duration-500 ease-in-out ${
+        className={`h-full bg-primary-light transition-all duration-500 ease-in-out ${
           navigation.state === "idle" && animationComplete && "w-0 opacity-0 transition-none"
         } ${navigation.state === "submitting" && "w-4/12"} ${
           navigation.state === "loading" && "w-4/6"

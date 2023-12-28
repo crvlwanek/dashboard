@@ -5,6 +5,7 @@ import Strava, {
   StravaSummaryActivity,
   StravaTokenData,
 } from "~/integrations/Strava"
+import env from "~/utilities/env"
 
 export type ProcessedActivityData = {
   /** Most recent activity on Strava */
@@ -27,10 +28,10 @@ export interface CachedStravaData extends StravaTokenData, ProcessedActivityData
   updated: number
 }
 
-const strava = new Strava(process.env.STRAVA_CLIENT_ID, process.env.STRAVA_CLIENT_SECRET)
+const strava = new Strava(env.get("STRAVA_CLIENT_ID"), env.get("STRAVA_CLIENT_SECRET"))
 const stravaBasket = new Pantry<CachedStravaData>(
-  process.env.PANTRY_ID,
-  process.env.NEW_STRAVA_BASKET
+  env.get("PANTRY_ID"),
+  env.get("NEW_STRAVA_BASKET")
 )
 
 /**
