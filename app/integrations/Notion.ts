@@ -31,6 +31,17 @@ export default class Notion {
     // TODO: would be cool to implement 429 handling (retry after)
     // https://developers.notion.com/reference/request-limits
 
+    // TODO: Add type info instead of typing as any
     return response.json()
+  }
+
+  public static getParagraphs(response: any): string[] {
+    return response?.results?.map((result: any) => {
+      const richText = result?.paragraph?.rich_text
+      if (!richText?.length) {
+        return ""
+      }
+      return richText[0].plain_text
+    })
   }
 }

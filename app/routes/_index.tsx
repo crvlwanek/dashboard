@@ -15,6 +15,10 @@ import SocialIconBar from "~/components/SocialIconBar"
 import { ErrorBoundary } from "~/components/ErrorBoundary"
 import avatarImage from "~/images/sunflowers.jpg"
 import ErrorBox from "~/common/components/ErrorBox"
+import Notion from "~/integrations/Notion"
+import env from "~/utilities/env"
+import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
+import CurrentBooks from "~/components/CurrentBooks"
 
 export const meta: MetaFunction = () => {
   return [
@@ -23,10 +27,20 @@ export const meta: MetaFunction = () => {
   ]
 }
 
+const notion = new Notion(env.get("NOTION_API_KEY"))
+
 const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> => {
   const res = await fetch(`${baseUrl}api/strava`)
   const data = await res.json()
   return data as ProcessedActivityData
+}
+
+const getCurrentBooks = async (): Promise<VolumeResponse[]> => {
+  const notionData = await notion.retrieveBlockChildren("79eaeded2684425d9d679ebdd09fe3b2")
+  const bookURLs = Notion.getParagraphs(notionData)
+  const volumeIds = bookURLs.map(url => url.split("/").slice(-1)[0])
+  const data = await Promise.all(volumeIds.map(id => GoogleBooks.getVolume(id)))
+  return data
 }
 
 const generateMapUrl = (line: string): string => {
@@ -53,11 +67,12 @@ const getStravaAndMap = async (baseUrl: string): Promise<StravaAndMap> => {
 export const loader = async ({ request }: { request: Request }) => {
   const activities = getStravaAndMap(request.url)
   const repos = GitHub.listUserRepos("crvlwanek", { sort: "pushed" })
-  return defer({ activities, repos })
+  const bookData = getCurrentBooks()
+  return defer({ activities, repos, bookData })
 }
 
 export default function Index() {
-  const { activities, repos } = useLoaderData<typeof loader>()
+  const { activities, repos, bookData } = useLoaderData<typeof loader>()
 
   return (
     <>
@@ -111,6 +126,7 @@ export default function Index() {
             </Await>
           </Suspense>
         </ErrorBoundary>
+        <CurrentBooks data={bookData} />
       </div>
     </>
   )
