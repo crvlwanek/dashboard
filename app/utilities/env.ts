@@ -7,6 +7,7 @@ const env = new EnvironmentVariables([
   "NEW_STRAVA_BASKET",
   "MAPBOX_TOKEN",
   "GOOGLE_MAPS_API_KEY",
+  "NOTION_API_KEY",
 ])
 
 export default env
