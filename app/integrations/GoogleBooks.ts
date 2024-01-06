@@ -9,7 +9,7 @@ export type VolumeResponse = {
     description: string
     /** Integer */
     pageCount: number
-    imageLinks: {
+    imageLinks?: {
       thumbnail: string
     }
     previewLink: string

@@ -27,8 +27,6 @@ export const meta: MetaFunction = () => {
   ]
 }
 
-const notion = new Notion(env.get("NOTION_API_KEY"))
-
 const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> => {
   const res = await fetch(`${baseUrl}api/strava`)
   const data = await res.json()
@@ -36,6 +34,7 @@ const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> =>
 }
 
 const getCurrentBooks = async (): Promise<VolumeResponse[]> => {
+  const notion = new Notion(env.get("NOTION_API_KEY"))
   const notionData = await notion.retrieveBlockChildren("79eaeded2684425d9d679ebdd09fe3b2")
   const bookURLs = Notion.getParagraphs(notionData)
   const volumeIds = bookURLs.map(url => url.split("/").slice(-1)[0])
