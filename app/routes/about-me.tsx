@@ -22,7 +22,7 @@ export default function AboutMe() {
           className="about-hero-image w-full h-[200px] object-cover bg-cover bg-center absolute"
         />
         <h1 className="z-[2] text-white mt-8 mb-4 text-5xl font-bold">About Me</h1>
-        <div className="w-full max-w-3xl min-h-4 rounded-[4px] overflow-hidden flex flexible gap-6 z-[2] bg-surface p-4 shadow-xl">
+        <div className="w-full max-w-3xl min-h-4 rounded-[4px] overflow-hidden flex flexible gap-6 z-[2] bg-surface p-4 shadow-md">
           <img
             src={profileImage}
             className="aspect-square object-cover rounded-full w-[300px] self-start mx-auto border-solid border-4 border-white"

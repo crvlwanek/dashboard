@@ -12,7 +12,7 @@
   --hoverHighlight: black;
   --hoverHighlightAlpha: rgba(0, 0, 0, 0.1);
   --hoverHighlightAlpha200: rgba(0, 0, 0, 0.2);
-  --surfaceBg: #ddd;
+  --surfaceBg: #f1f1f1;
   --labelText: #999;
 
   --dark-surface: #222;
@@ -470,7 +470,6 @@ button.hamburgerCloseIcon {
   background-color: var(--surface);
   border-radius: 4px;
   width: fit-content;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
 }
 /* end Card.tsx */
 

@@ -29,7 +29,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
   )} /mi`
   const movingTime = formatTimeDuration(secondsToDuration(activity.moving_time), "letter")
   return (
-    <div className="card stravaActivityMain">
+    <div className="card stravaActivityMain shadow-md">
       <div className="stravaActivityHeader">
         <div className="stravaTopHeader">
           <h5>{activity.name}</h5>

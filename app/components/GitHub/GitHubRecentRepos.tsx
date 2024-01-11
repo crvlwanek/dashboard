@@ -7,7 +7,7 @@ import { HasReactChildren } from "../commonInterfaces"
 
 export function GitHubSection({ children }: HasReactChildren) {
   return (
-    <div className="card githubRepos">
+    <div className="card githubRepos shadow-md">
       <div className="flex align-center githubHeaderContainer">
         <Icon iconKey="github" size={30} />
         <h3 className="githubHeader">GitHub Repos</h3>

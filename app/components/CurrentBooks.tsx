@@ -17,7 +17,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
       <Suspense fallback={<div>Loading book data...</div>}>
         <Await resolve={data}>
           {volumes => (
-            <div className="overflow-hidden card">
+            <div className="overflow-hidden card shadow-md">
               <h1 className="p-4 text-xl">Books I'm Currently Reading</h1>
 
               {volumes.map(volume => {
