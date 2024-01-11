@@ -1,5 +1,5 @@
 export namespace GitHub {
-  const urlBase = "https://api.github.com/"
+  const urlBase = "https://api.github.com"
 
   export type MinimalRepository = {
     id: number
@@ -34,7 +34,7 @@ export namespace GitHub {
     username: string,
     params: ListUserReposParams = {}
   ): Promise<MinimalRepository[]> {
-    const url = new URL(`${urlBase}users/${username}/repos`)
+    const url = new URL(`${urlBase}/users/${username}/repos`)
     Object.keys(params).forEach(key => {
       const value = params[key as keyof ListUserReposParams]
       if (!value) {

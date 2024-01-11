@@ -30,7 +30,7 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
         <div key={repo.id}>
           <div className="repoWrapper">
             <div className="repoHeaderContainer">
-              <a className="repoLink  hover:underline" href={repo.html_url}>
+              <a className="repoLink" href={repo.html_url}>
                 {repo.name}
               </a>
               <div className="githubLabelText githubUpdatedAt">
