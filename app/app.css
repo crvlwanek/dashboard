@@ -22,7 +22,7 @@
   --dark-hoverHighlight: white;
   --dark-hoverHighlightAlpha: rgba(255, 255, 255, 0.1);
   --dark-hoverHighlightAlpha200: rgba(255, 255, 255, 0.2);
-  --dark-surfaceBg: black;
+  --dark-surfaceBg: #181818;
   --dark-labelText: #777;
 
   --text-on-image: white;
