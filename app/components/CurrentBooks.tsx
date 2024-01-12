@@ -14,7 +14,7 @@ const missingImagePlaceholder = "https://books.google.com/googlebooks/images/no_
 export default function CurrentBooks({ data }: CurrentBooksProps) {
   return (
     <ErrorBoundary fallback={<ErrorBox>Whoops! Failed to load current book data</ErrorBox>}>
-      <Suspense fallback={<div>Loading book data...</div>}>
+      <Suspense fallback={<CurrentBooksSkeleton />}>
         <Await resolve={data}>
           {volumes => (
             <div className="overflow-hidden card shadow-md">
@@ -30,25 +30,28 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                     <div className="flex">
                       <img
                         src={volume.volumeInfo.imageLinks?.thumbnail ?? missingImagePlaceholder}
-                        className="place-self-start h-[100px] w-[100px] object-cover m-4"
+                        className="place-self-start h-[150px] object-cover m-4 flex-shrink-0"
                       />
-                      <div className="px-4 flex flex-col justify-center">
-                        <a
-                          href={volume.volumeInfo.previewLink}
-                          className="underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <h2 className="text-lg">{volume.volumeInfo.title}</h2>
-                        </a>
-                        <div className="labelColor text-sm">
-                          {" "}
-                          by {volume.volumeInfo.authors.join(", ")}
+                      <div className="flex flex-col justify-center pr-4">
+                        <div>
+                          <a
+                            href={volume.volumeInfo.previewLink}
+                            className="underline inline-block"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <h2 className="text-lg">{volume.volumeInfo.title}</h2>
+                          </a>
+                          <span className="text-sm">
+                            {" "}
+                            by {volume.volumeInfo.authors.join(", ")}
+                          </span>
                         </div>
                         <div className="labelColor text-xs my-1">
                           {volume.volumeInfo.publishedDate.split("-")[0]} •{" "}
                           {volume.volumeInfo.pageCount} pages
                         </div>
+                        <div className="text-fourlines">{volume.volumeInfo.description}</div>
                       </div>
                     </div>
                   </>
@@ -59,5 +62,31 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
         </Await>
       </Suspense>
     </ErrorBoundary>
+  )
+}
+
+export function CurrentBooksSkeleton() {
+  return (
+    <div className="overflow-hidden card shadow-md">
+      <h1 className="p-4 text-xl">Books I'm Currently Reading</h1>
+      {[0].map(val => (
+        <>
+          <Divider key={val} />
+          <div className="flex">
+            <div className="skeleton m-4 h-[150px] w-[94px] flex-shrink-0" />
+            <div className="flex flex-col justify-center pr-4 gap-2">
+              <div className="skeleton h-4 w-[200px]" />
+              <div className="skeleton h-2 w-[50px]" />
+              <div className="grid gap-1">
+                <div className="skeleton h-3 w-[200px]" />
+                <div className="skeleton h-3 w-[400px]" />
+                <div className="skeleton h-3 w-[400px]" />
+                <div className="skeleton h-3 w-[400px]" />
+              </div>
+            </div>
+          </div>
+        </>
+      ))}
+    </div>
   )
 }

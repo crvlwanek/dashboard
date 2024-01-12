@@ -78,8 +78,6 @@ body {
   transition: color 200ms linear;
   transition: fill 200ms linear;
   transition: background-color 200ms linear;
-
-  box-sizing: border-box;
 }
 
 body[modal-open] {
@@ -119,6 +117,14 @@ button {
   transform: translateX(-100%);
   z-index: 10;
   transition: transform 200ms ease-in-out;
+}
+
+.text-fourlines {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .menuOpen {

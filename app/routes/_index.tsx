@@ -18,7 +18,7 @@ import ErrorBox from "~/common/components/ErrorBox"
 import Notion from "~/integrations/Notion"
 import env from "~/utilities/env"
 import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
-import CurrentBooks from "~/components/CurrentBooks"
+import CurrentBooks, { CurrentBooksSkeleton } from "~/components/CurrentBooks"
 
 export const meta: MetaFunction = () => {
   return [
