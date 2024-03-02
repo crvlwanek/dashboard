@@ -32,7 +32,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                         src={volume.volumeInfo.imageLinks?.thumbnail ?? missingImagePlaceholder}
                         className="place-self-start h-[150px] object-cover m-4 flex-shrink-0"
                       />
-                      <div className="flex flex-col justify-center pr-4">
+                      <div className="flex flex-col pr-4 py-4">
                         <div>
                           <a
                             href={volume.volumeInfo.previewLink}
@@ -51,7 +51,9 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                           {volume.volumeInfo.publishedDate.split("-")[0]} •{" "}
                           {volume.volumeInfo.pageCount} pages
                         </div>
-                        <div className="text-fourlines">{volume.volumeInfo.description}</div>
+                        <div className="text-fourlines text-sm">
+                          {volume.volumeInfo.description}
+                        </div>
                       </div>
                     </div>
                   </>
