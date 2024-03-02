@@ -717,13 +717,14 @@ hr.vertical {
   display: flex;
   gap: 4px;
   transition: transform 200ms ease-out;
+  max-height: 36px;
 }
 
 .githubChip {
   text-decoration: none;
   background-color: var(--surfaceVariant);
   color: var(--onSurfaceVariant);
-  padding: 11px 12px;
+  padding: 9px 12px 13px 12px;
   border-radius: 20px;
   font-size: 0.7rem;
   white-space: nowrap;
