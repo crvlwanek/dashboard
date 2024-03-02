@@ -1,8 +1,10 @@
 import Icon from "~/components/Icon"
 import profileImage from "~/images/profile.jpg"
 import capitolImage from "~/images/capitol-square.jpg"
+import epicCassImage from "~/images/epic-cass.jpg"
 import useSetRootProperty from "~/hooks/useSetRootProperty"
 import { MetaFunction } from "@remix-run/node"
+import EpicLogo from "~/svg/EpicLogo"
 
 export const meta: MetaFunction = () => {
   return [
@@ -62,6 +64,21 @@ export default function AboutMe() {
                 Fastest marathon: 3h 52m
               </div>
             </div>
+          </div>
+        </div>
+        <div className="w-full max-w-3xl min-h-4 rounded-[4px] overflow-hidden bg-surface shadow-md">
+          <div className="relative">
+            <img src={epicCassImage} className="object-cover h-[150px] block w-full absolute" />
+          </div>
+          <div className="z-[2] relative top-[90px] mb-[90px] px-8">
+            <div className="flex h-[128px] w-[128px] p-2 rounded-md bg-white shadow-md">
+              <EpicLogo />
+            </div>
+          </div>
+          <div className="py-4 px-8">
+            <p className="text-lg font-medium">Software Developer | Epic</p>
+            {/* TODO: calculate time at job */}
+            <p className="labelColor">July 2021 - Present • 2 yrs 9 months</p>
           </div>
         </div>
       </div>
