@@ -9,6 +9,10 @@ type CurrentBooksProps = {
   data: Promise<VolumeResponse[]>
 }
 
+const stripHTML = (str: string): string => {
+  return str.replace(/(<([^>]+)>)/gi, "")
+}
+
 const missingImagePlaceholder = "https://books.google.com/googlebooks/images/no_cover_thumb.gif"
 
 export default function CurrentBooks({ data }: CurrentBooksProps) {
@@ -52,7 +56,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                           {volume.volumeInfo.pageCount} pages
                         </div>
                         <div className="text-fourlines text-sm">
-                          {volume.volumeInfo.description}
+                          {stripHTML(volume.volumeInfo.description)}
                         </div>
                       </div>
                     </div>
