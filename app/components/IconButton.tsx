@@ -29,7 +29,7 @@ export default function IconButton({
   }
 
   return (
-    <Wrapper className={`iconButton ${className}`}>
+    <Wrapper className={`iconButton ${className ?? ""}`}>
       <Icon {...{ iconKey, size }} />
       {children}
     </Wrapper>

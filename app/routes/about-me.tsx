@@ -6,6 +6,7 @@ import useSetRootProperty from "~/hooks/useSetRootProperty"
 import { MetaFunction } from "@remix-run/node"
 import EpicLogo from "~/svg/EpicLogo"
 import { DateTime } from "~/utilities/DateTime"
+import IconButton from "~/components/IconButton"
 
 export const meta: MetaFunction = () => {
   return [
@@ -80,10 +81,29 @@ export default function AboutMe() {
             </div>
           </div>
           <div className="py-4 px-8">
-            <p className="text-lg font-medium">Software Developer | Epic</p>
-            <p className="labelColor">
-              July 2021 - Present • {years} yrs {months} months
+            <div className="flex item-end gap-x-2">
+              <p className="text-lg font-medium">Software Developer | Epic</p>
+              <p className="labelColor"> • Verona, Wisconsin</p>
+            </div>
+            <p className="labelColor text-sm">
+              July 2021 - Present • {years} years {months} months
             </p>
+            <p className="mt-1">
+              Fullstack developer creating a web-based application for creating and maintaining
+              electronic medical records.
+            </p>
+            <ul className="list-disc pl-5">
+              {/* TODO: better descriptions */}
+              <li>
+                Leads development projects: currently working on a project to merge duplicate
+                diagnosis data in the patient's chart.
+              </li>
+              <li>
+                Teaches and leads other developers through organizing dev meetings on technical
+                topics, grading internal training assignments, conducting interviews, and being a
+                1-on-1 mentor for new hires.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
