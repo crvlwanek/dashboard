@@ -42,4 +42,17 @@ export class DateTime {
     const time = timeFormatter.format(date)
     return `${capitalize(day)} at ${time}`
   }
+
+  public static yearMonthDifference(
+    startDate: Date,
+    endDate: Date
+  ): { years: number; months: number } {
+    const endMonths = endDate.getFullYear() * 12 + endDate.getMonth() + 1
+    const startMonths = startDate.getFullYear() * 12 + startDate.getMonth() + 1
+
+    const deltaMonths = endMonths - startMonths
+    const years = Math.floor(deltaMonths / 12)
+    const months = deltaMonths % 12
+    return { years, months }
+  }
 }

@@ -5,6 +5,7 @@ import epicCassImage from "~/images/epic-cass.jpg"
 import useSetRootProperty from "~/hooks/useSetRootProperty"
 import { MetaFunction } from "@remix-run/node"
 import EpicLogo from "~/svg/EpicLogo"
+import { DateTime } from "~/utilities/DateTime"
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,6 +16,9 @@ export const meta: MetaFunction = () => {
 
 export default function AboutMe() {
   useSetRootProperty("--about-hero-image", `url(${capitolImage})`)
+
+  // Tenure at Epic
+  const { years, months } = DateTime.yearMonthDifference(new Date(2021, 6, 1), new Date())
 
   return (
     <>
@@ -70,15 +74,16 @@ export default function AboutMe() {
           <div className="relative">
             <img src={epicCassImage} className="object-cover h-[150px] block w-full absolute" />
           </div>
-          <div className="z-[2] relative top-[90px] mb-[90px] px-8">
+          <div className="z-[2] relative top-[50px] mb-[50px] px-8">
             <div className="flex h-[128px] w-[128px] p-2 rounded-md bg-white shadow-md">
               <EpicLogo />
             </div>
           </div>
           <div className="py-4 px-8">
             <p className="text-lg font-medium">Software Developer | Epic</p>
-            {/* TODO: calculate time at job */}
-            <p className="labelColor">July 2021 - Present • 2 yrs 9 months</p>
+            <p className="labelColor">
+              July 2021 - Present • {years} yrs {months} months
+            </p>
           </div>
         </div>
       </div>
