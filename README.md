@@ -12,4 +12,4 @@ This is a simple dashboard website using [Remix](https://remix.run/). There's no
 
 ## Deployment
 
-None yet, but coming soon...
+Deployed on Vercel -- [](dashboard-crvlwanek.vercel.app)
