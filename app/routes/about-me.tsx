@@ -82,12 +82,12 @@ export default function AboutMe() {
             <div className="relative">
               <img src={epicCassImage} className="object-cover h-[150px] block w-full absolute" />
             </div>
-            <div className="z-[2] relative top-[50px] mb-[50px] px-8">
+            <div className="z-[2] relative top-[50px] mb-[50px] px-6">
               <div className="flex h-[128px] w-[128px] p-2 rounded-md bg-white shadow-md">
                 <EpicLogo />
               </div>
             </div>
-            <div className="py-4 px-8">
+            <div className="p-4">
               <div className="flex flex-wrap item-end gap-x-2">
                 <p className="text-lg font-medium">Software Developer | Epic</p>
                 <p className="labelColor"> • Verona, Wisconsin</p>
