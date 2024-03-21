@@ -88,7 +88,7 @@ export default function AboutMe() {
               </div>
             </div>
             <div className="p-4">
-              <div className="flex flex-wrap item-end gap-x-2">
+              <div className="flex flex-wrap items-end gap-x-2">
                 <p className="text-lg font-medium">Software Developer | Epic</p>
                 <p className="labelColor"> • Verona, Wisconsin</p>
               </div>
@@ -99,6 +99,7 @@ export default function AboutMe() {
                 Fullstack developer creating a web-based application for creating and maintaining
                 electronic medical records.
               </p>
+              {/* TODO: add accordion for this info */}
               <ul className="list-disc pl-5">
                 {/* TODO: better descriptions */}
                 <li>
