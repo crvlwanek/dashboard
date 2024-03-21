@@ -88,7 +88,7 @@ export default function AboutMe() {
               </div>
             </div>
             <div className="py-4 px-8">
-              <div className="flex item-end gap-x-2">
+              <div className="flex flex-wrap item-end gap-x-2">
                 <p className="text-lg font-medium">Software Developer | Epic</p>
                 <p className="labelColor"> • Verona, Wisconsin</p>
               </div>
