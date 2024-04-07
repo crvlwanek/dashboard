@@ -32,9 +32,12 @@ export const links: LinksFunction = () => [
   },
 ]
 
+const nonFloatingRoutes = ["/about"]
+
 export default function App() {
   const nameBox = useRef<HTMLDivElement>(null)
   const location = useLocation()
+  const { pathname } = location
   useEffect(() => {
     const mainHeader = document?.getElementById("mainHeader")
 
@@ -43,7 +46,10 @@ export default function App() {
         if (!nameBox.current) {
           return
         }
-        nameBox.current.classList.toggle("navbarNameBoxShowing", !entry.isIntersecting)
+        nameBox.current.classList.toggle(
+          "navbarNameBoxShowing",
+          !entry.isIntersecting || nonFloatingRoutes.some(route => route === pathname)
+        )
       })
     })
 
@@ -52,7 +58,7 @@ export default function App() {
     }
 
     return () => observer.disconnect()
-  }, [location.pathname])
+  }, [pathname])
   return (
     <html lang="en">
       <head>
@@ -63,7 +69,10 @@ export default function App() {
       </head>
       <body id="body">
         <ProgressBar />
-        <NavBar float className="dashboardNavbar px-2 sm:px-4">
+        <NavBar
+          float={!nonFloatingRoutes.some(route => route === pathname)}
+          className="dashboardNavbar px-2 sm:px-4"
+        >
           <HamburgerMenu />
           <div ref={nameBox} className="navbarNameBox">
             <MusicLogo className="musicIconNavbar" />

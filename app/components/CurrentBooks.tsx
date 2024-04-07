@@ -29,8 +29,8 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                   return
                 }
                 return (
-                  <>
-                    <Divider key={volume.id} />
+                  <div key={volume.id}>
+                    <Divider />
                     <div className="flex">
                       <img
                         src={volume.volumeInfo.imageLinks?.thumbnail ?? missingImagePlaceholder}
@@ -60,7 +60,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </div>
                 )
               })}
             </div>

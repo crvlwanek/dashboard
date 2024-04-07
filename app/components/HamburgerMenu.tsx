@@ -63,6 +63,10 @@ export default function HamburgerMenu() {
               <Icon iconKey="profile" />
               About Me
             </MenuItem>
+            <MenuItem to="/about" onClick={toggleMenu}>
+              <Icon iconKey="world" />
+              This Website
+            </MenuItem>
           </ul>
         </nav>
       </div>

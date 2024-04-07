@@ -6,7 +6,6 @@ import useSetRootProperty from "~/hooks/useSetRootProperty"
 import { MetaFunction } from "@remix-run/node"
 import EpicLogo from "~/svg/EpicLogo"
 import { DateTime } from "~/utilities/DateTime"
-import IconButton from "~/components/IconButton"
 import Divider from "~/components/Divider"
 
 export const meta: MetaFunction = () => {

@@ -17,25 +17,27 @@ import CloseIcon from "~/svg/CloseIcon"
 import HomeIcon from "~/svg/HomeIcon"
 import ProfileIcon from "~/svg/ProfileIcon"
 import WeightliftingIcon from "~/svg/WeightliftingIcon"
+import WorldIcon from "~/svg/WorldIcon"
 
 const iconKeys = {
+  chevronLeft: ChevronLeftIcon,
+  chevronRight: ChevronRightIcon,
+  close: CloseIcon,
   facebook: FacebookIcon,
   github: GitHubIcon,
+  hamburger: HamburgerIcon,
+  home: HomeIcon,
   instagram: InstagramIcon,
   linkedIn: LinkedInIcon,
-  youtube: YouTubeIcon,
-  sun: SunIcon,
   moon: MoonIcon,
-  settings: SettingsIcon,
-  theme: ThemeIcon,
-  chevronRight: ChevronRightIcon,
-  chevronLeft: ChevronLeftIcon,
-  shoe: ShoeIcon,
-  hamburger: HamburgerIcon,
-  close: CloseIcon,
-  home: HomeIcon,
   profile: ProfileIcon,
+  settings: SettingsIcon,
+  shoe: ShoeIcon,
+  sun: SunIcon,
+  theme: ThemeIcon,
   weightlifting: WeightliftingIcon,
+  world: WorldIcon,
+  youtube: YouTubeIcon,
 }
 
 export type IconKey = keyof typeof iconKeys

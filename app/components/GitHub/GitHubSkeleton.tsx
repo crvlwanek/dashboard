@@ -3,11 +3,12 @@ import { GitHubSection } from "./GitHubRecentRepos"
 
 type GitHubSkeletonProps = {
   repoLimit: number
+  className?: string
 }
 
-export default function GitHubSkeleton({ repoLimit }: GitHubSkeletonProps) {
+export default function GitHubSkeleton({ repoLimit, className }: GitHubSkeletonProps) {
   return (
-    <GitHubSection>
+    <GitHubSection className={className}>
       {Array(repoLimit)
         .fill(0)
         .map((_, index) => (

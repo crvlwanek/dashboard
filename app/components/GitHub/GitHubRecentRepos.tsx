@@ -3,11 +3,13 @@ import Icon from "../Icon"
 import { GitHub } from "~/integrations/GitHub"
 import { getRelativeTime } from "~/utilities/converters"
 import GitHubChipBox from "./GitHubChipBox"
-import { HasReactChildren } from "../commonInterfaces"
+import { HasClassName, HasReactChildren } from "../commonInterfaces"
 
-export function GitHubSection({ children }: HasReactChildren) {
+interface GitHubSectionProps extends HasReactChildren, HasClassName {}
+
+export function GitHubSection({ children, className }: GitHubSectionProps) {
   return (
-    <div className="card githubRepos shadow-md">
+    <div className={`card githubRepos shadow-md ${className ?? ""}`}>
       <div className="flex align-center githubHeaderContainer">
         <Icon iconKey="github" size={30} />
         <h3 className="githubHeader">GitHub Repos</h3>
