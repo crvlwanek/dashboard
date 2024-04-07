@@ -25,9 +25,9 @@ export default function About() {
             process of loading
           </p>
         </div>
-        <div>
+        <div className="w-full flex flex-col items-center gap-2">
           <StravaSkeleton />
-          <p className="text-center pt-2 italic">Strava loading skeleton</p>
+          <p className="text-center italic">Strava loading skeleton</p>
         </div>
         <GitHubSkeleton repoLimit={4} className="col-span-1 md:col-span-2" />
       </div>
