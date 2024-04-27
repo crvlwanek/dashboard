@@ -1,8 +1,8 @@
 :root {
   --primary-main: hsl(178, 100%, 40%);
   --primary-light: hsl(178, 100%, 63%);
-  --primary-main-alpha-100: hsla(178, 100%, 35%, 0.102);
-  --primary-main-alpha-200: hsla(178, 100%, 35%, 0.2);
+  --primary-main-alpha-50: hsla(178, 100%, 35%, 0.05);
+  --primary-main-alpha-100: hsla(178, 100%, 35%, 0.1);
   --onPrimary: white;
 
   --surface: white;
@@ -27,6 +27,7 @@
 
   --text-on-image: white;
 
+  --black-alpha-50: rgba(0, 0, 0, 0.05);
   --black-alpha-100: rgba(0, 0, 0, 0.1);
   --black-alpha-400: rgba(0, 0, 0, 0.4);
   --black-alpha-500: rgba(0, 0, 0, 0.5);
@@ -149,6 +150,7 @@ button.hamburgerCloseIcon {
 }
 
 .hamburgerMenuLink {
+  --hover-color: var(--black-alpha-50);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -158,12 +160,14 @@ button.hamburgerCloseIcon {
 }
 
 .hamburgerMenuLink.selected {
+  --hover-color: var(--primary-main-alpha-100);
   color: var(--primary-main);
   fill: var(--primary-main);
+  background-color: var(--primary-main-alpha-50);
 }
 
 .hamburgerMenuLink:hover {
-  background-color: var(--primary-main-alpha-100);
+  background-color: var(--hover-color);
 }
 
 .about-hero-image {
