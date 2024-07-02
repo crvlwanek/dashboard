@@ -18,6 +18,7 @@ import HomeIcon from "~/svg/HomeIcon"
 import ProfileIcon from "~/svg/ProfileIcon"
 import WeightliftingIcon from "~/svg/WeightliftingIcon"
 import WorldIcon from "~/svg/WorldIcon"
+import InfoIcon from "~/svg/InfoIcon"
 
 const iconKeys = {
   chevronLeft: ChevronLeftIcon,
@@ -27,6 +28,7 @@ const iconKeys = {
   github: GitHubIcon,
   hamburger: HamburgerIcon,
   home: HomeIcon,
+  info: InfoIcon,
   instagram: InstagramIcon,
   linkedIn: LinkedInIcon,
   moon: MoonIcon,

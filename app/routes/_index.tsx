@@ -19,6 +19,9 @@ import Notion from "~/integrations/Notion"
 import env from "~/utilities/env"
 import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
 import CurrentBooks, { CurrentBooksSkeleton } from "~/components/CurrentBooks"
+import { MarathonTrainingPlan } from "~/components/MarathonTrainingPlan"
+import Divider from "~/components/Divider"
+import LargeDividerHeader from "~/components/LargeDividerHeading"
 
 export const meta: MetaFunction = () => {
   return [
@@ -102,9 +105,11 @@ export default function Index() {
           alignItems: "center",
         }}
       >
+        <LargeDividerHeader title="Running Activity" />
         <ErrorBoundary
           fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
         >
+          <MarathonTrainingPlan />
           <Suspense fallback={<StravaSkeleton />}>
             <Await resolve={activities}>
               {activities => (
@@ -116,6 +121,7 @@ export default function Index() {
             </Await>
           </Suspense>
         </ErrorBoundary>
+        <LargeDividerHeader title="Other Activity" />
         <ErrorBoundary
           fallback={<ErrorBox>Whoops! We encountered an error loading GitHub data</ErrorBox>}
         >

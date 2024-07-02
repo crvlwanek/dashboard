@@ -9,6 +9,44 @@ import useToggle from "~/hooks/useToggle"
 export type ThemeSetting = "system" | "light" | "dark"
 type ThemeSwitcherIcon = "theme" | "sun" | "moon"
 
+export const useTheme = (): "light" | "dark" => {
+  const [themeSetting, setThemeSetting] = useState<ThemeSetting>("system")
+  const [themePreference, setThemePreference] = useState<"light" | "dark">("light")
+
+  useEffect(() => {
+    const body = document?.getElementById("body")
+    setThemeSetting((body?.getAttribute("theme") as ThemeSetting) ?? "system")
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName !== "theme") {
+          return
+        }
+        const theme = (mutation.target as HTMLElement).getAttribute("theme") as ThemeSetting
+        setThemeSetting(theme)
+      })
+    })
+    if (body) {
+      observer.observe(body, { attributes: true })
+    }
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)")
+    const onPreferenceChange = (event: MediaQueryList | MediaQueryListEvent) => {
+      setThemePreference(event.matches ? "dark" : "light")
+    }
+    onPreferenceChange(darkModePreference)
+    darkModePreference.addEventListener("change", onPreferenceChange)
+    return () => darkModePreference.removeEventListener("change", onPreferenceChange)
+  }, [])
+
+  return themeSetting === "system" ? themePreference : themeSetting
+}
+
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useLocalStorage<ThemeSetting>(LOCAL_STORAGE_THEME_KEY, "system")
   const [icon, setIcon] = useState<ThemeSwitcherIcon>("theme")
