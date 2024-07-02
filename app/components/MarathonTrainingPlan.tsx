@@ -429,10 +429,9 @@ const MileageByWeek = () => {
             miles
           </h3>
           <div
-            className="grid p-4"
+            className={"grid p-4 " + (isSmallScreen ? "gap-4" : "")}
             style={{
               gridTemplateColumns: `repeat(${isSmallScreen ? 3 : selectedWeek.runs.length}, 1fr)`,
-              gap: isSmallScreen ? "12px 0" : "",
             }}
           >
             {selectedWeek.runs.map((run, index) => (

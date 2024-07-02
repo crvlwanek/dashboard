@@ -14,6 +14,9 @@ export const useTheme = (): "light" | "dark" => {
   const [themePreference, setThemePreference] = useState<"light" | "dark">("light")
 
   useEffect(() => {
+    if (typeof document === "undefined") {
+      return
+    }
     const body = document?.getElementById("body")
     setThemeSetting((body?.getAttribute("theme") as ThemeSetting) ?? "system")
     const observer = new MutationObserver(mutations => {

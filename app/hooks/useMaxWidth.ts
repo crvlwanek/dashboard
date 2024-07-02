@@ -3,9 +3,11 @@ import { useEffect, useState } from "react"
 export default function useMaxWidth(width: number) {
   const [matches, setMatches] = useState(false)
 
-  const body = document?.querySelector("body")
-
   useEffect(() => {
+    if (typeof document === "undefined") {
+      return
+    }
+    const body = document?.querySelector("body")
     if (!body) {
       return
     }
@@ -19,6 +21,7 @@ export default function useMaxWidth(width: number) {
       })
     })
 
+    setMatches(body.clientWidth < width)
     observer.observe(body)
 
     return () => {

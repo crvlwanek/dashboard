@@ -76,8 +76,8 @@ export function CurrentBooksSkeleton() {
     <div className="overflow-hidden card shadow-md">
       <h1 className="p-4 text-xl">Books I'm Currently Reading</h1>
       {[0].map(val => (
-        <>
-          <Divider key={val} />
+        <div key={val}>
+          <Divider />
           <div className="flex">
             <div className="skeleton m-4 h-[150px] w-[94px] flex-shrink-0" />
             <div className="flex flex-col justify-center pr-4 gap-2">
@@ -91,7 +91,7 @@ export function CurrentBooksSkeleton() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   )

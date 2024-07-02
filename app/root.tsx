@@ -8,6 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
+  useRouteError,
 } from "@remix-run/react"
 
 import appCssHref from "./app.css"
@@ -99,6 +100,26 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+      </body>
+    </html>
+  )
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError()
+  console.error(error)
+  return (
+    <html>
+      <head>
+        <title>Whoops! An error occurred</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="flex items-center justify-center h-screen">
+        <div className="text-center p-4 outline-red-400 outline outline-2 bg-red-200">
+          <div>Whoops!</div>
+          <div>An unexpected error occurred</div>
+        </div>
       </body>
     </html>
   )
