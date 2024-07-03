@@ -1,3 +1,4 @@
+import { CurrentBooksSkeleton } from "~/components/CurrentBooks"
 import Divider from "~/components/Divider"
 import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
 import StravaSkeleton from "~/components/StravaSkeleton"
@@ -28,6 +29,7 @@ export default function About() {
           <p className="text-center italic">Strava and GitHub loading skeletons</p>
         </div>
         <GitHubSkeleton repoLimit={4} className="col-span-1 md:col-span-2" />
+        <CurrentBooksSkeleton className="col-span-1 md:col-span-2" />
       </div>
     </div>
   )

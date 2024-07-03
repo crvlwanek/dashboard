@@ -491,7 +491,7 @@ export const MarathonTrainingPlan = () => {
   const theme = useTheme()
 
   return (
-    <ErrorBoundary fallback={<ErrorBox>Whoops! Marathon training plan failed to load</ErrorBox>}>
+    <>
       <div
         className={`p-4 ${theme === "light" ? "bg-slate-200" : "bg-slate-700"} rounded flex gap-2`}
       >
@@ -505,6 +505,6 @@ export const MarathonTrainingPlan = () => {
         </div>
       </div>
       <MileageByWeek />
-    </ErrorBoundary>
+    </>
   )
 }

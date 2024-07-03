@@ -4,6 +4,7 @@ import ErrorBox from "~/common/components/ErrorBox"
 import { Suspense } from "react"
 import { Await } from "@remix-run/react"
 import Divider from "./Divider"
+import { HasClassName } from "./commonInterfaces"
 
 type CurrentBooksProps = {
   data: Promise<VolumeResponse[]>
@@ -71,14 +72,14 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
   )
 }
 
-export function CurrentBooksSkeleton() {
+export function CurrentBooksSkeleton({ className }: HasClassName) {
   return (
-    <div className="overflow-hidden card shadow-md">
+    <div className={"overflow-hidden card shadow-md w-full max-w-full " + (className ?? "")}>
       <h1 className="p-4 text-xl">Books I'm Currently Reading</h1>
       {[0].map(val => (
         <div key={val}>
           <Divider />
-          <div className="flex">
+          <div className="flex w-full">
             <div className="skeleton m-4 h-[150px] w-[94px] flex-shrink-0" />
             <div className="flex flex-col justify-center pr-4 gap-2">
               <div className="skeleton h-4 w-[200px]" />

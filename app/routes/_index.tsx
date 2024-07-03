@@ -107,9 +107,13 @@ export default function Index() {
       >
         <LargeDividerHeader title="Running Activity" />
         <ErrorBoundary
-          fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
+          fallback={<ErrorBox>Whoops! Marathon training plan failed to load</ErrorBox>}
         >
           <MarathonTrainingPlan />
+        </ErrorBoundary>
+        <ErrorBoundary
+          fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
+        >
           <Suspense fallback={<StravaSkeleton />}>
             <Await resolve={activities}>
               {activities => (
