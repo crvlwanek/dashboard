@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+import { windowIsUndefined } from "~/utilities/helperMethods"
 
 export default function useMaxWidth(width: number) {
   const [matches, setMatches] = useState(false)
 
   useEffect(() => {
-    if (typeof document === "undefined") {
+    if (windowIsUndefined()) {
       return
     }
     const body = document?.querySelector("body")

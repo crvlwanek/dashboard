@@ -429,7 +429,7 @@ const MileageByWeek = () => {
             miles
           </h3>
           <div
-            className={"grid p-4 " + (isSmallScreen ? "gap-4" : "")}
+            className={"grid p-4 " + (isSmallScreen ? "gap-2" : "")}
             style={{
               gridTemplateColumns: `repeat(${isSmallScreen ? 3 : selectedWeek.runs.length}, 1fr)`,
             }}
@@ -439,7 +439,7 @@ const MileageByWeek = () => {
                 key={run.day}
                 className={
                   "grid place-items-center p-2 relative rounded " +
-                  (index === currentDayIndex
+                  (index === currentDayIndex && selectedWeekIndex === currentWeekIndex
                     ? "outline outline-1 " +
                       (!isDarkMode
                         ? "bg-stone-100 outline-stone-300"
@@ -447,7 +447,7 @@ const MileageByWeek = () => {
                     : "")
                 }
               >
-                {index === currentDayIndex && (
+                {index === currentDayIndex && selectedWeekIndex === currentWeekIndex && (
                   <div
                     className={
                       "absolute -top-4 rounded-full px-2 py-1 text-xs " +

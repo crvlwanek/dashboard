@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react"
 import Divider from "./Divider"
 import Icon from "./Icon"
 import useToggle from "~/hooks/useToggle"
+import { windowIsUndefined } from "~/utilities/helperMethods"
 
 export type ThemeSetting = "system" | "light" | "dark"
 type ThemeSwitcherIcon = "theme" | "sun" | "moon"
@@ -14,7 +15,7 @@ export const useTheme = (): "light" | "dark" => {
   const [themePreference, setThemePreference] = useState<"light" | "dark">("light")
 
   useEffect(() => {
-    if (typeof document === "undefined") {
+    if (windowIsUndefined()) {
       return
     }
     const body = document?.getElementById("body")
