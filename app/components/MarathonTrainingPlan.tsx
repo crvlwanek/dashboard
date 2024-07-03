@@ -3,8 +3,6 @@ import Divider from "./Divider"
 import Icon from "./Icon"
 import { useTheme } from "./ThemeSwitcher"
 import useMaxWidth from "~/hooks/useMaxWidth"
-import { ErrorBoundary } from "./ErrorBoundary"
-import ErrorBox from "~/common/components/ErrorBox"
 
 // TODO: Factor this out to a feature flag in Notion
 const RENDER_TRAINING_INFO = true
@@ -30,7 +28,7 @@ type MarathonPlan = {
 // https://www.baa.org/races/boston-marathon/train/levelfour
 export const marathonPlan: MarathonPlan = {
   // Somehow the colon makes it midnight, IDK
-  startDate: new Date("2024-06-24:"),
+  startDate: new Date("2024-06-24"),
   weeks: [
     {
       weekNumber: 1,
