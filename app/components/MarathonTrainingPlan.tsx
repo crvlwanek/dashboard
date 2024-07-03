@@ -493,7 +493,9 @@ export const MarathonTrainingPlan = () => {
   return (
     <>
       <div
-        className={`p-4 ${theme === "light" ? "bg-slate-200" : "bg-slate-700"} rounded flex gap-2`}
+        className={`p-4 ${
+          theme === "light" ? "bg-slate-200" : "bg-slate-700"
+        } rounded flex gap-2 text-sm`}
       >
         <Icon iconKey="info" className="pt-[2px]" />
         <div>

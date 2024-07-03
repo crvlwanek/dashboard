@@ -23,8 +23,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
         <Await resolve={data}>
           {volumes => (
             <div className="overflow-hidden card shadow-md">
-              <h1 className="p-4 text-xl">Books I'm Currently Reading</h1>
-
+              <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
               {volumes.map(volume => {
                 if (!volume.volumeInfo) {
                   return
@@ -75,7 +74,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
 export function CurrentBooksSkeleton({ className }: HasClassName) {
   return (
     <div className={"overflow-hidden card shadow-md w-full max-w-full " + (className ?? "")}>
-      <h1 className="p-4 text-xl">Books I'm Currently Reading</h1>
+      <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
       {[0].map(val => (
         <div key={val}>
           <Divider />
