@@ -385,103 +385,96 @@ const MileageByWeek = () => {
   const isSmallScreen = useMaxWidth(650)
 
   return (
-    <ErrorBoundary fallback={<ErrorBox>Whoops! Marathon training plan failed to load</ErrorBox>}>
-      <div className="w-full bg-surface rounded shadow-md">
-        <div className="pt-2 flex flex-wrap px-4 items-baseline gap-x-2">
-          <h2 className="text-xl">Marathon Training Plan</h2>
-          <p className="text-xs text-deemp">
-            from the{" "}
-            <a
-              className="underline"
-              href="https://www.baa.org/races/boston-marathon/train/levelfour"
-            >
-              Boston Athletic Association
-            </a>
-          </p>
-        </div>
-        <p className="labelColor text-sm px-4 text-right">
-          Total: {calculator.getTotalMileage()} mi
+    <div className="w-full bg-surface rounded shadow-md">
+      <div className="pt-2 flex flex-wrap px-4 items-baseline gap-x-2">
+        <h2 className="text-xl">Marathon Training Plan</h2>
+        <p className="text-xs text-deemp">
+          from the{" "}
+          <a className="underline" href="https://www.baa.org/races/boston-marathon/train/levelfour">
+            Boston Athletic Association
+          </a>
         </p>
-        <div
-          className="flex w-full px-4 pt-4"
-          onMouseLeave={() => setSelectedWeekIndex(currentWeekIndex)}
-        >
-          <div className="flex flex-col labelColor justify-between text-xs whitespace-nowrap pr-2 py-1">
-            {increments.map(inc => (
-              <div key={inc}>{inc} mi</div>
-            ))}
-          </div>
-          <div className="flex gap-1 items-end w-full">
-            {marathonPlan.weeks.map((week, weekIndex) => {
-              const weeklyMileage = TrainingPlanCalculator.getWeeklyMileage(week)
-              return (
-                <div
-                  key={week.weekNumber}
-                  className="bg-primary-main"
-                  style={{
-                    height: `${weeklyMileage * 2.5}px`,
-                    width: `${Math.floor(100 / weekCount)}%`,
-                    opacity: selectedWeek?.weekNumber === week.weekNumber ? "100%" : "35%",
-                  }}
-                  onMouseEnter={() => setSelectedWeekIndex(weekIndex)}
-                />
-              )
-            })}
-          </div>
+      </div>
+      <p className="labelColor text-sm px-4 text-right">Total: {calculator.getTotalMileage()} mi</p>
+      <div
+        className="flex w-full px-4 pt-4"
+        onMouseLeave={() => setSelectedWeekIndex(currentWeekIndex)}
+      >
+        <div className="flex flex-col labelColor justify-between text-xs whitespace-nowrap pr-2 py-1">
+          {increments.map(inc => (
+            <div key={inc}>{inc} mi</div>
+          ))}
         </div>
-        <Divider />
-        {selectedWeek && (
-          <div className="">
-            <h3 className="text-lg px-4 pt-2">
-              Week {selectedWeek.weekNumber} ·{" "}
-              {TrainingPlanCalculator.getWeeklyMileage(selectedWeek)} miles
-            </h3>
-            <div
-              className={"grid p-4 " + (isSmallScreen ? "gap-2" : "")}
-              style={{
-                gridTemplateColumns: `repeat(${isSmallScreen ? 3 : selectedWeek.runs.length}, 1fr)`,
-              }}
-            >
-              {selectedWeek.runs.map((run, index) => (
-                <div
-                  key={run.day}
-                  className={
-                    "grid place-items-center p-2 relative rounded " +
-                    (index === currentDayIndex && selectedWeekIndex === currentWeekIndex
-                      ? "outline outline-1 " +
-                        (!isDarkMode
-                          ? "bg-stone-100 outline-stone-300"
-                          : "bg-stone-700 outline-stone-600")
-                      : "")
-                  }
-                >
-                  {index === currentDayIndex && selectedWeekIndex === currentWeekIndex && (
-                    <div
-                      className={
-                        "absolute -top-4 rounded-full px-2 py-1 text-xs " +
-                        (!isDarkMode ? "bg-stone-200" : "bg-stone-600")
-                      }
-                    >
-                      Today
-                    </div>
-                  )}
-                  <div className="labelColor text-sm">{run.day.slice(0, 3)}</div>
-                  <div className="text-xl font-medium">{run.distance} mi</div>
+        <div className="flex gap-1 items-end w-full">
+          {marathonPlan.weeks.map((week, weekIndex) => {
+            const weeklyMileage = TrainingPlanCalculator.getWeeklyMileage(week)
+            return (
+              <div
+                key={week.weekNumber}
+                className="bg-primary-main"
+                style={{
+                  height: `${weeklyMileage * 2.5}px`,
+                  width: `${Math.floor(100 / weekCount)}%`,
+                  opacity: selectedWeek?.weekNumber === week.weekNumber ? "100%" : "35%",
+                }}
+                onMouseEnter={() => setSelectedWeekIndex(weekIndex)}
+              />
+            )
+          })}
+        </div>
+      </div>
+      <Divider />
+      {selectedWeek && (
+        <div className="">
+          <h3 className="text-lg px-4 pt-2">
+            Week {selectedWeek.weekNumber} · {TrainingPlanCalculator.getWeeklyMileage(selectedWeek)}{" "}
+            miles
+          </h3>
+          <div
+            className={"grid p-4 " + (isSmallScreen ? "gap-2" : "")}
+            style={{
+              gridTemplateColumns: `repeat(${isSmallScreen ? 3 : selectedWeek.runs.length}, 1fr)`,
+            }}
+          >
+            {selectedWeek.runs.map((run, index) => (
+              <div
+                key={run.day}
+                className={
+                  "grid place-items-center p-2 relative rounded " +
+                  (index === currentDayIndex && selectedWeekIndex === currentWeekIndex
+                    ? "outline outline-1 " +
+                      (!isDarkMode
+                        ? "bg-stone-100 outline-stone-300"
+                        : "bg-stone-700 outline-stone-600")
+                    : "")
+                }
+              >
+                {index === currentDayIndex && selectedWeekIndex === currentWeekIndex && (
                   <div
                     className={
-                      "text-deemph text-xs rounded-full px-4 py-1 mt-2 " +
-                      getRunTypeColor(run.type, isDarkMode)
+                      "absolute -top-4 rounded-full px-2 py-1 text-xs " +
+                      (!isDarkMode ? "bg-stone-200" : "bg-stone-600")
                     }
                   >
-                    {run.type}
+                    Today
                   </div>
+                )}
+                <div className="labelColor text-sm">{run.day.slice(0, 3)}</div>
+                <div className="text-xl font-medium">{run.distance} mi</div>
+                <div
+                  className={
+                    "text-deemph text-xs rounded-full px-4 py-1 mt-2 " +
+                    getRunTypeColor(run.type, isDarkMode)
+                  }
+                >
+                  {run.type}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        )}
-      </div>
-    </ErrorBoundary>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -498,7 +491,7 @@ export const MarathonTrainingPlan = () => {
   const theme = useTheme()
 
   return (
-    <>
+    <ErrorBoundary fallback={<ErrorBox>Whoops! Marathon training plan failed to load</ErrorBox>}>
       <div
         className={`p-4 ${theme === "light" ? "bg-slate-200" : "bg-slate-700"} rounded flex gap-2`}
       >
@@ -512,6 +505,6 @@ export const MarathonTrainingPlan = () => {
         </div>
       </div>
       <MileageByWeek />
-    </>
+    </ErrorBoundary>
   )
 }
