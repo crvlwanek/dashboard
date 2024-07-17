@@ -381,7 +381,10 @@ const MileageByWeek = () => {
   const isSmallScreen = useMaxWidth(650)
 
   return (
-    <div className="w-full bg-surface rounded shadow-md">
+    <div
+      className="w-full bg-surface rounded shadow-md"
+      onMouseLeave={() => setSelectedWeekIndex(currentWeekIndex)}
+    >
       <div className="pt-2 flex flex-wrap px-4 items-baseline gap-x-2">
         <h2 className="text-xl">Marathon Training Plan</h2>
         <p className="text-xs text-deemp">
@@ -392,10 +395,7 @@ const MileageByWeek = () => {
         </p>
       </div>
       <p className="labelColor text-sm px-4 text-right">Total: {calculator.getTotalMileage()} mi</p>
-      <div
-        className="flex w-full px-4 pt-4"
-        onMouseLeave={() => setSelectedWeekIndex(currentWeekIndex)}
-      >
+      <div className="flex w-full px-4 pt-4">
         <div className="flex flex-col labelColor justify-between text-xs whitespace-nowrap pr-2 py-1">
           {increments.map(inc => (
             <div key={inc}>{inc} mi</div>
