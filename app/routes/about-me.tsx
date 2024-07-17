@@ -6,7 +6,6 @@ import useSetRootProperty from "~/hooks/useSetRootProperty"
 import { MetaFunction } from "@remix-run/node"
 import EpicLogo from "~/svg/EpicLogo"
 import { DateTime } from "~/utilities/DateTime"
-import Divider from "~/components/Divider"
 import LargeDividerHeader from "~/components/LargeDividerHeading"
 
 export const meta: MetaFunction = () => {
@@ -21,6 +20,7 @@ export default function AboutMe() {
 
   // Tenure at Epic
   const { years, months } = DateTime.yearMonthDifference(new Date(2021, 6, 1), new Date())
+  const epicTenure = `${years} years ${months ? months.toString() + " months" : ""}`
 
   return (
     <>
@@ -88,9 +88,7 @@ export default function AboutMe() {
                 <p className="text-lg font-medium">Software Developer | Epic</p>
                 <p className="labelColor"> • Verona, Wisconsin</p>
               </div>
-              <p className="labelColor text-sm">
-                July 2021 - Present • {years} years {months} months
-              </p>
+              <p className="labelColor text-sm">July 2021 - Present • {epicTenure}</p>
               <p className="mt-1">
                 Fullstack developer creating a web-based application for creating and maintaining
                 electronic medical records.
