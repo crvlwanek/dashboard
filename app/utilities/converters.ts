@@ -58,27 +58,6 @@ export const formatTimeDuration = (duration: Duration, format: "colon" | "letter
   return `${hours ? hours + "h " : ""}${minutes + "m "}${!hours ? seconds + "s" : ""}`
 }
 
-export function getRelativeTime(datetime: string): string {
-  const time = new Date(datetime).getTime()
-  const deltaSeconds = Math.round((time - Date.now()) / 1000)
-  const increments = [60, 3600, 86400, 86400 * 7, 86400 * 30, 86400 * 365, Infinity]
-  const units: Intl.RelativeTimeFormatUnit[] = [
-    "second",
-    "minute",
-    "hour",
-    "day",
-    "week",
-    "month",
-    "year",
-  ]
-  const index = increments.findIndex(increment => increment > Math.abs(deltaSeconds))
-  const divisor = index ? increments[index - 1] : 1
-  // ~~ is the same as Math.trunc but better browser support
-  const value = ~~(deltaSeconds / divisor)
-  const unit = units[index]
-  return new Intl.RelativeTimeFormat("en-us", { numeric: "auto" }).format(value, unit)
-}
-
 export const capitalize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }

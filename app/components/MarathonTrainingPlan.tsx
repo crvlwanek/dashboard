@@ -28,7 +28,6 @@ type MarathonPlan = {
 
 // https://www.baa.org/races/boston-marathon/train/levelfour
 export const marathonPlan: MarathonPlan = {
-  // Somehow the colon makes it midnight, IDK
   startDate: new Date("06/24/2024"),
   weeks: [
     {
@@ -304,23 +303,21 @@ class TrainingPlanCalculator {
    * returns the index of the current week and day
    */
   public getCurrentWeekAndDay(): { week: number; day: number } {
-    const today = this._getCurrentDate()
-    const todayDateString = today.toDateString()
-    const dateIterator = DateTime.setMidnight(new Date(this._plan.startDate))
+    const today = new DateTime(this._getCurrentDate())
+    let dateIterator = new DateTime(this._plan.startDate).midnight()
     let dayOfWeekIndex = 0
     for (let i = 0; i < this._plan.weeks.length; i++) {
       const week = this._plan.weeks[i]
       for (let j = 0; j < week.runs.length; j++) {
         const run = week.runs[j]
         while (this._daysOfWeek[dayOfWeekIndex] !== run.day) {
-          dateIterator.setDate(dateIterator.getDate() + 1)
+          dateIterator = dateIterator.offset({ days: 1 })
           dayOfWeekIndex = (dayOfWeekIndex + 1) % 7
         }
-        const dateString = dateIterator.toDateString()
-        if (dateString === todayDateString) {
+        if (dateIterator.date() === today.date()) {
           return { week: i, day: j }
         }
-        if (dateIterator > today) {
+        if (dateIterator.value() > today.value()) {
           return { week: i, day: -1 }
         }
       }

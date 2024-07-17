@@ -1,9 +1,9 @@
 import Divider from "../Divider"
 import Icon from "../Icon"
 import { GitHub } from "~/integrations/GitHub"
-import { getRelativeTime } from "~/utilities/converters"
 import GitHubChipBox from "./GitHubChipBox"
 import { HasClassName, HasReactChildren } from "../commonInterfaces"
+import { DateTime } from "~/utilities/DateTime"
 
 interface GitHubSectionProps extends HasReactChildren, HasClassName {}
 
@@ -37,7 +37,7 @@ export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentRepo
               </a>
               <div className="githubLabelText githubUpdatedAt">
                 {"· updated "}
-                {getRelativeTime(repo.pushed_at)}
+                {new DateTime(repo.pushed_at).since()}
               </div>
             </div>
 

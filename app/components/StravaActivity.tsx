@@ -21,7 +21,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
     // Fail case if we weren't able to get data from Strava
     return <div>Oops, Strava didn't load correctly</div>
   }
-  const date = DateTime.formatDateTimeFull(new Date(activity.start_date))
+  const date = new DateTime(activity.start_date).format()
   const distance = `${metersToMiles(activity.distance)} mi`
   const pace = `${formatTimeDuration(
     secondsToDuration(metersPerSecondToSecondsPerMile(activity.average_speed)),

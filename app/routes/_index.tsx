@@ -76,6 +76,8 @@ export const loader = async ({ request }: { request: Request }) => {
 export default function Index() {
   const { activities, repos, bookData } = useLoaderData<typeof loader>()
 
+  const showStrava = false
+
   return (
     <>
       <div id="mainHeader" className="flex align-center justify-center mainHeader">
@@ -111,20 +113,22 @@ export default function Index() {
         >
           <MarathonTrainingPlan />
         </ErrorBoundary>
-        <ErrorBoundary
-          fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
-        >
-          <Suspense fallback={<StravaSkeleton />}>
-            <Await resolve={activities}>
-              {activities => (
-                <StravaActivity
-                  activity={activities.stravaData.most_recent_activity}
-                  mapUrl={activities.mapUrl}
-                />
-              )}
-            </Await>
-          </Suspense>
-        </ErrorBoundary>
+        {showStrava && (
+          <ErrorBoundary
+            fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
+          >
+            <Suspense fallback={<StravaSkeleton />}>
+              <Await resolve={activities}>
+                {activities => (
+                  <StravaActivity
+                    activity={activities.stravaData.most_recent_activity}
+                    mapUrl={activities.mapUrl}
+                  />
+                )}
+              </Await>
+            </Suspense>
+          </ErrorBoundary>
+        )}
         <LargeDividerHeader title="Other Activity" />
         <ErrorBoundary
           fallback={<ErrorBox>Whoops! We encountered an error loading GitHub data</ErrorBox>}
