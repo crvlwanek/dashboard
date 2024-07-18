@@ -271,8 +271,15 @@ export const marathonPlan: MarathonPlan = {
   ],
 }
 
+interface TrainingRunWithDate extends TrainingRun {
+  date: string
+}
+
+interface TrainingWeekWithDate extends TrainingWeek {
+  runs: TrainingRunWithDate[]
+}
+
 class TrainingPlanCalculator {
-  private _plan: MarathonPlan
   /** Override for the current date, used for unit testing and demos */
   private _currentDate?: Date
 
@@ -286,10 +293,6 @@ class TrainingPlanCalculator {
     "Sunday",
   ]
 
-  constructor(plan: MarathonPlan) {
-    this._plan = plan
-  }
-
   private _getCurrentDate(): Date {
     return this._currentDate ?? new Date()
   }
@@ -298,16 +301,57 @@ class TrainingPlanCalculator {
     this._currentDate = date
   }
 
+  constructor(plan: MarathonPlan) {
+    this.startDate = new DateTime(plan.startDate)
+
+    // My way of copying the array
+    const days = this._daysOfWeek.map(x => x)
+    const startDay = this.startDate.dayOfWeek()
+    for (let i = 0; i < 10; i++) {
+      if (startDay == days[0]) {
+        break
+      }
+      days.push(days.shift()!)
+      if (i === 9) {
+        console.log(startDay)
+        console.log(days)
+        throw new Error(`Something went wrong shifting days. Start day: ${startDay}`)
+      }
+    }
+
+    this.weeks = plan.weeks.map((week, index) => {
+      const firstDayOfWeek = this.startDate.offset({ weeks: index })
+      const { weekNumber, phase } = week
+      return {
+        weekNumber,
+        phase,
+        runs: week.runs.map(run => {
+          const dayIndex = days.indexOf(run.day)
+          if (dayIndex === -1) {
+            throw new Error(`Could not find day: ${run.day}`)
+          }
+          return {
+            ...run,
+            date: firstDayOfWeek.offset({ days: dayIndex }).date(),
+          }
+        }),
+      }
+    })
+  }
+
+  public weeks: TrainingWeekWithDate[] = []
+  public startDate: DateTime = new DateTime()
+
   /**
    * Based on the start date of the training plan and the current date,
    * returns the index of the current week and day
    */
   public getCurrentWeekAndDay(): { week: number; day: number } {
     const today = new DateTime(this._getCurrentDate())
-    let dateIterator = new DateTime(this._plan.startDate).midnight()
+    let dateIterator = this.startDate.midnight()
     let dayOfWeekIndex = 0
-    for (let i = 0; i < this._plan.weeks.length; i++) {
-      const week = this._plan.weeks[i]
+    for (let i = 0; i < this.weeks.length; i++) {
+      const week = this.weeks[i]
       for (let j = 0; j < week.runs.length; j++) {
         const run = week.runs[j]
         while (this._daysOfWeek[dayOfWeekIndex] !== run.day) {
@@ -328,28 +372,28 @@ class TrainingPlanCalculator {
 
   /** Returns the total mileage for the entire training plan */
   public getTotalMileage(): number {
-    return this._plan.weeks
+    return this.weeks
       .map(TrainingPlanCalculator.getWeeklyMileage)
       .reduce((acc, curr) => acc + curr, 0)
   }
   /** Returns the max mileage of any week in the training plan */
   public getMaxMileage(): number {
-    return Math.max(...this._plan.weeks.map(TrainingPlanCalculator.getWeeklyMileage))
+    return Math.max(...this.weeks.map(TrainingPlanCalculator.getWeeklyMileage))
   }
   /** Returns the number of weeks in the training plan */
   public getWeekCount(): number {
-    return this._plan.weeks.length
+    return this.weeks.length
   }
   /** Returns the total mileage for a given week */
   public static getWeeklyMileage(week: TrainingWeek): number {
     return week.runs.map(run => run.distance).reduce((acc, curr) => acc + curr, 0)
   }
   /** Returns the week for a given index */
-  public getWeek(index: number): TrainingWeek | undefined {
-    if (index < 0 || index > this._plan.weeks.length) {
+  public getWeek(index: number): TrainingWeekWithDate | undefined {
+    if (index < 0 || index > this.weeks.length) {
       return undefined
     }
-    return this._plan.weeks[index]
+    return this.weeks[index]
   }
 }
 
@@ -455,7 +499,9 @@ const MileageByWeek = () => {
                     Today
                   </div>
                 )}
-                <div className="labelColor text-sm">{run.day.slice(0, 3)}</div>
+                <div className="labelColor text-sm">
+                  {run.day.slice(0, 3) + " " + new DateTime(run.date).dayAndMonth()}
+                </div>
                 <div className="text-xl font-medium">{run.distance} mi</div>
                 <div
                   className={

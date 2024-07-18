@@ -156,6 +156,14 @@ export class DateTime {
     return new Intl.RelativeTimeFormat("en-us", { numeric: "auto" }).format(value, unit)
   }
 
+  // Returns the day and month as a string, e.g. 7/17
+  public dayAndMonth(): string {
+    return new Intl.DateTimeFormat(undefined, {
+      day: "numeric",
+      month: "numeric",
+    }).format(this._date)
+  }
+
   public static *range(start: DateTime, end: DateTime) {
     let current = start
     while (current.value() < end.value()) {
