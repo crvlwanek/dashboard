@@ -8,6 +8,7 @@ const env = new EnvironmentVariables([
   "MAPBOX_TOKEN",
   "GOOGLE_MAPS_API_KEY",
   "NOTION_API_KEY",
+  "ATLAS_DB_URI",
 ])
 
 export default env

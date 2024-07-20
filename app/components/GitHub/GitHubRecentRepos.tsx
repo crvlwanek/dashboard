@@ -26,6 +26,11 @@ type GitHubRecentReposProps = {
 }
 
 export default function GitHubRecentRepos({ repos, repoLimit }: GitHubRecentReposProps) {
+  if (!(repos instanceof Array)) {
+    console.error(repos)
+    throw new Error("Did not recieve repo data as an array")
+  }
+
   return (
     <GitHubSection>
       {repos.slice(0, repoLimit).map((repo, index) => (

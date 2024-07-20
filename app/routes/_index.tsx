@@ -18,9 +18,8 @@ import ErrorBox from "~/common/components/ErrorBox"
 import Notion from "~/integrations/Notion"
 import env from "~/utilities/env"
 import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
-import CurrentBooks, { CurrentBooksSkeleton } from "~/components/CurrentBooks"
+import CurrentBooks from "~/components/CurrentBooks"
 import { MarathonTrainingPlan } from "~/components/MarathonTrainingPlan"
-import Divider from "~/components/Divider"
 import LargeDividerHeader from "~/components/LargeDividerHeading"
 
 export const meta: MetaFunction = () => {
@@ -77,7 +76,7 @@ export const loader = async ({ request }: { request: Request }) => {
 export default function Index() {
   const { activities, repos, bookData } = useLoaderData<typeof loader>()
 
-  const showStrava = false
+  const showStrava = true
 
   return (
     <>
@@ -110,13 +109,13 @@ export default function Index() {
       >
         <LargeDividerHeader title="Running Activity" />
         <ErrorBoundary
-          fallback={<ErrorBox>Whoops! Marathon training plan failed to load</ErrorBox>}
+          fallback={<ErrorBox>Unable to load marathon training plan, try again later</ErrorBox>}
         >
           <MarathonTrainingPlan />
         </ErrorBoundary>
         {showStrava && (
           <ErrorBoundary
-            fallback={<ErrorBox>Whoops! We encountered an error loading Strava data</ErrorBox>}
+            fallback={<ErrorBox>Unable to load Strava data, try again later</ErrorBox>}
           >
             <Suspense fallback={<StravaSkeleton />}>
               <Await resolve={activities}>
@@ -131,9 +130,7 @@ export default function Index() {
           </ErrorBoundary>
         )}
         <LargeDividerHeader title="Other Activity" />
-        <ErrorBoundary
-          fallback={<ErrorBox>Whoops! We encountered an error loading GitHub data</ErrorBox>}
-        >
+        <ErrorBoundary fallback={<ErrorBox>Unable to load GitHub data, try again later</ErrorBox>}>
           <Suspense fallback={<GitHubSkeleton repoLimit={7} />}>
             <Await resolve={repos}>
               {repos => <GitHubRecentRepos repos={repos} repoLimit={7} />}

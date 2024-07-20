@@ -4,6 +4,7 @@ export default class Strava {
 
   public static readonly color = "#fc4c02"
   public static readonly activitiesUrl = "https://www.strava.com/activities/"
+  private static readonly _tokenUrl = "https://www.strava.com/api/v3/oauth/token"
 
   public constructor(clientId?: string, clientSecret?: string) {
     if (!clientId || !clientSecret) {
@@ -15,9 +16,49 @@ export default class Strava {
     this._clientSecret = clientSecret.trimEnd()
   }
 
+  // Use this to generate a URL for gaining an accees code
+  public async authorize() {
+    const redirectUri = "http://localhost:3000/about"
+    const scope = "activity:read"
+
+    const authorizationUrl = `https://www.strava.com/oauth/authorize?client_id=${
+      this._clientId
+    }&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(
+      scope
+    )}`
+
+    console.log(authorizationUrl)
+  }
+
+  public async getAccessToken(authCode: string) {
+    const redirect_uri = "http://localhost:3000/about"
+    const scope = "activity:read"
+
+    const url = Strava._tokenUrl
+    const params = new URLSearchParams({
+      client_id: this._clientId,
+      client_secret: this._clientSecret,
+      code: authCode,
+      grant_type: "authorization_code",
+      redirect_uri,
+      scope,
+    })
+
+    const res = fetch(url, { method: "POST", body: params })
+    return res
+  }
+
   public async refreshTokens(refreshToken: string): Promise<StravaTokenData | StravaFault> {
-    const url = `https://www.strava.com/oauth/token?client_id=${this._clientId}&client_secret=${this._clientSecret}&grant_type=refresh_token&refresh_token=${refreshToken}`
-    const response = await fetch(url, { method: "POST" })
+    const scope = "activity:read"
+
+    const url = Strava._tokenUrl
+    const params = new URLSearchParams()
+    params.append("client_id", this._clientId)
+    params.append("client_secret", this._clientSecret)
+    params.append("refresh_token", refreshToken)
+    params.append("grant_type", "refresh_token")
+    params.append("scope", scope)
+    const response = await fetch(url, { method: "POST", body: params })
     return response.json()
   }
 

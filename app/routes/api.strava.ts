@@ -1,4 +1,5 @@
 import { LoaderFunction, json } from "@remix-run/node"
+import { fetchRecentActivity, setRecentActivity } from "~/integrations/MongoDB"
 import Pantry from "~/integrations/Pantry"
 import Strava, {
   StravaPolylineMap,
@@ -49,7 +50,25 @@ const stravaBasket = new Pantry<CachedStravaData>(
  * @returns JSON, either the processed activity data (if successful) or an error if one was encountered
  */
 export const loader: LoaderFunction = async () => {
-  const data = await stravaBasket.get()
+  return loadStravaData()
+}
+
+const getAuthCode = () => {
+  strava.authorize()
+  return null
+}
+
+const getAccessToken = async (authCode: string) => {
+  const res = await strava.getAccessToken(authCode)
+  const content = await res.json()
+  console.log(content)
+  return content
+}
+
+const loadStravaData = async () => {
+  const data = await fetchRecentActivity()
+  const id = data._id
+  // If it's been updated in the last 5 minutes, just return the data
   if (data.updated > Date.now() - 1000 * 60 * 5) {
     return createResponse(data)
   }
@@ -57,7 +76,7 @@ export const loader: LoaderFunction = async () => {
     const tokenResponse = await strava.refreshTokens(data.refresh_token)
     if (strava.isError(tokenResponse)) {
       console.error(tokenResponse)
-      return json({ error: "Error refreshing Strava token" }, { status: 500 })
+      throw new Error("Error refreshing Strava token")
     }
 
     data.expires_at = tokenResponse.expires_at * 1000
@@ -67,31 +86,47 @@ export const loader: LoaderFunction = async () => {
   const activitiesResponse = await strava.getActivities(data.access_token)
   if (strava.isError(activitiesResponse)) {
     console.error(activitiesResponse)
-    return json(activitiesResponse, { status: 500 })
+    throw new Error("Error retrieving activity data")
   }
-  processActivityData(activitiesResponse, data)
-  // Don't need to await this, just storing our data back to the database
-  stravaBasket.put(data)
-  return createResponse(data)
+  const newData = processActivityData(activitiesResponse, data)
+  // Don't need to await this, just storing it back to the database
+  setRecentActivity(id, newData)
+  return createResponse(newData)
 }
 
-const processActivityData = (activities: StravaSummaryActivity[], data: CachedStravaData) => {
+const requestRefresh = async () => {
+  const data = await fetchRecentActivity()
+  const tokens = await strava.refreshTokens(data.refresh_token)
+  return tokens
+}
+
+const processActivityData = (
+  activities: StravaSummaryActivity[],
+  cachedData: StravaTokenData
+): CachedStravaData => {
+  const { access_token, refresh_token, expires_at } = cachedData
   const mostRecentActivity = activities[0]
   const { name, distance, moving_time, type, average_speed, start_date, average_heartrate, id } =
     mostRecentActivity
   const { summary_polyline } = mostRecentActivity.map
-  data.most_recent_activity = {
-    name,
-    distance,
-    moving_time,
-    type,
-    average_speed,
-    start_date,
-    summary_polyline,
-    average_heartrate,
-    id,
+  const output = {
+    updated: Date.now(),
+    most_recent_activity: {
+      name,
+      distance,
+      moving_time,
+      type,
+      average_speed,
+      start_date,
+      summary_polyline,
+      average_heartrate,
+      id,
+    },
+    access_token,
+    refresh_token,
+    expires_at,
   }
-  data.updated = Date.now()
+  return output
 }
 
 const createResponse = (data: CachedStravaData): ProcessedActivityData => {
