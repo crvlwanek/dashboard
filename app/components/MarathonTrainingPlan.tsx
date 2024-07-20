@@ -465,10 +465,10 @@ const MileageByWeek = () => {
       </div>
       <Divider />
       {selectedWeek && (
-        <div className="">
+        <div>
           <h3 className="text-lg px-4 pt-2">
-            Week {selectedWeek.weekNumber} · {TrainingPlanCalculator.getWeeklyMileage(selectedWeek)}{" "}
-            miles
+            Week {selectedWeek.weekNumber} ·{" "}
+            {selectedWeek.runs.map(run => run.distance).reduce((acc, curr) => acc + curr, 0)} miles
           </h3>
           <div
             className={"grid p-4 " + (isSmallScreen ? "gap-2" : "")}
