@@ -1,10 +1,12 @@
 :root {
+  /** Primary colors */
   --primary-main: hsl(178, 100%, 40%);
   --primary-light: hsl(178, 100%, 63%);
   --primary-main-alpha-50: hsla(178, 100%, 35%, 0.05);
   --primary-main-alpha-100: hsla(178, 100%, 35%, 0.1);
   --onPrimary: white;
 
+  /** Light mode colors */
   --surface: white;
   --onSurface: #1b1717;
   --surfaceVariant: #eee;
@@ -15,7 +17,11 @@
   --surfaceBg: #f1f1f1;
   --labelText: #999;
   --deempText: #666;
+  --orange-bg: #fed7aa;
+  --green-bg: #bbf7d0;
+  --purple-bg: #e9d5ff;
 
+  /** Dark mode colors */
   --dark-surface: #222;
   --dark-onSurface: white;
   --dark-surfaceVariant: #333;
@@ -26,7 +32,11 @@
   --dark-surfaceBg: #181818;
   --dark-labelText: #777;
   --dark-deempText: #aaa;
+  --dark-orange-bg: #9a3412;
+  --dark-green-bg: #166534;
+  --dark-purple-bg: #6b21a8;
 
+  /** Other colors */
   --text-on-image: white;
 
   --black-alpha-50: rgba(0, 0, 0, 0.05);
@@ -50,6 +60,10 @@ body[theme="dark"] {
   --surfaceBg: var(--dark-surfaceBg);
   --labelText: var(--dark-labelText);
   --deempText: var(--dark-deempText);
+
+  --orange-bg: var(--dark-orange-bg);
+  --green-bg: var(--dark-green-bg);
+  --purple-bg: var(--dark-purple-bg);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64,6 +78,10 @@ body[theme="dark"] {
     --surfaceBg: var(--dark-surfaceBg);
     --labelText: var(--dark-labelText);
     --deempText: var(--dark-deempText);
+
+    --orange-bg: var(--dark-orange-bg);
+    --green-bg: var(--dark-green-bg);
+    --purple-bg: var(--dark-purple-bg);
   }
 }
 
@@ -108,6 +126,27 @@ button {
 
 .bg-surface-bg {
   background-color: var(--surfaceBg);
+}
+
+.bg-green {
+  background-color: var(--green-bg);
+}
+
+.bg-purple {
+  background-color: var(--purple-bg);
+}
+
+.bg-orange {
+  background-color: var(--orange-bg);
+}
+
+.primary-highlight {
+  background-color: var(--primary-main-alpha-100);
+}
+
+.primary-chip {
+  background: var(--primary-main);
+  color: var(--onPrimary);
 }
 
 .border-label {
@@ -512,7 +551,7 @@ button.hamburgerCloseIcon {
   padding: 8px 8px 8px 16px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .stravaActivityMain {
     width: 100%;
   }

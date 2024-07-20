@@ -1,8 +1,6 @@
 import { useState } from "react"
 import Divider from "./Divider"
 import Icon from "./Icon"
-import { useTheme } from "./ThemeSwitcher"
-import useMaxWidth from "~/hooks/useMaxWidth"
 import { DateTime } from "~/utilities/DateTime"
 
 // TODO: Factor this out to a feature flag in Notion
@@ -397,11 +395,11 @@ class TrainingPlanCalculator {
   }
 }
 
-const getRunTypeColor = (type: RunTypes, isDarkMode: boolean): string => {
+const getRunTypeColor = (type: RunTypes): string => {
   const typeMap: { [key in RunTypes]: string } = {
-    Aerobic: isDarkMode ? "bg-orange-800" : "bg-orange-200",
-    Easy: isDarkMode ? "bg-green-800" : "bg-green-200",
-    Interval: isDarkMode ? "bg-purple-800" : "bg-purple-200",
+    Aerobic: "bg-orange",
+    Easy: "bg-green",
+    Interval: "bg-purple",
   }
 
   return typeMap[type]
@@ -414,15 +412,10 @@ const MileageByWeek = () => {
   const maxMileage = calculator.getMaxMileage()
   const increments = [maxMileage, Math.floor(maxMileage) / 2, 0]
 
-  const { week: currentWeekIndex, day: currentDayIndex } = calculator.getCurrentWeekAndDay()
-
-  const theme = useTheme()
-  const isDarkMode = theme === "dark"
+  const { week: currentWeekIndex } = calculator.getCurrentWeekAndDay()
 
   const [selectedWeekIndex, setSelectedWeekIndex] = useState(currentWeekIndex)
   const selectedWeek = calculator.getWeek(selectedWeekIndex)
-
-  const isSmallScreen = useMaxWidth(650)
 
   return (
     <div
@@ -464,58 +457,56 @@ const MileageByWeek = () => {
         </div>
       </div>
       <Divider />
-      {selectedWeek && (
-        <div>
-          <h3 className="text-lg px-4 pt-2">
-            Week {selectedWeek.weekNumber} ·{" "}
-            {selectedWeek.runs.map(run => run.distance).reduce((acc, curr) => acc + curr, 0)} miles
-          </h3>
+      <CurrentTrainingWeek week={selectedWeek} />
+    </div>
+  )
+}
+
+type CurrentTrainingWeekProps = {
+  week: TrainingWeekWithDate | undefined
+}
+
+const CurrentTrainingWeek: React.FC<CurrentTrainingWeekProps> = ({ week }) => {
+  if (!week) {
+    return <></>
+  }
+
+  const today = new DateTime().date()
+
+  return (
+    <div>
+      <h3 className="text-lg px-4 pt-2">
+        Week {week.weekNumber} ·{" "}
+        {week.runs.map(run => run.distance).reduce((acc, curr) => acc + curr, 0)} miles
+      </h3>
+      <div className={"grid gap-x-2 gap-y-4 sm:gap-0 grid-cols-3 sm:grid-flow-col sm:auto-cols-fr"}>
+        {week.runs.map(run => (
           <div
-            className={"grid p-4 " + (isSmallScreen ? "gap-2" : "")}
-            style={{
-              gridTemplateColumns: `repeat(${isSmallScreen ? 3 : selectedWeek.runs.length}, 1fr)`,
-            }}
+            key={run.day}
+            className={
+              "grid place-items-center px-2 py-4 relative rounded " +
+              (today === run.date ? "primary-highlight" : "")
+            }
           >
-            {selectedWeek.runs.map((run, index) => (
-              <div
-                key={run.day}
-                className={
-                  "grid place-items-center p-2 relative rounded " +
-                  (index === currentDayIndex && selectedWeekIndex === currentWeekIndex
-                    ? "outline outline-1 " +
-                      (!isDarkMode
-                        ? "bg-stone-100 outline-stone-300"
-                        : "bg-stone-700 outline-stone-600")
-                    : "")
-                }
-              >
-                {index === currentDayIndex && selectedWeekIndex === currentWeekIndex && (
-                  <div
-                    className={
-                      "absolute -top-4 rounded-full px-2 py-1 text-xs " +
-                      (!isDarkMode ? "bg-stone-200" : "bg-stone-600")
-                    }
-                  >
-                    Today
-                  </div>
-                )}
-                <div className="labelColor text-sm">
-                  {run.day.slice(0, 3) + " " + new DateTime(run.date).dayAndMonth()}
-                </div>
-                <div className="text-xl font-medium">{run.distance} mi</div>
-                <div
-                  className={
-                    "text-deemph text-xs rounded-full px-4 py-1 mt-2 " +
-                    getRunTypeColor(run.type, isDarkMode)
-                  }
-                >
-                  {run.type}
-                </div>
+            {today === run.date && (
+              <div className={"absolute -top-2 rounded-full px-2 py-1 text-xs primary-chip"}>
+                Today
               </div>
-            ))}
+            )}
+            <div className="labelColor text-sm">
+              {run.day.slice(0, 3) + " " + new DateTime(run.date).dayAndMonth()}
+            </div>
+            <div className="text-xl font-medium">{run.distance} mi</div>
+            <div
+              className={
+                "text-deemph text-xs rounded-full px-4 py-1 mt-2 " + getRunTypeColor(run.type)
+              }
+            >
+              {run.type}
+            </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   )
 }
@@ -530,15 +521,9 @@ export const MarathonTrainingPlan = () => {
     return
   }
 
-  const theme = useTheme()
-
   return (
     <>
-      <div
-        className={`p-4 ${
-          theme === "light" ? "bg-slate-200" : "bg-slate-700"
-        } rounded flex gap-2 text-sm`}
-      >
+      <div className={`p-4 bg-surface rounded flex gap-2 text-sm shadow-md`}>
         <Icon iconKey="info" className="pt-[2px]" />
         <div>
           I'm currently training for the{" "}
