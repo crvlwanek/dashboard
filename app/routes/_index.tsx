@@ -76,7 +76,7 @@ export const loader = async ({ request }: { request: Request }) => {
 export default function Index() {
   const { activities, repos, bookData } = useLoaderData<typeof loader>()
 
-  const showStrava = true
+  const showStrava = false
 
   return (
     <>
