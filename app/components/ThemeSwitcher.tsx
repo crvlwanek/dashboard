@@ -71,7 +71,7 @@ export default function ThemeSwitcher() {
       <IconButton iconKey={icon} onClick={toggleMenuShown} />
       {menuShown && (
         <>
-          <fieldset className="themeMenu card" id="themeMenu">
+          <fieldset className="themeMenu card shadow-md" id="themeMenu">
             <legend style={{ display: "none" }}>Pick a theme</legend>
             <label className="themeMenuOption">
               <input
