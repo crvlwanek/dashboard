@@ -7,6 +7,7 @@ import { MetaFunction } from "@remix-run/node"
 import EpicLogo from "~/svg/EpicLogo"
 import { DateTime } from "~/utilities/DateTime"
 import LargeDividerHeader from "~/components/LargeDividerHeading"
+import Card from "~/common/components/Card"
 
 export const meta: MetaFunction = () => {
   return [
@@ -31,7 +32,7 @@ export default function AboutMe() {
         />
         <h1 className="z-[2] text-white mt-8 mb-4 text-5xl font-bold">About Me</h1>
         <div className="max-w-3xl z-[2]">
-          <div className="w-full min-h-4 rounded overflow-hidden flex flexible gap-6 bg-surface p-4 shadow-md">
+          <Card className="w-full min-h-4 overflow-hidden flex flexible gap-6 p-4">
             <img
               src={profileImage}
               className="aspect-square object-cover rounded-full w-[300px] self-start mx-auto border-solid border-4 border-white"
@@ -72,9 +73,9 @@ export default function AboutMe() {
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
           <LargeDividerHeader title="Work Experience" />
-          <div className="w-full min-h-4 rounded overflow-hidden bg-surface shadow-md">
+          <Card className="w-full min-h-4 overflow-hidden">
             <div className="relative">
               <img src={epicCassImage} className="object-cover h-[150px] block w-full absolute" />
             </div>
@@ -107,7 +108,7 @@ export default function AboutMe() {
                 </li>
               </ul>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </>

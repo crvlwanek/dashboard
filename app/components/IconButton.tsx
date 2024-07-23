@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react"
 import Icon, { HasIcon } from "./Icon"
-import { HasClassName, HasReactChildren } from "./commonInterfaces"
+import { HasClassName, HasReactChildren } from "../common/interfaces"
 
 export interface IconButtonProps extends HasIcon, HasReactChildren, HasClassName {
   size?: number

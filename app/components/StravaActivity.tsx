@@ -10,6 +10,7 @@ import Divider from "./Divider"
 import Icon from "./Icon"
 import Strava from "~/integrations/Strava"
 import { DateTime } from "~/utilities/DateTime"
+import Card from "~/common/components/Card"
 
 export interface StravaActivityProps {
   activity: ProcessedActivityData["most_recent_activity"]
@@ -29,7 +30,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
   )} /mi`
   const movingTime = formatTimeDuration(secondsToDuration(activity.moving_time), "letter")
   return (
-    <div className="card stravaActivityMain shadow-md">
+    <Card className="stravaActivityMain">
       <div className="stravaActivityHeader">
         <div className="stravaTopHeader">
           <h5>{activity.name}</h5>
@@ -72,6 +73,6 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
           <h5>{movingTime}</h5>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }

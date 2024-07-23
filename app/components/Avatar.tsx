@@ -1,4 +1,4 @@
-import { HasClassName } from "./commonInterfaces"
+import { HasClassName } from "../common/interfaces"
 
 export interface AvatarProps extends HasClassName {
   size?: number

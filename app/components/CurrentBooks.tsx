@@ -4,7 +4,8 @@ import ErrorBox from "~/common/components/ErrorBox"
 import { Suspense } from "react"
 import { Await } from "@remix-run/react"
 import Divider from "./Divider"
-import { HasClassName } from "./commonInterfaces"
+import { HasClassName } from "../common/interfaces"
+import Card from "~/common/components/Card"
 
 type CurrentBooksProps = {
   data: Promise<VolumeResponse[]>
@@ -22,7 +23,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
       <Suspense fallback={<CurrentBooksSkeleton />}>
         <Await resolve={data}>
           {volumes => (
-            <div className="overflow-hidden card shadow-md">
+            <Card className="overflow-hidden">
               <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
               {volumes.map(volume => {
                 if (!volume.volumeInfo) {
@@ -63,7 +64,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                   </div>
                 )
               })}
-            </div>
+            </Card>
           )}
         </Await>
       </Suspense>
@@ -73,7 +74,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
 
 export function CurrentBooksSkeleton({ className }: HasClassName) {
   return (
-    <div className={"overflow-hidden card shadow-md w-full max-w-full " + (className ?? "")}>
+    <Card className={"overflow-hidden w-full max-w-full " + (className ?? "")}>
       <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
       {[0].map(val => (
         <div key={val}>
@@ -93,6 +94,6 @@ export function CurrentBooksSkeleton({ className }: HasClassName) {
           </div>
         </div>
       ))}
-    </div>
+    </Card>
   )
 }

@@ -2,6 +2,7 @@ import { useState } from "react"
 import Divider from "./Divider"
 import Icon from "./Icon"
 import { DateTime } from "~/utilities/DateTime"
+import Card from "~/common/components/Card"
 
 // TODO: Factor this out to a feature flag in Notion
 const RENDER_TRAINING_INFO = true
@@ -418,10 +419,7 @@ const MileageByWeek = () => {
   const selectedWeek = calculator.getWeek(selectedWeekIndex)
 
   return (
-    <div
-      className="w-full bg-surface rounded shadow-md"
-      onMouseLeave={() => setSelectedWeekIndex(currentWeekIndex)}
-    >
+    <Card className="w-full" onMouseLeave={() => setSelectedWeekIndex(currentWeekIndex)}>
       <div className="pt-2 flex flex-wrap px-4 items-baseline gap-x-2">
         <h2 className="text-xl">Marathon Training Plan</h2>
         <p className="text-xs text-deemp">
@@ -458,7 +456,7 @@ const MileageByWeek = () => {
       </div>
       <Divider />
       <CurrentTrainingWeek week={selectedWeek} />
-    </div>
+    </Card>
   )
 }
 
@@ -523,7 +521,7 @@ export const MarathonTrainingPlan = () => {
 
   return (
     <>
-      <div className={`p-4 bg-surface rounded flex gap-2 text-sm shadow-md`}>
+      <Card className="p-4 flex gap-2 text-sm">
         <Icon iconKey="info" className="pt-[2px]" />
         <div>
           I'm currently training for the{" "}
@@ -532,7 +530,7 @@ export const MarathonTrainingPlan = () => {
           </a>
           ! Check out my progress and most recent run below.
         </div>
-      </div>
+      </Card>
       <MileageByWeek />
     </>
   )

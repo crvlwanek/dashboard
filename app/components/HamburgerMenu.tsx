@@ -5,7 +5,7 @@ import Avatar from "./Avatar"
 import { useCallback } from "react"
 import { Link, useLocation } from "@remix-run/react"
 import Icon from "./Icon"
-import { HasReactChildren } from "./commonInterfaces"
+import { HasReactChildren } from "../common/interfaces"
 
 import avatarImage from "~/images/sunflowers.jpg"
 

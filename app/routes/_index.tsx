@@ -31,6 +31,7 @@ export const meta: MetaFunction = () => {
 
 const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> => {
   const res = await fetch(`${baseUrl}api/strava`)
+  // TODO: This can fail sometimes if the response was a 500
   const data = await res.json()
   return data as ProcessedActivityData
 }

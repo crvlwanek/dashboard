@@ -1,3 +1,4 @@
+import Card from "~/common/components/Card"
 import { CurrentBooksSkeleton } from "~/components/CurrentBooks"
 import Divider from "~/components/Divider"
 import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
@@ -10,7 +11,7 @@ export default function About() {
         <h1 className="text-center text-3xl">About This Website</h1>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_350px] place-items-center items-stretch p-4">
-        <div className="bg-surface p-4 rounded shadow-md flex flex-col gap-2">
+        <Card className="p-4 flex flex-col gap-2">
           <h2 className="text-xl text-center">Skeleton Placeholders</h2>
           <Divider />
           <p>
@@ -23,7 +24,7 @@ export default function About() {
             like this informs the user that the website is still working, but the data is in the
             process of loading
           </p>
-        </div>
+        </Card>
         <div className="w-full flex flex-col items-center gap-2">
           <StravaSkeleton />
           <p className="text-center italic">Strava and GitHub loading skeletons</p>

@@ -2,21 +2,22 @@ import Divider from "../Divider"
 import Icon from "../Icon"
 import { GitHub } from "~/integrations/GitHub"
 import GitHubChipBox from "./GitHubChipBox"
-import { HasClassName, HasReactChildren } from "../commonInterfaces"
+import { HasClassName, HasReactChildren } from "../../common/interfaces"
 import { DateTime } from "~/utilities/DateTime"
+import Card from "~/common/components/Card"
 
 interface GitHubSectionProps extends HasReactChildren, HasClassName {}
 
 export function GitHubSection({ children, className }: GitHubSectionProps) {
   return (
-    <div className={`card githubRepos shadow-md ${className ?? ""}`}>
+    <Card className={`githubRepos ${className ?? ""}`}>
       <div className="flex align-center githubHeaderContainer">
         <Icon iconKey="github" size={30} />
         <h3 className="githubHeader">GitHub Repos</h3>
         <Divider />
       </div>
       {children}
-    </div>
+    </Card>
   )
 }
 

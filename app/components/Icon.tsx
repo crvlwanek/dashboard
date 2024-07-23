@@ -1,4 +1,4 @@
-import { HasClassName } from "./commonInterfaces"
+import { HasClassName } from "../common/interfaces"
 
 import ChevronLeftIcon from "~/svg/ChevronLeftIcon"
 import ChevronRightIcon from "~/svg/ChevronRightIcon"

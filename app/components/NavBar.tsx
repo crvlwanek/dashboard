@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { HasClassName, HasReactChildren } from "./commonInterfaces"
+import { HasClassName, HasReactChildren } from "../common/interfaces"
 
 interface NavBarProps extends HasClassName, HasReactChildren {
   float?: boolean

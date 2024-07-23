@@ -1,4 +1,4 @@
-import { HasClassName } from "~/components/commonInterfaces"
+import { HasClassName } from "~/common/interfaces"
 
 interface MusicLogoProps extends HasClassName {}
 
