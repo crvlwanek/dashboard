@@ -144,6 +144,10 @@ button {
   background-color: var(--primary-main-alpha-100);
 }
 
+.hover-highlight {
+  background-color: var(--hoverHighlightAlpha);
+}
+
 .primary-chip {
   background: var(--primary-main);
   color: var(--onPrimary);
