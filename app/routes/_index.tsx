@@ -19,7 +19,6 @@ import Notion from "~/integrations/Notion"
 import env from "~/utilities/env"
 import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
 import CurrentBooks from "~/components/CurrentBooks"
-import { MarathonTrainingPlan } from "~/components/MarathonTrainingPlan"
 import LargeDividerHeader from "~/components/LargeDividerHeading"
 
 export const meta: MetaFunction = () => {
@@ -51,7 +50,7 @@ const generateMapUrl = (line: string): string => {
     width: 800,
     stroke: Strava.color,
     strokeWidth: 4,
-    padding: "30,30,140,30",
+    padding: "160,30,120,30",
   })
 }
 
@@ -73,6 +72,26 @@ export const loader = async ({ request }: { request: Request }) => {
   return defer({ activities, repos, bookData })
 }
 
+const MainHeader = () => {
+  return (
+    <div id="mainHeader" className="flex align-center justify-center mainHeader">
+      <div className="relative flex-shrink-0">
+        <Avatar className="chrisAvatar" size={125} src={avatarImage} />
+        <div className="chrisAvatarBorder"></div>
+        <MusicLogo className="musicIcon animate" />
+        <MusicLogo className="musicIcon animate blur" />
+      </div>
+      <div className="detailBox onImage">
+        <div className="header--container">
+          <h1 className="header--name">Chris Van Lanen-Wanek</h1>
+          <h2 className="header--jobTitle">Software Engineer | Web Developer</h2>
+        </div>
+        <SocialIconBar />
+      </div>
+    </div>
+  )
+}
+
 export default function Index() {
   const { activities, repos, bookData } = useLoaderData<typeof loader>()
 
@@ -80,21 +99,7 @@ export default function Index() {
 
   return (
     <>
-      <div id="mainHeader" className="flex align-center justify-center mainHeader">
-        <div className="relative flex-shrink-0">
-          <Avatar className="chrisAvatar" size={125} src={avatarImage} />
-          <div className="chrisAvatarBorder"></div>
-          <MusicLogo className="musicIcon animate" />
-          <MusicLogo className="musicIcon animate blur" />
-        </div>
-        <div className="detailBox onImage">
-          <div className="header--container">
-            <h1 className="header--name">Chris Van Lanen-Wanek</h1>
-            <h2 className="header--jobTitle">Software Engineer | Web Developer</h2>
-          </div>
-          <SocialIconBar />
-        </div>
-      </div>
+      <MainHeader />
       <div
         style={{
           maxWidth: 800,
@@ -107,12 +112,7 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <LargeDividerHeader title="Running Activity" />
-        <ErrorBoundary
-          fallback={<ErrorBox>Unable to load marathon training plan, try again later</ErrorBox>}
-        >
-          <MarathonTrainingPlan />
-        </ErrorBoundary>
+        <LargeDividerHeader title="Recent Activity" />
         {showStrava && (
           <ErrorBoundary
             fallback={<ErrorBox>Unable to load Strava data, try again later</ErrorBox>}
@@ -129,7 +129,6 @@ export default function Index() {
             </Suspense>
           </ErrorBoundary>
         )}
-        <LargeDividerHeader title="Other Activity" />
         <ErrorBoundary fallback={<ErrorBox>Unable to load GitHub data, try again later</ErrorBox>}>
           <Suspense fallback={<GitHubSkeleton repoLimit={7} />}>
             <Await resolve={repos}>

@@ -31,13 +31,13 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
   const movingTime = formatTimeDuration(secondsToDuration(activity.moving_time), "letter")
   return (
     <Card className="stravaActivityMain">
-      <div className="stravaActivityHeader">
+      <div className="stravaActivityHeader absolute z-10 bg-surface-200 w-full backdrop-blur-3xl drop-shadow-md">
         <div className="stravaTopHeader">
           <h5>{activity.name}</h5>
           <a
             target="_blank"
             rel="noreferrer"
-            className="stravaViewLink  hover:underline"
+            className="stravaViewLink hover:underline font-medium"
             href={Strava.activitiesUrl + activity.id.toString()}
           >
             View on Strava
@@ -45,10 +45,9 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
         </div>
         <div className="flex align-center">
           <Icon iconKey="shoe" size={16} className="stravaShoeIcon" />
-          <h6 className="labelColor">{date}</h6>
+          <h6 className="text-deemp">{date}</h6>
         </div>
       </div>
-      <Divider />
       {/** Not really sure why but there's a bit of a gap at the bottom, so add some negative margin */}
       <div className="stravaMapContainer">
         {mapUrl && (
@@ -57,19 +56,17 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
         <div className="skeleton stravaMapLoadingBackground" />
         <PoweredByStrava className="stravaLogo" />
       </div>
-      <div className="stravaActivityDetails stravaFloatingDetails">
+      <div className="stravaActivityFloatingDetails text-white flex gap-12 py-2 px-4 absolute bottom-0 w-full mt-10">
         <div>
-          <h6>Distance</h6>
+          <h6 className="text-lg tracking-wide leading-8 font-black">Distance</h6>
           <h5>{distance}</h5>
         </div>
-        <Divider vertical />
         <div>
-          <h6>Pace</h6>
+          <h6 className="text-sm tracking-wide leading-8 ">Pace</h6>
           <h5>{pace}</h5>
         </div>
-        <Divider vertical />
         <div>
-          <h6>Time</h6>
+          <h6 className="text-sm tracking-wide leading-8 ">Time</h6>
           <h5>{movingTime}</h5>
         </div>
       </div>

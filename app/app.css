@@ -8,6 +8,7 @@
 
   /** Light mode colors */
   --surface: white;
+  --surface-alpha-200: rgba(255, 255, 255, 0.6);
   --onSurface: #1b1717;
   --surfaceVariant: #eee;
   --onSurfaceVariant: #1b1717;
@@ -22,7 +23,8 @@
   --purple-bg: #e9d5ff;
 
   /** Dark mode colors */
-  --dark-surface: #222;
+  --dark-surface: rgb(34, 34, 34);
+  --dark-surface-alpha-200: rgba(34, 34, 34, 0.6);
   --dark-onSurface: white;
   --dark-surfaceVariant: #333;
   --dark-onSurfaceVariant: white;
@@ -51,6 +53,7 @@
 
 body[theme="dark"] {
   --surface: var(--dark-surface);
+  --surface-alpha-200: var(--dark-surface-alpha-200);
   --onSurface: var(--dark-onSurface);
   --surfaceVariant: var(--dark-surfaceVariant);
   --onSurfaceVariant: var(--dark-onSurfaceVariant);
@@ -69,6 +72,7 @@ body[theme="dark"] {
 @media (prefers-color-scheme: dark) {
   body[theme="system"] {
     --surface: var(--dark-surface);
+    --surface-alpha-200: var(--dark-surface-alpha-200);
     --onSurface: var(--dark-onSurface);
     --surfaceVariant: var(--dark-surfaceVariant);
     --onSurfaceVariant: var(--dark-onSurfaceVariant);
@@ -122,6 +126,10 @@ button {
 
 .bg-surface {
   background-color: var(--surface);
+}
+
+.bg-surface-200 {
+  background-color: var(--surface-alpha-200);
 }
 
 .bg-surface-bg {
@@ -562,7 +570,7 @@ button.hamburgerCloseIcon {
 }
 
 .stravaShoeIcon {
-  fill: var(--labelText);
+  fill: var(--deempText);
   margin-right: 8px;
 }
 
@@ -607,29 +615,6 @@ button.hamburgerCloseIcon {
   fill: var(--labelText);
 }
 
-.stravaActivityDetails {
-  display: flex;
-  gap: 16px;
-  padding: 8px 16px;
-}
-
-.stravaActivityDetails h6 {
-  font-weight: inherit;
-  font-size: 0.875rem;
-  letter-spacing: 0.009rem;
-  line-height: 1.75;
-}
-
-.stravaFloatingDetails {
-  position: absolute;
-  bottom: 0;
-  color: white;
-  background-image: linear-gradient(to top, var(--black-alpha-400), transparent);
-  width: 100%;
-  text-shadow: 0 0 10px black;
-  padding-top: 40px;
-}
-
 .stravaLogo {
   position: absolute;
   top: 0;
@@ -637,6 +622,11 @@ button.hamburgerCloseIcon {
   display: block;
   max-width: 100px;
   fill: white;
+}
+
+.stravaActivityFloatingDetails {
+  background-image: linear-gradient(to top, var(--black-alpha-400), transparent);
+  text-shadow: 0 0 10px black;
 }
 
 /* end StravaActivity.tsx */
