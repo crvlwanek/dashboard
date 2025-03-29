@@ -63,13 +63,13 @@ export default function AboutMe() {
                 programming.
               </p>
               <div>
-                <div className="labelColor  flex align-center gap-2">
+                <div className="labelColor flex align-center gap-2">
                   <Icon iconKey="weightlifting" />
                   Max deadlift: 345lbs
                 </div>
-                <div className="labelColor  flex align-center gap-2">
+                <div className="labelColor flex align-center gap-2">
                   <Icon iconKey="shoe" className="inline" />
-                  Fastest marathon: 3h 52m
+                  Fastest marathon: 3h 35m
                 </div>
               </div>
             </div>

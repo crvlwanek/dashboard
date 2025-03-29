@@ -1,8 +1,16 @@
+import { MetaFunction } from "@remix-run/node"
 import Card from "~/common/components/Card"
 import { CurrentBooksSkeleton } from "~/components/CurrentBooks"
 import Divider from "~/components/Divider"
 import GitHubSkeleton from "~/components/GitHub/GitHubSkeleton"
 import StravaSkeleton from "~/components/StravaSkeleton"
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Dashboard | About This Website" },
+    { name: "description", content: "This page has some details about this website" },
+  ]
+}
 
 export default function About() {
   return (
