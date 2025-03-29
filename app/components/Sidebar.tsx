@@ -36,7 +36,7 @@ const Sidebar = ({ open, toggleOpen }: SidebarProps) => {
   return (
     <>
       <div
-        className={`h-full bg-surface-200 bg-opacity-40 backdrop-blur-md absolute min-w-[150px] -translate-x-full z-10 ease-in-out transition-transform ${
+        className={`fixed h-full bg-surface-alpha-800 backdrop-blur-md min-w-[150px] -translate-x-full z-10 ease-in-out transition-transform ${
           open ? "menuOpen" : ""
         }`}
         style={{ zIndex: 20 }}

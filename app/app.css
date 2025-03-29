@@ -6,40 +6,6 @@
   --primary-main-alpha-100: hsla(178, 100%, 35%, 0.1);
   --onPrimary: white;
 
-  /** Light mode colors */
-  --surface: white;
-  --surface-alpha-800: rgba(255, 255, 255, 0.8);
-  --surface-alpha-200: rgba(255, 255, 255, 0.6);
-  --onSurface: #1b1717;
-  --surfaceVariant: #eee;
-  --onSurfaceVariant: #1b1717;
-  --hoverHighlight: black;
-  --hoverHighlightAlpha: rgba(0, 0, 0, 0.1);
-  --hoverHighlightAlpha200: rgba(0, 0, 0, 0.2);
-  --surfaceBg: #f1f1f1;
-  --labelText: #999;
-  --deempText: #666;
-  --orange-bg: #fed7aa;
-  --green-bg: #bbf7d0;
-  --purple-bg: #e9d5ff;
-
-  /** Dark mode colors */
-  --dark-surface: rgb(34, 34, 34);
-  --dark-surface-alpha-200: rgba(34, 34, 34, 0.6);
-  --dark-surface-alpha-800: rgba(34, 34, 34, 0.8);
-  --dark-onSurface: white;
-  --dark-surfaceVariant: #333;
-  --dark-onSurfaceVariant: white;
-  --dark-hoverHighlight: white;
-  --dark-hoverHighlightAlpha: rgba(255, 255, 255, 0.1);
-  --dark-hoverHighlightAlpha200: rgba(255, 255, 255, 0.2);
-  --dark-surfaceBg: #181818;
-  --dark-labelText: #777;
-  --dark-deempText: #aaa;
-  --dark-orange-bg: #9a3412;
-  --dark-green-bg: #166534;
-  --dark-purple-bg: #6b21a8;
-
   /** Other colors */
   --text-on-image: white;
 
@@ -51,46 +17,6 @@
   --black-alpha-700: rgba(0, 0, 0, 0.7);
 
   --main-font: Montserrat, sans-serif;
-}
-
-body[theme="dark"] {
-  --surface: var(--dark-surface);
-  --surface-alpha-200: var(--dark-surface-alpha-200);
-  --surface-alpha-800: var(--dark-surface-alpha-800);
-  --onSurface: var(--dark-onSurface);
-  --surfaceVariant: var(--dark-surfaceVariant);
-  --onSurfaceVariant: var(--dark-onSurfaceVariant);
-  --hoverHighlight: var(--dark-hoverHighlight);
-  --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
-  --hoverHighlightAlpha200: var(--dark-hoverHighlightAlpha200);
-  --surfaceBg: var(--dark-surfaceBg);
-  --labelText: var(--dark-labelText);
-  --deempText: var(--dark-deempText);
-
-  --orange-bg: var(--dark-orange-bg);
-  --green-bg: var(--dark-green-bg);
-  --purple-bg: var(--dark-purple-bg);
-}
-
-@media (prefers-color-scheme: dark) {
-  body[theme="system"] {
-    --surface: var(--dark-surface);
-    --surface-alpha-200: var(--dark-surface-alpha-200);
-    --surface-alpha-800: var(--dark-surface-alpha-800);
-    --onSurface: var(--dark-onSurface);
-    --surfaceVariant: var(--dark-surfaceVariant);
-    --onSurfaceVariant: var(--dark-onSurfaceVariant);
-    --hoverHighlight: var(--dark-hoverHighlight);
-    --hoverHighlightAlpha: var(--dark-hoverHighlightAlpha);
-    --hoverHighlightAlpha200: var(--dark-hoverHighlightAlpha200);
-    --surfaceBg: var(--dark-surfaceBg);
-    --labelText: var(--dark-labelText);
-    --deempText: var(--dark-deempText);
-
-    --orange-bg: var(--dark-orange-bg);
-    --green-bg: var(--dark-green-bg);
-    --purple-bg: var(--dark-purple-bg);
-  }
 }
 
 /* prettier-ignore */
@@ -126,14 +52,6 @@ button {
 ::selection {
   background-color: var(--primary-main);
   color: var(--onPrimary);
-}
-
-.bg-surface {
-  background-color: var(--surface);
-}
-
-.bg-surface-200 {
-  background-color: var(--surface-alpha-200);
 }
 
 .bg-surface-bg {

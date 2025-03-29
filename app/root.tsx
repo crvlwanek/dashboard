@@ -11,8 +11,10 @@ import {
   useRouteError,
 } from "@remix-run/react"
 
+import generatedCss from "./generated.css"
 import appCssHref from "./app.css"
 import tailwindCss from "./tailwind.css"
+
 import NavBar from "./components/NavBar"
 import ThemeSwitcher from "./components/ThemeSwitcher"
 import { useCallback, useEffect, useRef } from "react"
@@ -26,6 +28,7 @@ import Footer from "./components/Footer"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: "stylesheet", href: generatedCss },
   { rel: "stylesheet", href: tailwindCss },
   { rel: "stylesheet", href: appCssHref },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

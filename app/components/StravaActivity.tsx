@@ -31,7 +31,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
   const movingTime = formatTimeDuration(secondsToDuration(activity.moving_time), "letter")
   return (
     <Card className="stravaActivityMain">
-      <div className="stravaActivityHeader absolute z-[2] bg-surface-200 w-full backdrop-blur-3xl drop-shadow-md">
+      <div className="stravaActivityHeader absolute z-[2] bg-surface-alpha-600 w-full backdrop-blur-3xl drop-shadow-md">
         <div className="stravaTopHeader">
           <h5>{activity.name}</h5>
           <a
