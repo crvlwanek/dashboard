@@ -1,6 +1,5 @@
-import { LoaderFunction, json } from "@remix-run/node"
+import { LoaderFunction } from "@remix-run/node"
 import { fetchRecentActivity, setRecentActivity } from "~/integrations/MongoDB"
-import Pantry from "~/integrations/Pantry"
 import Strava, {
   StravaPolylineMap,
   StravaSummaryActivity,
@@ -30,10 +29,6 @@ export interface CachedStravaData extends StravaTokenData, ProcessedActivityData
 }
 
 const strava = new Strava(env.get("STRAVA_CLIENT_ID"), env.get("STRAVA_CLIENT_SECRET"))
-const stravaBasket = new Pantry<CachedStravaData>(
-  env.get("PANTRY_ID"),
-  env.get("NEW_STRAVA_BASKET")
-)
 
 /**
  * Loads data from Strava, cached every five minutes to avoid API rate limits (100/hr, 1000/day)
@@ -53,12 +48,13 @@ export const loader: LoaderFunction = async () => {
   return loadStravaData()
 }
 
-const getAuthCode = () => {
+// Not currently used but exporting
+export const getAuthCode = () => {
   strava.authorize()
-  return null
 }
 
-const getAccessToken = async (authCode: string) => {
+// Gets access token token
+export const getAccessToken = async (authCode: string) => {
   const res = await strava.getAccessToken(authCode)
   const content = await res.json()
   console.log(content)
