@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { HasClassName, HasReactChildren } from "../common/interfaces"
 
 interface NavBarProps extends HasClassName, HasReactChildren {
@@ -28,10 +28,19 @@ export default function NavBar({ className, children, float }: NavBarProps) {
 
     return () => observer.disconnect()
   }, [float])
+
+  const scrollToTop = useCallback(() => {
+    window?.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
+
   return (
     <>
       <div id="topIntersecting" />
-      <header ref={ref} className={`navbar ${float ? "navbarFloating" : ""} ${className}`}>
+      <header
+        ref={ref}
+        onClick={scrollToTop}
+        className={`navbar ${float ? "navbarFloating" : ""} ${className}`}
+      >
         {children}
       </header>
     </>

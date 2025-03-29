@@ -67,7 +67,7 @@ export default function ThemeSwitcher() {
   }, [])
 
   return (
-    <div className="themeWrapper">
+    <div className="themeWrapper" onClick={e => e.stopPropagation()}>
       <IconButton iconKey={icon} onClick={toggleMenuShown} />
       {menuShown && (
         <>

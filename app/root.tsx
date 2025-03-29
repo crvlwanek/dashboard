@@ -94,7 +94,13 @@ export default function App() {
           float={!nonFloatingRoutes.some(route => route === pathname)}
           className="dashboardNavbar px-2 sm:px-4"
         >
-          <IconButton iconKey="hamburger" onClick={toggleMenu} />
+          <IconButton
+            iconKey="hamburger"
+            onClick={e => {
+              e.stopPropagation()
+              toggleMenu()
+            }}
+          />
           <div ref={nameBox} className="navbarNameBox">
             <MusicLogo className="musicIconNavbar" />
             <div style={{ marginLeft: 8, placeSelf: "center" }}>

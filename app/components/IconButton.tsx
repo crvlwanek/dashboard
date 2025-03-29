@@ -6,7 +6,7 @@ export interface IconButtonProps extends HasIcon, HasReactChildren, HasClassName
   size?: number
   openInNewTab?: boolean
   href?: string
-  onClick?: () => void
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
   onBlur?: () => void
 }
 
