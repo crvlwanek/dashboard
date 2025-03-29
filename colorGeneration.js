@@ -107,7 +107,7 @@ class CSSBuilder {
 const cssBuilder = new CSSBuilder()
 
 cssBuilder.addImport("tailwind.css").newline().newline()
-cssBuilder.startSelector("@theme")
+cssBuilder.startSelector(":root")
 
 cssBuilder.addComment("Light mode colors")
 colors.forEach(color => {
@@ -148,6 +148,15 @@ colors.forEach(color => {
 })
 
 cssBuilder.endSelector().endSelector().newline()
+
+colors.forEach(color => {
+  const { name } = color
+  if (!name) return
+
+  cssBuilder.startSelector(`.bg-${name}`)
+  cssBuilder.addProperty("background-color", `var(--${name})`)
+  cssBuilder.endSelector()
+})
 
 fs.writeFile("app/generated.css", cssBuilder.toString(), err => {
   if (!err) return

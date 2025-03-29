@@ -37,9 +37,9 @@ export default function GitHubChipBox({ topics }: GitHubChipBoxProps) {
   }
 
   return (
-    <div className="githubChipBox">
+    <div className="githubChipBox relative overflow-x-hidden mt-1">
       {showLeft && (
-        <div className="githubChipsLeftWrapper">
+        <div className="githubChipsLeftWrapper absolute w-fit pr-[30px] top-0 z-[2]">
           <IconButton
             onClick={() => {
               setTranslate(prev => Math.max(0, prev - scrollIncrement))
@@ -67,7 +67,7 @@ export default function GitHubChipBox({ topics }: GitHubChipBoxProps) {
         ))}
       </div>
       {showRight && (
-        <div className="githubChipsRightWrapper">
+        <div className="githubChipsRightWrapper absolute w-fit pl-[30px] r-0 t-0">
           <IconButton
             onClick={() => {
               setTranslate(prev => {

@@ -100,18 +100,7 @@ export default function Index() {
   return (
     <>
       <MainHeader />
-      <div
-        style={{
-          maxWidth: 800,
-          margin: "auto",
-          padding: 20,
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          gap: 20,
-          alignItems: "center",
-        }}
-      >
+      <div className="max-w-[800px] m-auto p-5 flex justify-center flex-col gap-5 items-center">
         <LargeDividerHeader title="Recent Activity" />
         {showStrava && (
           <ErrorBoundary

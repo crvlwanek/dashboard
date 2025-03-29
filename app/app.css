@@ -670,12 +670,6 @@ hr.vertical {
   word-wrap: break-word;
 }
 
-.githubChipBox {
-  position: relative;
-  overflow-x: hidden;
-  margin-top: 4px;
-}
-
 .githubChipBoxInner {
   display: flex;
   gap: 4px;
@@ -714,21 +708,11 @@ hr.vertical {
 }
 
 .githubChipsLeftWrapper {
-  position: absolute;
   background-image: linear-gradient(to right, var(--surface) 60%, transparent);
-  width: fit-content;
-  padding-right: 30px;
-  top: 0;
-  z-index: 2;
 }
 
 .githubChipsRightWrapper {
-  position: absolute;
   background-image: linear-gradient(to left, var(--surface) 60%, transparent);
-  width: fit-content;
-  padding-left: 30px;
-  right: 0;
-  top: 0;
 }
 
 @media (pointer: coarse) {

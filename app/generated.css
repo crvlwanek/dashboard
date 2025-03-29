@@ -1,6 +1,6 @@
 @import "tailwind.css";
 
-@theme {
+:root {
   /** Light mode colors */
   --surface: #FFF;
   --onSurface: #1b1717;
@@ -74,3 +74,48 @@ body[theme="dark"] {
   }
 }
 
+.bg-surface {
+  background-color: var(--surface);
+}
+.bg-onSurface {
+  background-color: var(--onSurface);
+}
+.bg-surface-alpha-800 {
+  background-color: var(--surface-alpha-800);
+}
+.bg-surface-alpha-600 {
+  background-color: var(--surface-alpha-600);
+}
+.bg-surfaceVariant {
+  background-color: var(--surfaceVariant);
+}
+.bg-onSurfaceVariant {
+  background-color: var(--onSurfaceVariant);
+}
+.bg-hoverHighlight {
+  background-color: var(--hoverHighlight);
+}
+.bg-hoverHighlightAlpha {
+  background-color: var(--hoverHighlightAlpha);
+}
+.bg-hoverHighlightAlpha200 {
+  background-color: var(--hoverHighlightAlpha200);
+}
+.bg-surfaceBg {
+  background-color: var(--surfaceBg);
+}
+.bg-labelText {
+  background-color: var(--labelText);
+}
+.bg-deempText {
+  background-color: var(--deempText);
+}
+.bg-orange-bg {
+  background-color: var(--orange-bg);
+}
+.bg-green-bg {
+  background-color: var(--green-bg);
+}
+.bg-purple-bg {
+  background-color: var(--purple-bg);
+}
