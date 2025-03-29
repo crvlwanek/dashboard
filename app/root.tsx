@@ -53,10 +53,11 @@ export default function App() {
         if (!nameBox.current) {
           return
         }
-        nameBox.current.classList.toggle(
-          "navbarNameBoxShowing",
+
+        const showNameBox =
           !entry.isIntersecting || nonFloatingRoutes.some(route => route === pathname)
-        )
+
+        nameBox.current.classList.toggle("navbarNameBoxShowing", showNameBox)
       })
     })
 

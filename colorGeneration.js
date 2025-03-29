@@ -21,83 +21,132 @@ const colors = [
   { name: "purple-bg", light: "#e9d5ff", dark: "#6b21a8" },
 ]
 
-class StringBuilder {
+function assert(value, errorMessage) {
+  if (!value) throw new Error(errorMessage)
+}
+
+class CSSBuilder {
+  __indentationIncrement = 2
+
   constructor() {
-    this.strings = []
+    this._strings = []
+    this._indentation = 0
   }
 
   append(str) {
-    this.strings.push(str)
+    this._strings.push(str)
     return this
   }
 
   toString() {
-    return this.strings.join("")
+    return this._strings.join("")
   }
 
   newline() {
-    this.strings.push("\n")
+    return this.append("\n")
+  }
+
+  _incrementIndentation() {
+    this._indentation += this.__indentationIncrement
+    assert(
+      this._indentation % this.__indentationIncrement === 0,
+      "Indentation not divisible by increment"
+    )
     return this
+  }
+  _decrementIndentation() {
+    this._indentation -= this.__indentationIncrement
+    assert(this._indentation >= 0, "Indentation lower than 0")
+    return this
+  }
+
+  _addIndentation() {
+    if (!this._indentation) return this
+
+    this.append(" ".repeat(this._indentation))
+    return this
+  }
+
+  _startBrace() {
+    return this.append("{")._incrementIndentation().newline()
+  }
+
+  _endBrace() {
+    return this._decrementIndentation()._addIndentation().append("}").newline()
+  }
+
+  startSelector(selector) {
+    return this._addIndentation().append(selector).append(" ")._startBrace()
+  }
+
+  endSelector() {
+    return this._endBrace()
+  }
+
+  addComment(comment) {
+    return this._addIndentation().append(`/** ${comment} */`).newline()
+  }
+
+  addProperty(property, value) {
+    return this._addIndentation().append(`${property}: ${value};`).newline()
   }
 }
 
-const fileStringBuilder = new StringBuilder()
+const cssBuilder = new CSSBuilder()
 
-fileStringBuilder.append(":root {").newline()
-fileStringBuilder.append("  /** Light mode colors */").newline()
+cssBuilder.startSelector(":root")
 
+cssBuilder.addComment("Light mode colors")
 colors.forEach(color => {
   const { name, light } = color
   if (!name || !light) return
 
-  fileStringBuilder.append(`  --${name}: ${light};`).newline()
+  cssBuilder.addProperty(`--${name}`, light)
 })
+cssBuilder.newline()
 
-fileStringBuilder.newline()
-
-fileStringBuilder.append("  /** Dark mode colors */").newline()
+cssBuilder.addComment("Dark mode colors")
 colors.forEach(color => {
   const { name, dark } = color
   if (!name || !dark) return
 
-  fileStringBuilder.append(`  --dark-${name}: ${dark};`).newline()
+  cssBuilder.addProperty(`--dark-${name}`, dark)
 })
 
-fileStringBuilder.append("}").newline().newline()
+cssBuilder.endSelector().newline()
 
-fileStringBuilder.append('body[theme="dark"] {').newline()
+cssBuilder.startSelector('body[theme="dark"]')
 colors.forEach(color => {
   const { name } = color
   if (!name) return
 
-  fileStringBuilder.append(`  --${name}: var(--dark-${name});`).newline()
+  cssBuilder.addProperty(`--${name}`, `var(--dark-${name})`)
 })
-fileStringBuilder.append("}").newline().newline()
 
-fileStringBuilder.append("@media (prefers-color-scheme: dark) {").newline()
-fileStringBuilder.append('  body[theme="system"] {').newline()
+cssBuilder.endSelector().newline()
 
+cssBuilder.startSelector("@media (prefers-color-scheme: dark)")
+cssBuilder.startSelector('body[theme="system"]')
 colors.forEach(color => {
   const { name } = color
   if (!name) return
 
-  fileStringBuilder.append(`    --${name}: var(--dark-${name});`).newline()
+  cssBuilder.addProperty(`--${name}`, `var(--dark-${name})`)
 })
 
-fileStringBuilder.append("  }").newline()
-fileStringBuilder.append("}").newline().newline()
+cssBuilder.endSelector().endSelector().newline()
 
-fileStringBuilder.append("/** Color classes */").newline()
+cssBuilder.addComment("Color classes")
 colors.forEach(color => {
   const { name } = color
   if (!name) return
 
-  fileStringBuilder.append(`.bg-${name} {`).newline()
-  fileStringBuilder.append(`  background-color: var(--${name});`).newline()
-  fileStringBuilder.append(`}`).newline().newline()
+  cssBuilder.startSelector(`.bg-${name}`)
+  cssBuilder.addProperty("background-color", `var(--${name})`)
+  cssBuilder.endSelector().newline()
 })
 
-fs.writeFile("app/generated.css", fileStringBuilder.toString(), err => {
+fs.writeFile("app/generated.css", cssBuilder.toString(), err => {
   if (!err) return
   console.error(err)
 })

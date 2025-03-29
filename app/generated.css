@@ -1,10 +1,10 @@
 :root {
   /** Light mode colors */
-  --surface: #FFF;
+  --surface: #fff;
   --onSurface: #1b1717;
   --surface-alpha-800: rgba(255, 255, 255, 0.8);
   --surface-alpha-600: rgba(255, 255, 255, 0.6);
-  --surfaceVariant: #EEE;
+  --surfaceVariant: #eee;
   --onSurfaceVariant: #1b1717;
   --hoverHighlight: #000;
   --hoverHighlightAlpha: rgba(0, 0, 0, 0.1);
@@ -18,12 +18,12 @@
 
   /** Dark mode colors */
   --dark-surface: #222222;
-  --dark-onSurface: #FFF;
+  --dark-onSurface: #fff;
   --dark-surface-alpha-800: rgba(34, 34, 34, 0.8);
   --dark-surface-alpha-600: rgba(34, 34, 34, 0.6);
   --dark-surfaceVariant: #333;
-  --dark-onSurfaceVariant: #FFF;
-  --dark-hoverHighlight: #FFF;
+  --dark-onSurfaceVariant: #fff;
+  --dark-hoverHighlight: #fff;
   --dark-hoverHighlightAlpha: rgba(255, 255, 255, 0.1);
   --dark-hoverHighlightAlpha200: rgba(255, 255, 255, 0.2);
   --dark-surfaceBg: #181818;
@@ -132,4 +132,3 @@ body[theme="dark"] {
 .bg-purple-bg {
   background-color: var(--purple-bg);
 }
-
