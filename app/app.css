@@ -177,20 +177,6 @@ button {
   color: var(--deempText);
 }
 
-.hamburgerMenu {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  min-width: 150px;
-  background-color: var(--surface);
-  color: var(--onSurface);
-  fill: var(--onSurface);
-  transform: translateX(-100%);
-  z-index: 10;
-  transition: transform 200ms ease-in-out;
-}
-
 .text-fourlines {
   overflow: hidden;
   display: -webkit-box;
@@ -468,11 +454,11 @@ button.hamburgerCloseIcon {
   height: 56px;
   width: 100%;
   position: fixed;
-  background: var(--surface-alpha-800);
   z-index: 5;
+  background: var(--surface-alpha-800);
   box-shadow: var(--black-alpha-100) 0 0 4px 4px;
   transition: background-color 200ms ease-out;
-  backdrop-filter: blur(48px);
+  backdrop-filter: blur(34px);
 }
 
 .navbarFloating {
