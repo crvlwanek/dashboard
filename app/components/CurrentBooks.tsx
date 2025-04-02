@@ -26,70 +26,74 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
     <ErrorBoundary fallback={<ErrorBox>Whoops! Failed to load current book data</ErrorBox>}>
       <Suspense fallback={<CurrentBooksSkeleton />}>
         <Await resolve={data}>
-          {volumes => (
-            <Card className="overflow-hidden">
-              <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
-              {volumes.map(volume => {
-                const { volumeInfo, currentPageNumber } = volume
-                if (!volumeInfo) {
-                  return
-                }
+          {volumes => {
+            if (!volumes.length) return <></>
 
-                const {
-                  pageCount,
-                  imageLinks,
-                  previewLink,
-                  title,
-                  authors,
-                  publishedDate,
-                  description,
-                } = volumeInfo
-                const percentComplete = (((currentPageNumber ?? 0) / pageCount) * 100).toFixed(2)
-                return (
-                  <div key={volume.id}>
-                    <Divider />
-                    <div className="flex">
-                      <img
-                        src={imageLinks?.thumbnail ?? missingImagePlaceholder}
-                        className="place-self-start h-[150px] object-cover m-4 flex-shrink-0"
-                      />
-                      <div className="flex flex-col pr-4 py-4">
-                        <div>
-                          <a
-                            href={previewLink}
-                            className="underline inline-block"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <h2 className="text-lg">{title}</h2>
-                          </a>
-                          <span className="text-sm whitespace-nowrap">
-                            {" "}
-                            by {authors.join(", ")}
-                          </span>
-                        </div>
-                        <div className="labelColor text-xs my-1">
-                          {publishedDate.split("-")[0]} • {pageCount} pages
-                        </div>
-                        <div className="text-fourlines text-sm">{stripHTML(description)}</div>
-                        <div>
-                          <div className="bg-hoverHighlightAlpha w-full rounded-full mt-4 h-2">
-                            <div
-                              className="bg-primary rounded-full h-full"
-                              style={{ width: `${percentComplete}%` }}
-                            />
+            return (
+              <Card className="overflow-hidden">
+                <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
+                {volumes.map(volume => {
+                  const { volumeInfo, currentPageNumber } = volume
+                  if (!volumeInfo) {
+                    return
+                  }
+
+                  const {
+                    pageCount,
+                    imageLinks,
+                    previewLink,
+                    title,
+                    authors,
+                    publishedDate,
+                    description,
+                  } = volumeInfo
+                  const percentComplete = (((currentPageNumber ?? 0) / pageCount) * 100).toFixed(2)
+                  return (
+                    <div key={volume.id}>
+                      <Divider />
+                      <div className="flex">
+                        <img
+                          src={imageLinks?.thumbnail ?? missingImagePlaceholder}
+                          className="place-self-start h-[150px] object-cover m-4 flex-shrink-0"
+                        />
+                        <div className="flex flex-col pr-4 py-4">
+                          <div>
+                            <a
+                              href={previewLink}
+                              className="underline inline-block"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <h2 className="text-lg">{title}</h2>
+                            </a>
+                            <span className="text-sm whitespace-nowrap">
+                              {" "}
+                              by {authors.join(", ")}
+                            </span>
                           </div>
-                          <div className="w-full text-center text-sm labelColor mt-1">
-                            {`${currentPageNumber ?? 0} / ${pageCount} pages`}
+                          <div className="labelColor text-xs my-1">
+                            {publishedDate.split("-")[0]} • {pageCount} pages
+                          </div>
+                          <div className="text-fourlines text-sm">{stripHTML(description)}</div>
+                          <div>
+                            <div className="bg-hoverHighlightAlpha w-full rounded-full mt-4 h-2">
+                              <div
+                                className="bg-primary rounded-full h-full"
+                                style={{ width: `${percentComplete}%` }}
+                              />
+                            </div>
+                            <div className="w-full text-center text-sm labelColor mt-1">
+                              {`${currentPageNumber ?? 0} / ${pageCount} pages`}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )
-              })}
-            </Card>
-          )}
+                  )
+                })}
+              </Card>
+            )
+          }}
         </Await>
       </Suspense>
     </ErrorBoundary>
