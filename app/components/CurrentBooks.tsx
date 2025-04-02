@@ -1,4 +1,3 @@
-import { VolumeResponse } from "~/integrations/GoogleBooks"
 import { ErrorBoundary } from "./ErrorBoundary"
 import ErrorBox from "~/common/components/ErrorBox"
 import { Suspense } from "react"
@@ -6,13 +5,10 @@ import { Await } from "@remix-run/react"
 import Divider from "./Divider"
 import { HasClassName } from "../common/interfaces"
 import Card from "~/common/components/Card"
-
-interface VolumeResponseWithCurrentPage extends VolumeResponse {
-  currentPageNumber?: number
-}
+import { VolumeResponseWithReadingDetails } from "~/implementations/Notion"
 
 type CurrentBooksProps = {
-  data: Promise<VolumeResponseWithCurrentPage[]>
+  data: Promise<VolumeResponseWithReadingDetails[]>
 }
 
 const stripHTML = (str: string): string => {
@@ -28,6 +24,10 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
         <Await resolve={data}>
           {volumes => {
             if (!volumes.length) return <></>
+
+            volumes.sort(
+              (a, b) => new Date(b.lastEditedTime).valueOf() - new Date(a.lastEditedTime).valueOf()
+            )
 
             return (
               <Card className="overflow-hidden">

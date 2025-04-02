@@ -38,7 +38,13 @@ export type NotionCheckbox = {
 export type NotionNumber = {
   id: string
   type: "number"
-  number: number | undefined
+  number: number | null
+}
+
+export type NotionLastEditedTime = {
+  id: string
+  type: "last_edited_time"
+  last_edited_time: string
 }
 
 // https://developers.notion.com/reference/post-database-query-filter

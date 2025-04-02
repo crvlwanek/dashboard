@@ -15,12 +15,9 @@ import SocialIconBar from "~/components/SocialIconBar"
 import { ErrorBoundary } from "~/components/ErrorBoundary"
 import avatarImage from "~/images/sunflowers.jpg"
 import ErrorBox from "~/common/components/ErrorBox"
-import Notion from "~/integrations/Notion"
-import env from "~/utilities/env"
-import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
 import CurrentBooks from "~/components/CurrentBooks"
 import LargeDividerHeader from "~/components/LargeDividerHeading"
-import { ReadingListBook } from "~/implementations/Notion"
+import { getCurrentBooks } from "~/implementations/Notion"
 
 export const meta: MetaFunction = () => {
   return [
@@ -34,47 +31,6 @@ const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> =>
   // TODO: This can fail sometimes if the response was a 500
   const data = await res.json()
   return data as ProcessedActivityData
-}
-
-interface VolumeResponseWithCurrentPage extends VolumeResponse {
-  currentPageNumber?: number
-}
-
-const getCurrentBooks = async (): Promise<VolumeResponseWithCurrentPage[]> => {
-  const BOOK_DATABASE_ID = "1c66162faf418054969fd5c966ef80b5"
-  const notion = new Notion(env.get("NOTION_API_KEY"))
-  const notionCurrentBooks = await notion.queryDatabase<ReadingListBook>({
-    database_id: BOOK_DATABASE_ID,
-    filter: {
-      property: "Currently Reading",
-      checkbox: {
-        equals: true,
-      },
-    },
-  })
-
-  // Error is already logged in the query function
-  if (!notionCurrentBooks) return []
-
-  const { results } = notionCurrentBooks
-  const currentBooks = results
-    .map(result => {
-      return {
-        volumeId: result.properties.URL.url.split("/").slice(-1)[0],
-        currentPageNumber: result.properties["Current Page"].number,
-      }
-    })
-    .filter(x => x)
-  const volumeData = await Promise.all(
-    currentBooks.map(books => GoogleBooks.getVolume(books.volumeId))
-  )
-
-  return volumeData.map(volume => {
-    return {
-      ...volume,
-      currentPageNumber: currentBooks.find(book => book.volumeId === volume.id)?.currentPageNumber,
-    }
-  })
 }
 
 const generateMapUrl = (line: string): string => {
