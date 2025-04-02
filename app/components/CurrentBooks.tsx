@@ -7,8 +7,12 @@ import Divider from "./Divider"
 import { HasClassName } from "../common/interfaces"
 import Card from "~/common/components/Card"
 
+interface VolumeResponseWithCurrentPage extends VolumeResponse {
+  currentPageNumber?: number
+}
+
 type CurrentBooksProps = {
-  data: Promise<VolumeResponse[]>
+  data: Promise<VolumeResponseWithCurrentPage[]>
 }
 
 const stripHTML = (str: string): string => {
@@ -29,6 +33,10 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                 if (!volume.volumeInfo) {
                   return
                 }
+                const percentComplete = (
+                  ((volume.currentPageNumber ?? 0) / volume.volumeInfo.pageCount) *
+                  100
+                ).toFixed(2)
                 return (
                   <div key={volume.id}>
                     <Divider />
@@ -47,7 +55,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                           >
                             <h2 className="text-lg">{volume.volumeInfo.title}</h2>
                           </a>
-                          <span className="text-sm">
+                          <span className="text-sm whitespace-nowrap">
                             {" "}
                             by {volume.volumeInfo.authors.join(", ")}
                           </span>
@@ -58,6 +66,17 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                         </div>
                         <div className="text-fourlines text-sm">
                           {stripHTML(volume.volumeInfo.description)}
+                        </div>
+                        <div>
+                          <div className="bg-hoverHighlightAlpha w-full rounded-full mt-4 h-2">
+                            <div
+                              className="bg-primary rounded-full h-full"
+                              style={{ width: `${percentComplete}%` }}
+                            />
+                          </div>
+                          <div className="w-full text-center text-sm labelColor mt-1">
+                            {`${volume.currentPageNumber} / ${volume.volumeInfo.pageCount} pages`}
+                          </div>
                         </div>
                       </div>
                     </div>

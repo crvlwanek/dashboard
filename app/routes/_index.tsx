@@ -20,6 +20,7 @@ import env from "~/utilities/env"
 import GoogleBooks, { VolumeResponse } from "~/integrations/GoogleBooks"
 import CurrentBooks from "~/components/CurrentBooks"
 import LargeDividerHeader from "~/components/LargeDividerHeading"
+import { ReadingListBook } from "~/implementations/Notion"
 
 export const meta: MetaFunction = () => {
   return [
@@ -35,13 +36,45 @@ const getStravaData = async (baseUrl: string): Promise<ProcessedActivityData> =>
   return data as ProcessedActivityData
 }
 
-const getCurrentBooks = async (): Promise<VolumeResponse[]> => {
+interface VolumeResponseWithCurrentPage extends VolumeResponse {
+  currentPageNumber?: number
+}
+
+const getCurrentBooks = async (): Promise<VolumeResponseWithCurrentPage[]> => {
+  const BOOK_DATABASE_ID = "1c66162faf418054969fd5c966ef80b5"
   const notion = new Notion(env.get("NOTION_API_KEY"))
-  const notionData = await notion.retrieveBlockChildren("79eaeded2684425d9d679ebdd09fe3b2")
-  const bookURLs = Notion.getParagraphs(notionData)
-  const volumeIds = bookURLs.map(url => url.split("/").slice(-1)[0])
-  const data = await Promise.all(volumeIds.map(id => GoogleBooks.getVolume(id)))
-  return data
+  const notionCurrentBooks = await notion.queryDatabase<ReadingListBook>({
+    database_id: BOOK_DATABASE_ID,
+    filter: {
+      property: "Currently Reading",
+      checkbox: {
+        equals: true,
+      },
+    },
+  })
+
+  // Error is already logged in the query function
+  if (!notionCurrentBooks) return []
+
+  const { results } = notionCurrentBooks
+  const currentBooks = results
+    .map(result => {
+      return {
+        volumeId: result.properties.URL.url.split("/").slice(-1)[0],
+        currentPageNumber: result.properties["Current Page"].number,
+      }
+    })
+    .filter(x => x)
+  const volumeData = await Promise.all(
+    currentBooks.map(books => GoogleBooks.getVolume(books.volumeId))
+  )
+
+  return volumeData.map(volume => {
+    return {
+      ...volume,
+      currentPageNumber: currentBooks.find(book => book.volumeId === volume.id)?.currentPageNumber,
+    }
+  })
 }
 
 const generateMapUrl = (line: string): string => {

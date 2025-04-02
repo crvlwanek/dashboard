@@ -2,6 +2,7 @@
 
 :root {
   /** Light mode colors */
+  --primary: hsl(178, 100%, 53%);
   --surface: #FFF;
   --onSurface: #1b1717;
   --surface-alpha-800: rgba(255, 255, 255, 0.8);
@@ -19,6 +20,7 @@
   --purple-bg: #e9d5ff;
 
   /** Dark mode colors */
+  --dark-primary: hsl(178, 100%, 40%);
   --dark-surface: #222222;
   --dark-onSurface: #FFF;
   --dark-surface-alpha-800: rgba(34, 34, 34, 0.8);
@@ -37,6 +39,7 @@
 }
 
 body[theme="dark"] {
+  --primary: var(--dark-primary);
   --surface: var(--dark-surface);
   --onSurface: var(--dark-onSurface);
   --surface-alpha-800: var(--dark-surface-alpha-800);
@@ -56,6 +59,7 @@ body[theme="dark"] {
 
 @media (prefers-color-scheme: dark) {
   body[theme="system"] {
+    --primary: var(--dark-primary);
     --surface: var(--dark-surface);
     --onSurface: var(--dark-onSurface);
     --surface-alpha-800: var(--dark-surface-alpha-800);
@@ -74,6 +78,9 @@ body[theme="dark"] {
   }
 }
 
+.bg-primary {
+  background-color: var(--primary);
+}
 .bg-surface {
   background-color: var(--surface);
 }

@@ -12,6 +12,7 @@ function rgba(r, g, b, a) {
 }
 
 const colors = [
+  color("primary", "hsl(178, 100%, 53%)", "hsl(178, 100%, 40%)"),
   color("surface", WHITE, "#222222"),
   color("onSurface", "#1b1717", WHITE),
   color("surface-alpha-800", rgba(255, 255, 255, 0.8), rgba(34, 34, 34, 0.8)),

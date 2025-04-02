@@ -5,6 +5,7 @@ import IconButton from "./IconButton"
 import { HasReactChildren } from "~/common/interfaces"
 import avatarImage from "~/images/sunflowers.jpg"
 import Icon from "./Icon"
+import Veil from "~/common/components/Veil"
 
 type MenuItemProps = {
   to: string
@@ -65,7 +66,7 @@ const Sidebar = ({ open, toggleOpen }: SidebarProps) => {
           </ul>
         </nav>
       </div>
-      {open && <div className="fixed inset-0 bg-black bg-opacity-30 z-10" onClick={toggleOpen} />}
+      <Veil open={open} onClick={toggleOpen} />
     </>
   )
 }
