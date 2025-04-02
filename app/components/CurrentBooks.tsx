@@ -30,43 +30,48 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
             <Card className="overflow-hidden">
               <h1 className="py-2 px-3 text-lg">Books I'm Currently Reading</h1>
               {volumes.map(volume => {
-                if (!volume.volumeInfo) {
+                const { volumeInfo, currentPageNumber } = volume
+                if (!volumeInfo) {
                   return
                 }
-                const percentComplete = (
-                  ((volume.currentPageNumber ?? 0) / volume.volumeInfo.pageCount) *
-                  100
-                ).toFixed(2)
+
+                const {
+                  pageCount,
+                  imageLinks,
+                  previewLink,
+                  title,
+                  authors,
+                  publishedDate,
+                  description,
+                } = volumeInfo
+                const percentComplete = (((currentPageNumber ?? 0) / pageCount) * 100).toFixed(2)
                 return (
                   <div key={volume.id}>
                     <Divider />
                     <div className="flex">
                       <img
-                        src={volume.volumeInfo.imageLinks?.thumbnail ?? missingImagePlaceholder}
+                        src={imageLinks?.thumbnail ?? missingImagePlaceholder}
                         className="place-self-start h-[150px] object-cover m-4 flex-shrink-0"
                       />
                       <div className="flex flex-col pr-4 py-4">
                         <div>
                           <a
-                            href={volume.volumeInfo.previewLink}
+                            href={previewLink}
                             className="underline inline-block"
                             target="_blank"
                             rel="noreferrer"
                           >
-                            <h2 className="text-lg">{volume.volumeInfo.title}</h2>
+                            <h2 className="text-lg">{title}</h2>
                           </a>
                           <span className="text-sm whitespace-nowrap">
                             {" "}
-                            by {volume.volumeInfo.authors.join(", ")}
+                            by {authors.join(", ")}
                           </span>
                         </div>
                         <div className="labelColor text-xs my-1">
-                          {volume.volumeInfo.publishedDate.split("-")[0]} •{" "}
-                          {volume.volumeInfo.pageCount} pages
+                          {publishedDate.split("-")[0]} • {pageCount} pages
                         </div>
-                        <div className="text-fourlines text-sm">
-                          {stripHTML(volume.volumeInfo.description)}
-                        </div>
+                        <div className="text-fourlines text-sm">{stripHTML(description)}</div>
                         <div>
                           <div className="bg-hoverHighlightAlpha w-full rounded-full mt-4 h-2">
                             <div
@@ -75,7 +80,7 @@ export default function CurrentBooks({ data }: CurrentBooksProps) {
                             />
                           </div>
                           <div className="w-full text-center text-sm labelColor mt-1">
-                            {`${volume.currentPageNumber} / ${volume.volumeInfo.pageCount} pages`}
+                            {`${currentPageNumber ?? 0} / ${pageCount} pages`}
                           </div>
                         </div>
                       </div>
