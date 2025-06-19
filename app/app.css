@@ -295,7 +295,7 @@ button.hamburgerCloseIcon {
   bottom: -20px;
   left: -20px;
   filter: drop-shadow(0 0 2px black);
-  z-index: 2;
+  z-index: 10;
   fill: var(--primary-light);
   overflow: visible;
 }
@@ -388,18 +388,33 @@ button.hamburgerCloseIcon {
 }
 /* end NavBar.tsx */
 
-/* start Avatar.tsx */
-.avatarImage {
-  border-radius: 50%;
-  border: 2px solid white;
-  user-select: none;
-  object-fit: cover;
-}
+.ring-overlay::before {
+  --white: rgba(255, 255, 255, 0.5);
+  --black: rgba(50, 50, 50, 0.2);
+  --ring-width: 2px;
+  --mask-size: calc(100% - var(--ring-width));
+  --gradient: radial-gradient(farthest-side, transparent var(--mask-size), black var(--mask-size));
 
-.avatarImage.large {
-  border-width: 5px;
+  transform: rotate(-50deg);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--white),
+    var(--white),
+    var(--black),
+    var(--black),
+    var(--white),
+    var(--white),
+    var(--black),
+    var(--black),
+    var(--white)
+  );
+  mask: var(--gradient);
+  -webkit-mask: var(--gradient);
 }
-/* end Avatar.tsx */
 
 /* start Icon.tsx */
 .iconWrapper {

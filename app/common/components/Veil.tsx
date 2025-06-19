@@ -7,7 +7,7 @@ export default function Veil({ open, className, ...rest }: VeilProps) {
   return (
     <div
       className={`fixed inset-0 bg-black bg-opacity-50 transition duration-300 backdrop-blur-lg
-         z-10 ${open ? "" : "hidden"} ${className}`}
+         z-[15] ${open ? "" : "hidden"} ${className}`}
       {...rest}
     />
   )
