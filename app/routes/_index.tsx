@@ -63,20 +63,16 @@ export const loader = async ({ request }: { request: Request }) => {
 
 const MainHeader = () => {
   return (
-    <div id="mainHeader" className="flex align-center justify-center mainHeader">
-      <div className="relative flex-shrink-0">
-        <Avatar className="chrisAvatar" size={125} src={avatarImage} />
-        <div className="chrisAvatarBorder"></div>
+    <div id="mainHeader" className="flex flex-col align-center justify-center mainHeader onImage">
+      <div className="relative flex-shrink-0 mb-1">
+        <Avatar className="chrisAvatar" size={150} src={avatarImage} />
+        {/** <div className="chrisAvatarBorder" /> */}
         <MusicLogo className="musicIcon animate" />
         <MusicLogo className="musicIcon animate blur" />
       </div>
-      <div className="detailBox onImage">
-        <div className="header--container">
-          <h1 className="header--name">Chris Van Lanen-Wanek</h1>
-          <h2 className="header--jobTitle">Software Engineer | Web Developer</h2>
-        </div>
-        <SocialIconBar />
-      </div>
+      <h1 className="header--name">Chris Van Lanen-Wanek</h1>
+      <h2 className="header--jobTitle">Software Engineer | Web Developer</h2>
+      <SocialIconBar />
     </div>
   )
 }

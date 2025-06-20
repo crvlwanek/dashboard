@@ -347,14 +347,6 @@ button.hamburgerCloseIcon {
   gap: 4px;
 }
 
-.detailBox {
-  margin-left: 16px;
-}
-
-.header--container {
-  margin-left: 8px;
-}
-
 .header--name {
   font-weight: 400;
   font-size: 1.5rem;
