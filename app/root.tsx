@@ -70,14 +70,12 @@ export default function App() {
 
   // Sidebar state
   const [open, toggleOpen] = useToggle(false)
-  const toggleMenu = useCallback(() => {
+
+  useEffect(() => {
     const body = document.getElementById("body")
-    if (open) {
-      body?.setAttribute("modal-open", "")
-    } else {
-      body?.removeAttribute("modal-open")
-    }
-    toggleOpen()
+    if (!body) return
+    if (open) body.setAttribute("modal-open", "")
+    else body.removeAttribute("modal-open")
   }, [open])
 
   return (
@@ -99,7 +97,7 @@ export default function App() {
             iconKey="hamburger"
             onClick={e => {
               e.stopPropagation()
-              toggleMenu()
+              toggleOpen()
             }}
           />
           <div ref={nameBox} className="navbarNameBox">
