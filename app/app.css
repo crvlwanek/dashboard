@@ -383,7 +383,7 @@ button.hamburgerCloseIcon {
 .ring-overlay::before {
   --white: rgba(255, 255, 255, 0.5);
   --black: rgba(50, 50, 50, 0.2);
-  --ring-width: 2px;
+  --ring-width: 4px;
   --mask-size: calc(100% - var(--ring-width));
   --gradient: radial-gradient(farthest-side, transparent var(--mask-size), black var(--mask-size));
 
