@@ -208,6 +208,18 @@ button.hamburgerCloseIcon {
   position: relative;
 }
 
+.navbarName {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.009rem;
+}
+
+.navbarJobTitle {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.006rem;
+}
+
 .flexible {
   flex-direction: column;
 }
@@ -345,11 +357,11 @@ button.hamburgerCloseIcon {
   height: 56px;
   width: 100%;
   position: fixed;
-  z-index: 5;
+  z-index: 11;
   background: var(--surface-alpha-800);
   box-shadow: var(--black-alpha-100) 0 0 4px 4px;
   transition: background-color 200ms ease-out;
-  backdrop-filter: blur(34px);
+  backdrop-filter: blur(10px);
 }
 
 .navbarFloating {
