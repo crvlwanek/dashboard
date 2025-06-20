@@ -67,51 +67,58 @@ export default function ThemeSwitcher() {
   }, [])
 
   return (
-    <div className="themeWrapper" onClick={e => e.stopPropagation()}>
+    <div className="relative place-self-center" onClick={e => e.stopPropagation()}>
       <IconButton iconKey={icon} onClick={toggleMenuShown} />
-      {menuShown && (
-        <>
-          <fieldset className="themeMenu card shadow-md" id="themeMenu">
-            <legend style={{ display: "none" }}>Pick a theme</legend>
-            <label className="themeMenuOption">
-              <input
-                name="theme"
-                onClick={() => selectTheme("system")}
-                type="radio"
-                className="themeInput"
-                checked={theme === "system"}
-              />
-              System
-              <Icon iconKey="theme" />
-            </label>
-            <Divider />
-            <label className="themeMenuOption">
-              <input
-                name="theme"
-                onClick={() => selectTheme("light")}
-                type="radio"
-                className="themeInput"
-                checked={theme === "light"}
-              />
-              Light
-              <Icon iconKey="sun" />
-            </label>
-            <Divider />
-            <label className="themeMenuOption">
-              <input
-                name="theme"
-                onClick={() => selectTheme("dark")}
-                type="radio"
-                className="themeInput"
-                checked={theme === "dark"}
-              />
-              Dark
-              <Icon iconKey="moon" />
-            </label>
-          </fieldset>
-          <div onClick={toggleMenuShown} className="themeMenuVeil"></div>
-        </>
-      )}
+      <div
+        className={`${
+          menuShown
+            ? "scale-100 opacity-100 translate-y-0"
+            : "scale-0 opacity-0 pointer-events-none -translate-y-14"
+        } transition-all duration-200 origin-top`}
+      >
+        <fieldset
+          className="themeMenu absolute overflow-hidden z-10 border-none bg-surface-alpha-800 backdrop-blur-md shadow-md rounded-md"
+          id="themeMenu"
+        >
+          <legend style={{ display: "none" }}>Pick a theme</legend>
+          <label className="themeMenuOption">
+            <input
+              name="theme"
+              onClick={() => selectTheme("system")}
+              type="radio"
+              className="themeInput"
+              checked={theme === "system"}
+            />
+            System
+            <Icon iconKey="theme" />
+          </label>
+          <Divider />
+          <label className="themeMenuOption">
+            <input
+              name="theme"
+              onClick={() => selectTheme("light")}
+              type="radio"
+              className="themeInput"
+              checked={theme === "light"}
+            />
+            Light
+            <Icon iconKey="sun" />
+          </label>
+          <Divider />
+          <label className="themeMenuOption">
+            <input
+              name="theme"
+              onClick={() => selectTheme("dark")}
+              type="radio"
+              className="themeInput"
+              checked={theme === "dark"}
+            />
+            Dark
+            <Icon iconKey="moon" />
+          </label>
+        </fieldset>
+      </div>
+      {menuShown && <div onClick={toggleMenuShown} className="themeMenuVeil" />}
     </div>
   )
 }

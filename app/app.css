@@ -573,21 +573,13 @@ hr.vertical {
 /* end Divider.tsx */
 
 /* start ThemeSwitcher.tsx */
-.themeWrapper {
-  position: relative;
-  place-self: center;
-}
 
 .themeMenu {
-  position: absolute;
-  left: -120px;
-  top: 20px;
-  border: none;
+  left: -92px;
+  top: -30px;
   color: var(--onSurface);
   fill: var(--onSurface);
   font-family: var(--main-font);
-  overflow: hidden;
-  z-index: 10;
 }
 
 .themeMenuVeil {
