@@ -381,8 +381,8 @@ button.hamburgerCloseIcon {
 /* end NavBar.tsx */
 
 .ring-overlay::before {
-  --white: rgba(255, 255, 255, 0.5);
-  --black: rgba(50, 50, 50, 0.2);
+  --white: rgba(255, 255, 255, 0.8);
+  --black: rgba(50, 50, 50, 0.5);
   --ring-width: 4px;
   --mask-size: calc(100% - var(--ring-width));
   --gradient: radial-gradient(farthest-side, transparent var(--mask-size), black var(--mask-size));
