@@ -2,7 +2,7 @@ import SocialIconBar from "./SocialIconBar"
 
 const Footer = () => {
   return (
-    <footer className="h-[150px] flex-col align-center justify-center mb-4">
+    <footer className="h-[150px] flex flex-col items-center justify-center mb-4">
       <SocialIconBar />
       <p>© {new Date().getFullYear()}, Chris VL-Wanek</p>
       <a

@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 export default function About() {
   return (
     <div className="max-w-[900px] m-auto">
-      <div className="flex pt-20 align-center justify-center gap-4 p-4 pb-0">
+      <div className="flex pt-20 items-center justify-center gap-4 p-4 pb-0">
         <h1 className="text-center text-3xl">About This Website</h1>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_350px] place-items-center items-stretch p-4">

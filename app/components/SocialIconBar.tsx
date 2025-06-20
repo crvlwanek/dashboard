@@ -2,7 +2,7 @@ import IconButton from "./IconButton"
 
 export default function SocialIconBar() {
   return (
-    <div className="flex iconBox">
+    <div className="flex gap-1">
       <IconButton href="https://www.linkedin.com/in/crvlwanek/" iconKey="linkedIn" />
       <IconButton href="https://github.com/crvlwanek" iconKey="github" />
       <IconButton href="https://www.facebook.com/crvlwanek/" iconKey="facebook" />

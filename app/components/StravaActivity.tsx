@@ -43,7 +43,7 @@ export default function StravaActivity({ activity, mapUrl }: StravaActivityProps
             View on Strava
           </a>
         </div>
-        <div className="flex align-center">
+        <div className="flex items-center">
           <Icon iconKey="shoe" size={16} className="stravaShoeIcon" />
           <h6 className="text-deemp">{date}</h6>
         </div>

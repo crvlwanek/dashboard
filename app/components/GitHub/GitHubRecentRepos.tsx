@@ -11,7 +11,7 @@ interface GitHubSectionProps extends HasReactChildren, HasClassName {}
 export function GitHubSection({ children, className }: GitHubSectionProps) {
   return (
     <Card className={`githubRepos ${className ?? ""}`}>
-      <div className="flex align-center githubHeaderContainer">
+      <div className="flex items-center githubHeaderContainer">
         <Icon iconKey="github" size={30} />
         <h3 className="githubHeader">GitHub Repos</h3>
         <Divider />

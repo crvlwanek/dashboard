@@ -319,37 +319,6 @@ button.hamburgerCloseIcon {
   filter: blur(10px);
 }
 
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.iconBox {
-  gap: 4px;
-}
-
-.header--name {
-  font-weight: 400;
-  font-size: 1.5rem;
-}
-
-.header--jobTitle {
-  font-weight: 100;
-  font-size: 1.1rem;
-}
-
 /******************************************************/
 
 /* start NavBar.tsx */
