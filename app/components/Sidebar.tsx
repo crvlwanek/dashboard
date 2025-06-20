@@ -18,7 +18,9 @@ const MenuItem = ({ to, onClick, children }: MenuItemProps) => {
   return (
     <li>
       <Link
-        className={`hamburgerMenuLink ${location.pathname === to ? "selected" : ""}`}
+        className={`hamburgerMenuLink ${
+          location.pathname === to ? "selected font-bold" : "font-medium"
+        }`}
         to={to}
         onClick={onClick}
       >
@@ -43,10 +45,10 @@ const Sidebar = ({ open, toggleOpen }: SidebarProps) => {
         style={{ zIndex: 20 }}
       >
         <IconButton iconKey="close" onClick={toggleOpen} className="hamburgerCloseIcon" />
-        <div className="hamburgerHeaderBox">
-          <Avatar src={avatarImage} />
-          <h2 className="navbarName">Chris Van Lanen-Wanek</h2>
-          <h3 className="navbarJobTitle">Software Engineer | Web Developer</h3>
+        <div className="p-4 flex flex-col">
+          <Avatar size={150} src={avatarImage} />
+          <h2 className="mt-4 text-xl font-semibold">Chris Van Lanen-Wanek</h2>
+          <h3 className="text-base">Software Engineer | Web Developer</h3>
         </div>
         <Divider />
         <nav className="hamburgerNav">

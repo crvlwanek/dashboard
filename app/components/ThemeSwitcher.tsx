@@ -71,10 +71,8 @@ export default function ThemeSwitcher() {
       <IconButton iconKey={icon} onClick={toggleMenuShown} />
       <div
         className={`${
-          menuShown
-            ? "scale-100 opacity-100 translate-y-0"
-            : "scale-0 opacity-0 pointer-events-none -translate-y-14"
-        } transition-all duration-200 origin-top`}
+          menuShown ? "scale-100 translate-y-0" : "scale-0 pointer-events-none -translate-y-14"
+        } relative z-[5] transition-all duration-200 origin-top`}
       >
         <fieldset
           className="themeMenu absolute overflow-hidden z-10 border-none bg-surface-alpha-800 backdrop-blur-md shadow-md rounded-md"

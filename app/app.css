@@ -107,13 +107,6 @@ button {
   transform: translateX(0);
 }
 
-.hamburgerHeaderBox {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 button.hamburgerCloseIcon {
   position: absolute;
   right: 4px;
@@ -208,18 +201,6 @@ button.hamburgerCloseIcon {
 
 .navbarNameBoxShowing {
   transform: translate(0, 0);
-}
-
-.navbarName {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.009rem;
-}
-
-.navbarJobTitle {
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.006rem;
 }
 
 .chrisAvatar {
