@@ -74,7 +74,7 @@ export default function AboutMe() {
               </div>
             </div>
           </Card>
-          <LargeDividerHeader title="Work Experience" />
+          <LargeDividerHeader className="mt-8" title="Work Experience" />
           <Card className="w-full min-h-4 overflow-hidden">
             <div className="relative">
               <img src={epicCassImage} className="object-cover h-[150px] block w-full absolute" />
